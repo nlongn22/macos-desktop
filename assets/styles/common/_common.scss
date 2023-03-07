@@ -1,0 +1,160 @@
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+main,
+menu,
+nav,
+section,
+summary,
+p,
+ul,
+ol,
+li,
+hr,
+button,
+blockquote,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+    padding: 0;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    block-size: 100%;
+    inline-size: 100%;
+    overflow-x: hidden;
+    font-size: 100%;
+
+    &.is-open {
+        overflow: hidden;
+    }
+}
+
+body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: $font-family-primary;
+    font-size: r(16);
+    font-weight: $font-weight-regular;
+    font-variant-numeric: lining-nums;
+    line-height: 1.5em;
+    letter-spacing: 0;
+    background-color: $color-background;
+    color: $color-foreground;
+    padding: 0;
+    margin: 0;
+    inline-size: 100%;
+    block-size: auto;
+    transition: all $transition-duration-slow;
+}
+
+::selection {
+    background-color: $color-secondary-regular;
+}
+
+.dark-mode body {
+    background-color: $color-background-inverted;
+    color: $color-foreground-inverted;
+
+    ::selection {
+        background-color: $color-secondary-darker;
+    }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong,
+b {
+    font-weight: $font-weight-bold;
+}
+
+ul {
+    list-style-type: none;
+}
+
+img {
+    max-inline-size: 100%;
+    inline-size: 100%;
+    block-size: auto;
+}
+
+a {
+    outline: 0;
+    box-shadow: none;
+    color: inherit;
+    text-decoration: none;
+}
+
+button {
+    display: inline-flex;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    appearance: none;
+    color: currentcolor;
+    background: none;
+    cursor: pointer;
+}
+
+svg {
+    display: block;
+}
+
+button,
+input,
+textarea {
+    font-family: $font-family-primary;
+}
+
+input,
+select,
+textarea {
+    border-radius: 0;
+}
+
+textarea {
+    resize: none;
+}
+
+mark {
+    background-color: transparent;
+    color: var(--color-foreground-inverted);
+}
+
+address {
+    font-style: normal;
+}
+
+time {
+    display: inline-block;
+}
+
+hr {
+    border: 0;
+    border-block-end: $border-width-thin solid $color-border-regular;
+}
+
+#app {
+    position: relative;
+    inline-size: 100%;
+    block-size: 100%;
+}

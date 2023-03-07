@@ -1,0 +1,81 @@
+$color-white-000: #fbfbfb;
+$color-white-100: #eeeeee;
+$color-gray-000: #808b97;
+$color-gray-100: #393e46;
+$color-gray-200: #232931;
+$color-green-000: #78b7bb;
+$color-green-100: #4ecca3;
+$color-yellow-000: #fff1c1;
+$color-yellow-100: #a98849;
+
+$color-primary-regular: $color-green-000;
+$color-primary-darker: $color-green-100;
+$color-secondary-regular: $color-yellow-000;
+$color-secondary-darker: $color-yellow-100;
+$color-background: $color-white-000;
+$color-background-inverted: $color-gray-200;
+$color-foreground: $color-gray-000;
+$color-foreground-inverted: $color-white-100;
+
+$color-border-regular: $color-green-000;
+$color-border-darker: $color-green-100;
+
+$border-width-thin: r(1);
+$border-primary-regular: $border-width-thin solid $color-border-regular;
+$border-primary-darker: $border-width-thin solid $color-border-darker;
+
+$border-radius-xs: r(4);
+$border-radius-s: r(8);
+$border-radius-m: r(12);
+$border-radius-l: r(20);
+$border-radius-xl: r(100);
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$font-name-primary: 'Poppins';
+$font-family-primary: $font-name-primary, sans-serif;
+
+$transition-duration-default: 0.2s;
+$transition-duration-slow: 0.4s;
+$transition-duration-very-slow: 1s;
+$transition-ease: ease-out;
+
+$space-0: r(4);
+$space-1: r(8);
+$space-2: r(16);
+$space-3: r(24);
+$space-4: r(32);
+$space-5: r(40);
+$space-6: r(48);
+$space-7: r(56);
+$space-8: r(64);
+$space-9: r(72);
+$space-10: r(80);
+$space-12: r(96);
+$space-16: r(128);
+$space-20: r(160);
+$space-22: r(176);
+$space-24: r(192);
+
+$global-max-width: r(670);
+
+$page-gutters: (
+        tiny: $space-2,
+        small: $space-5,
+        tablet: $space-7,
+        desktop: 0,
+);
+
+$breakpoints: (
+        tiny: 0,
+        phone: 461px,
+        small: 601px,
+        tablet: 901px,
+        desktop: 1201px,
+        medium: 1501px,
+        large: 1801px
+);
