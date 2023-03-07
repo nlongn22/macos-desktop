@@ -61,19 +61,7 @@ body {
     inline-size: 100%;
     block-size: auto;
     transition: all $transition-duration-slow;
-}
-
-::selection {
-    background-color: $color-secondary-regular;
-}
-
-.dark-mode body {
-    background-color: $color-background-inverted;
-    color: $color-foreground-inverted;
-
-    ::selection {
-        background-color: $color-secondary-darker;
-    }
+    overflow: hidden;
 }
 
 h1,

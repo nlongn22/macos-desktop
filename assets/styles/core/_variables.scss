@@ -1,28 +1,13 @@
-$color-white-000: #fbfbfb;
-$color-white-100: #eeeeee;
-$color-gray-000: #808b97;
-$color-gray-100: #393e46;
-$color-gray-200: #232931;
-$color-green-000: #78b7bb;
-$color-green-100: #4ecca3;
-$color-yellow-000: #fff1c1;
-$color-yellow-100: #a98849;
-
-$color-primary-regular: $color-green-000;
-$color-primary-darker: $color-green-100;
-$color-secondary-regular: $color-yellow-000;
-$color-secondary-darker: $color-yellow-100;
-$color-background: $color-white-000;
-$color-background-inverted: $color-gray-200;
-$color-foreground: $color-gray-000;
-$color-foreground-inverted: $color-white-100;
-
-$color-border-regular: $color-green-000;
-$color-border-darker: $color-green-100;
+$color-white-000: #ffffff;
+$color-black: #000000;
+$color-gray-000: #808080;
 
 $border-width-thin: r(1);
-$border-primary-regular: $border-width-thin solid $color-border-regular;
-$border-primary-darker: $border-width-thin solid $color-border-darker;
+
+$color-foreground: $color-black;
+$color-background: $color-white-000;
+
+$color-border-regular: $color-black;
 
 $border-radius-xs: r(4);
 $border-radius-s: r(8);
@@ -36,8 +21,8 @@ $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-$font-name-primary: 'Poppins';
-$font-family-primary: $font-name-primary, sans-serif;
+$font-name-primary: '';
+$font-family-primary: $font-name-primary, Helvetica;
 
 $transition-duration-default: 0.2s;
 $transition-duration-slow: 0.4s;

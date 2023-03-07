@@ -80,7 +80,11 @@ export default defineNuxtConfig({
     },
     modules: [
         'nuxt-font-loader',
+        '@nuxt/image-edge',
         '@nuxtjs/color-mode',
         '@funken-studio/sitemap-nuxt-3',
     ],
+    image: {
+        dir: 'assets/images',
+    },
 });
