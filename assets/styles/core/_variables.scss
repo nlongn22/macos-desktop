@@ -1,19 +1,44 @@
 $color-white-000: #ffffff;
-$color-black: #000000;
-$color-gray-000: #808080;
 
-$border-width-thin: r(1);
+$color-black: #000000;
+
+$color-gray-000: #c0c0c0;
+$color-gray-100: #606060;
+$color-gray-200: #535353;
 
 $color-foreground: $color-black;
 $color-background: $color-white-000;
 
-$color-border-regular: $color-black;
+$color-border-lighter: $color-gray-000;
+$color-border-regular: $color-gray-100;
+$color-border-darker: $color-gray-200;
+
+$border-width-ultra-thin: r(0.1);
+$border-width-thin: r(0.5);
+$border-width-regular: r(1);
 
 $border-radius-xs: r(4);
 $border-radius-s: r(8);
 $border-radius-m: r(12);
 $border-radius-l: r(20);
 $border-radius-xl: r(100);
+
+$blur-low: blur(r(10));
+$blur-medium: blur(r(20));
+$blur-high: blur(r(30));
+$blur-very-high: blur(r(40));
+
+$opacity-low: 0.2;
+$opacity-medium: 0.4;
+$opacity-high: 0.6;
+$opacity-very-high: 0.8;
+$opacity-reset: 1;
+
+$contrast-low: contrast(0.2);
+$contrast-medium: contrast(0.4);
+$contrast-high: contrast(0.6);
+$contrast-very-high: contrast(0.8);
+$contrast-reset: contrast(1);
 
 $font-weight-light: 300;
 $font-weight-regular: 400;

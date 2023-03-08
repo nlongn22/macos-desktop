@@ -1,12 +1,12 @@
 <template>
-    <div class="dock">
+    <main class="dock">
         <NuxtImg
             v-for="(program, key) in programs"
             :key="key"
             :src="`/programs/${program}.png`"
             class="dock__program"
         />
-    </div>
+    </main>
 </template>
 
 <script setup lang="ts">
@@ -28,10 +28,10 @@ const programs = [
     display: flex;
     column-gap: r(14);
     padding: r(10);
-    border-radius: r(20);
-    border: r(0.1) solid $color-gray-000;
-    backdrop-filter: blur(r(25));
-    background-color: rgba($color-white-000, 0.25);
+    border-radius: $border-radius-l;
+    border: $border-width-ultra-thin solid rgba($color-border-darker, $opacity-medium);
+    backdrop-filter: $blur-medium;
+    background: rgba($color-background, $opacity-medium);
 }
 
 .dock__program {

@@ -49,7 +49,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-family: $font-family-primary;
-    font-size: r(16);
+    font-size: r(14);
     font-weight: $font-weight-regular;
     font-variant-numeric: lining-nums;
     line-height: 1.5em;
@@ -137,8 +137,9 @@ time {
 }
 
 hr {
+    margin-block: $space-0;
     border: 0;
-    border-block-end: $border-width-thin solid $color-border-regular;
+    border-block-end: $border-width-thin solid $color-border-lighter;
 }
 
 #app {
