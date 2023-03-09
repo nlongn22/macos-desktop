@@ -9,8 +9,9 @@
 
 <style lang="scss" scoped>
 .modal {
-    padding-inline: r(14);
-    padding-block: $space-1;
+    padding-inline: $space-4;
+    padding-block-start: $space-3;
+    padding-block-end: $space-2;
     border-radius: $border-radius-s;
     border: $border-width-ultra-thin solid rgba($color-border-darker, $opacity-very-high);
     backdrop-filter: $blur-very-high;

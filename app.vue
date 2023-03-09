@@ -12,7 +12,6 @@
 
 <style lang="scss" scoped>
 .container {
-    position: relative;
     inline-size: 100vw;
     block-size: 100vh;
 }

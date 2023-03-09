@@ -21,11 +21,6 @@
     }
 }
 
-@mixin size($size) {
-    block-size: $size;
-    inline-size: $size;
-}
-
 @mixin page-gutter() {
     @each $bp in map-keys($page-gutters) {
         $gutter: map.get($page-gutters, $bp);

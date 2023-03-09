@@ -1,6 +1,6 @@
 <template>
-    <main class="menu-bar">
-        <section class="menu-bar__left">
+    <div class="menu-bar">
+        <div class="menu-bar__left">
             <Icon
                 name="apple"
                 class="menu-bar__icon-apple"
@@ -14,26 +14,23 @@
                     {{ option }}
                 </span>
             </div>
-        </section>
+        </div>
 
-        <section class="menu-bar__right">
+        <div class="menu-bar__right">
             <div
                 v-click-outside="closeControl"
                 class="menu-bar__icon-controls"
             >
-                <div
+                <Icon
                     v-for="(iconName, index) in controlCenterIcons"
                     :key="index"
-                    class="menu-bar__icon-background"
-                    :class="{'menu-bar__icon-background--active' : activeIcon === iconName }"
+                    :name="iconName"
+                    class="menu-bar__icon-control"
+                    :class="{'menu-bar__icon-control--active' : activeIcon === iconName }"
                     @click="openControl(iconName)"
-                >
-                    <Icon
-                        :name="iconName"
-                        class="menu-bar__icon-control"
-                    />
-                </div>
+                />
                 <BatteryControl v-if="activeIcon === 'battery'" />
+                <WifiControl v-if="activeIcon === 'wifi'" />
             </div>
             <NuxtImg
                 src="programs/siri.png"
@@ -43,16 +40,22 @@
                 Tue 7. 3.
             </span>
             <span class="menu-bar__time">
-                13:52
+                {{ getTime() }}
             </span>
-        </section>
-    </main>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts">
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
 const controlCenterIcons = ['battery', 'wifi', 'finder', 'control-center'];
 const activeIcon = ref('');
+
+function getTime(): string {
+    return new Intl
+        .DateTimeFormat('eu', { hour: 'numeric', minute: 'numeric' })
+        .format(new Date());
+}
 
 function openControl(iconName: string): void {
     if (iconName === activeIcon.value) {
@@ -77,7 +80,8 @@ function closeControl(): void {
     align-items: center;
     justify-content: space-between;
     inline-size: 100%;
-    padding-inline: r(18);
+    block-size: $space-6;
+    padding-inline: $space-5;
     backdrop-filter: $blur-high;
     background: rgba($color-background, $opacity-high);
 }
@@ -85,20 +89,23 @@ function closeControl(): void {
 .menu-bar__left,
 .menu-bar__program-options,
 .menu-bar__right,
-.menu-bar__icon-background,
 .menu-bar__icon-controls {
     display: flex;
     align-items: center;
+    block-size: 100%;
+}
+
+.menu-bar__left {
+    column-gap: $space-5;
 }
 
 .menu-bar__icon-apple {
-    @include size($space-2);
-    margin-inline-end: r(18);
-    margin-block-end: r(1);
+    inline-size: $space-4;
+    block-size: $space-4;
 }
 
 .menu-bar__program-options {
-    column-gap: r(18);
+    column-gap: $space-5;
     color: $color-black;
 }
 
@@ -106,38 +113,40 @@ function closeControl(): void {
     font-weight: $font-weight-bold;
 }
 
+.menu-bar__right {
+    column-gap: $space-5;
+}
+
 .menu-bar__icon-controls {
     position: relative;
 }
 
-.menu-bar__icon-background {
-    block-size: $space-3;
-    padding-inline: r(9);
+.menu-bar__icon-control {
+    inline-size: $space-9;
+    block-size: 100%;
+    padding-inline: calc($space-5 / 2);
 
     &--active {
         border-radius: $border-radius-xs;
-        backdrop-filter: $contrast-medium;
+        background-color: rgba($color-gray-100, $opacity-low);
     }
 
     &:first-child {
-        .menu-bar__icon-control {
-            @include size($space-3);
-        }
+        inline-size: $space-11;
     }
 
     &:nth-child(2) {
-        .menu-bar__icon-control {
-            @include size(r(18));
-        }
+        inline-size: r(38);
     }
 }
 
 .menu-bar__image-siri {
-    @include size(r(14));
-    margin-inline: r(9);
+    inline-size: r(14);
+    block-size: r(14);
+    margin-inline-start: calc($space-5 / -2);
 }
 
 .menu-bar__date {
-    margin-inline: r(9);
+    margin-inline-end: calc($space-5 / -2);
 }
 </style>

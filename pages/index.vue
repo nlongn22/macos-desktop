@@ -19,7 +19,8 @@ const wallpapers = ['ventura-light'];
 }
 
 .desktop__wallpaper {
-    @include size(100%);
+    inline-size: 100%;
+    block-size: 100%;
     object-fit: cover;
 }
 </style>
