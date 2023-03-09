@@ -58,17 +58,17 @@
 <script setup lang="ts">
 const isDropdownActive = ref(false);
 const connectedNetwork = ref('Internet_24');
-
 const knownNetworks = ref([
     'Internet_24',
 ]);
 const otherNetworks = ref([
     'Internet_1237',
-    'Internet_3187',
-    'Internet_9187',
-    'Internet_2237',
-    'Internet_4237',
-    'Internet_1397',
+    'wifinaaaaa',
+    'CEZ_NET',
+    ':-)',
+    'freenet',
+    'Cheb',
+    'SauronNet219',
 ]);
 
 function toggleKnownConnection(name: string): void {
@@ -117,11 +117,9 @@ function openDropdown(): void {
     }
 }
 
-.wifi-control__selector-known {
-    margin-block-end: r(-2);
-}
-
-.wifi-control__selector-other {
-    margin-block-end: r(2);
+.wifi-control__dropdown {
+    display: flex;
+    flex-direction: column;
+    row-gap: $space-1;
 }
 </style>

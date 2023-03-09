@@ -18,6 +18,7 @@
         </span>
 
         <Icon
+            v-if="isLockVisible()"
             name="lock"
             class="wifi-selector__icon-lock"
         />
@@ -40,6 +41,10 @@ const emit = defineEmits<{
 function toggleConnection(): void {
     emit('connectionChange', props.name);
 }
+
+function isLockVisible(): number {
+    return Math.round(Math.random());
+}
 </script>
 
 <style lang="scss" scoped>
@@ -47,7 +52,6 @@ function toggleConnection(): void {
     display: flex;
     align-items: center;
     column-gap: $space-2;
-    padding-block: $space-1;
 }
 
 .wifi-selector__icon-wifi-background {

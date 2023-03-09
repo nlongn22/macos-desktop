@@ -40,7 +40,7 @@
                 Tue 7. 3.
             </span>
             <span class="menu-bar__time">
-                {{ getTime() }}
+                {{ time }}
             </span>
         </div>
     </div>
@@ -50,12 +50,13 @@
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
 const controlCenterIcons = ['battery', 'wifi', 'finder', 'control-center'];
 const activeIcon = ref('');
+const time = ref('');
 
-function getTime(): string {
-    return new Intl
-        .DateTimeFormat('eu', { hour: 'numeric', minute: 'numeric' })
+setInterval(() => {
+    time.value = new Intl
+        .DateTimeFormat('cs', { hour: 'numeric', minute: 'numeric' })
         .format(new Date());
-}
+}, 1000);
 
 function openControl(iconName: string): void {
     if (iconName === activeIcon.value) {
