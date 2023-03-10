@@ -43,12 +43,14 @@
                 {{ time }}
             </span>
         </div>
+
+        <Spotlight v-if="activeIcon === 'spotlight'" />
     </div>
 </template>
 
 <script setup lang="ts">
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
-const controlCenterIcons = ['battery', 'wifi', 'finder', 'control-center'];
+const controlCenterIcons = ['battery', 'wifi', 'spotlight', 'control-center'];
 const activeIcon = ref('');
 const time = ref('');
 
@@ -76,12 +78,13 @@ function closeControl(): void {
 
 <style lang="scss" scoped>
 .menu-bar {
-    position: absolute;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     inline-size: 100%;
     block-size: $space-6;
+    margin-block-end: -$space-6;
     padding-inline: $space-5;
     backdrop-filter: $blur-high;
     background: rgba($color-background, $opacity-high);

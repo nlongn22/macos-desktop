@@ -46,8 +46,8 @@ $font-weight-medium: 500;
 $font-weight-semibold: 600;
 $font-weight-bold: 700;
 
-$font-name-primary: '';
-$font-family-primary: $font-name-primary, Helvetica;
+$font-name-primary: 'Helvetica Neue', 'HelveticaNeue-Light', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande';
+$font-family-primary: $font-name-primary, sans-serif;
 
 $transition-duration-default: 0.2s;
 $transition-duration-slow: 0.4s;

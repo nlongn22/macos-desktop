@@ -31,6 +31,7 @@ const programs = [
     border-radius: $border-radius-xl;
     border: $border-width-ultra-thin solid rgba($color-border-darker, $opacity-medium);
     backdrop-filter: $blur-medium;
+    box-shadow: rgba($color-foreground, $opacity-medium) 0 r(30) r(90);
     background: rgba($color-background, $opacity-medium);
 }
 
