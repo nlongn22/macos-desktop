@@ -1,5 +1,5 @@
 <template>
-    <Modal class="spotlight">
+    <Dialog class="spotlight">
         <Icon
             name="spotlight"
             class="spotlight__icon"
@@ -8,7 +8,7 @@
             placeholder="Spotlight Search"
             class="spotlight__input"
         >
-    </Modal>
+    </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -16,7 +16,6 @@
 
 <style lang="scss" scoped>
 .spotlight {
-    position: absolute;
     inset-inline-start: 50%;
     inset-block-start: 25vh;
     transform: translate(-50%, -50%);

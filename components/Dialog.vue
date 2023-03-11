@@ -1,5 +1,5 @@
 <template>
-    <div class="modal">
+    <div class="dialog">
         <slot />
     </div>
 </template>
@@ -8,7 +8,8 @@
 </script>
 
 <style lang="scss" scoped>
-.modal {
+.dialog {
+    position: absolute;
     padding-inline: $space-4;
     padding-block-start: $space-3;
     padding-block-end: $space-2;

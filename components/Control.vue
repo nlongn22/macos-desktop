@@ -1,5 +1,5 @@
 <template>
-    <Modal class="control">
+    <Dialog class="control">
         <div class="control__header text-default">
             <span class="control__title">
                 <slot name="title" />
@@ -18,7 +18,7 @@
         <p class="text-default hover-effect">
             <slot name="settings-link" />
         </p>
-    </Modal>
+    </Dialog>
 </template>
 
 <script setup lang="ts">
@@ -26,7 +26,6 @@
 
 <style lang="scss" scoped>
 .control {
-    position: absolute;
     inset-inline-start: 0;
     inset-block-end: 0;
     display: flex;
