@@ -29,7 +29,7 @@ const programs = [
     column-gap: $space-3;
     padding: $space-3;
     border-radius: $border-radius-3xl;
-    border: $border-width-thin solid rgba($color-border-primary, $opacity-low);
+    border: $border-width-thin solid rgba($color-border, $opacity-low);
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
     background-color: rgba($color-background, $opacity-low);
