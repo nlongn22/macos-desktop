@@ -64,7 +64,7 @@ function isLockVisible(): number {
     background-color: rgba($color-gray-100, $opacity-low);
 
     &--active {
-        color: $color-white-000;
+        color: $color-background;
         background-color: $color-blue-100;
     }
 }

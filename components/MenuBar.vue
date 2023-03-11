@@ -86,7 +86,7 @@ function closeControl(): void {
     block-size: $space-6;
     margin-block-end: -$space-6;
     padding-inline: $space-5;
-    backdrop-filter: $blur-high;
+    backdrop-filter: $blur-3xl;
     background: rgba($color-background, $opacity-high);
 }
 
@@ -110,7 +110,6 @@ function closeControl(): void {
 
 .menu-bar__program-options {
     column-gap: $space-5;
-    color: $color-black;
 }
 
 .menu-bar__program-option:first-child {
@@ -131,7 +130,7 @@ function closeControl(): void {
     padding-inline: calc($space-5 / 2);
 
     &--active {
-        border-radius: $border-radius-xs;
+        border-radius: $border-radius;
         background-color: rgba($color-gray-100, $opacity-low);
     }
 

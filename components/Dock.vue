@@ -28,11 +28,11 @@ const programs = [
     width: max-content;
     column-gap: $space-3;
     padding: $space-3;
-    border-radius: $border-radius-xl;
-    border: $border-width-ultra-thin solid rgba($color-border-darker, $opacity-medium);
-    backdrop-filter: $blur-medium;
-    box-shadow: rgba($color-foreground, $opacity-medium) 0 r(30) r(90);
-    background: rgba($color-background, $opacity-medium);
+    border-radius: $border-radius-3xl;
+    border: $border-width-thin solid rgba($color-border-primary, $opacity-low);
+    backdrop-filter: $blur-xl;
+    box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
+    background-color: rgba($color-background, $opacity-low);
 }
 
 .dock__program {

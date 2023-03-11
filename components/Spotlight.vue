@@ -26,7 +26,8 @@
     column-gap: $space-1;
     padding-inline: r(14);
     padding-block: $space-3;
-    border-radius: $border-radius-m;
+    border-radius: $border-radius-xl;
+    border-color: rgba($color-border-primary, $opacity-low);
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(20) r(30);
 }
 

@@ -1,59 +1,6 @@
-$color-black: #000000;
+$global-max-width: r(670);
 
-$color-gray-000: #c0c0c0;
-$color-gray-100: #606060;
-$color-gray-200: #535353;
-
-$color-white-000: #ffffff;
-
-$color-blue-000: #559fff;
-$color-blue-100: #007aff;
-
-$color-foreground: $color-black;
-$color-background: $color-white-000;
-
-$color-border-lighter: $color-gray-000;
-$color-border-regular: $color-gray-100;
-$color-border-darker: $color-gray-200;
-
-$border-width-ultra-thin: r(0.1);
-$border-width-thin: r(0.5);
-$border-width-regular: r(1);
-
-$border-radius-xs: r(4);
-$border-radius-s: r(8);
-$border-radius-m: r(12);
-$border-radius-l: r(16);
-$border-radius-xl: r(20);
-$border-radius-full: r(100);
-
-$blur-low: blur(r(10));
-$blur-medium: blur(r(20));
-$blur-high: blur(r(30));
-$blur-very-high: blur(r(40));
-
-$opacity-low: 0.2;
-$opacity-medium: 0.4;
-$opacity-high: 0.6;
-$opacity-very-high: 0.8;
-$opacity-reset: 1;
-
-$font-size-default: r(13);
-
-$font-weight-light: 300;
-$font-weight-regular: 400;
-$font-weight-medium: 500;
-$font-weight-semibold: 600;
-$font-weight-bold: 700;
-
-$font-name-primary: 'Helvetica Neue', 'HelveticaNeue-Light', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande';
-$font-family-primary: $font-name-primary, sans-serif;
-
-$transition-duration-default: 0.2s;
-$transition-duration-slow: 0.4s;
-$transition-duration-very-slow: 1s;
-$transition-ease: ease-out;
-
+$space-0: r(2);
 $space-1: r(4);
 $space-2: r(8);
 $space-3: r(12);
@@ -79,12 +26,66 @@ $space-22: r(88);
 $space-23: r(92);
 $space-24: r(96);
 
-$global-max-width: r(670);
+$border-width-thin: r(1);
+
+$border-radius-sm: $space-0;
+$border-radius: $space-1;
+$border-radius-md: r(6);
+$border-radius-lg: $space-2;
+$border-radius-xl: $space-3;
+$border-radius-2xl: $space-4;
+$border-radius-3xl: $space-6;
+$border-radius-full: $space-24;
+
+$blur-sm: blur($space-1);
+$blur: blur($space-2);
+$blur-md: blur($space-3);
+$blur-lg: blur($space-4);
+$blur-xl: blur($space-6);
+$blur-2xl: blur($space-10);
+$blur-3xl: blur($space-16);
+
+$opacity-low: 0.2;
+$opacity-medium: 0.4;
+$opacity-high: 0.6;
+$opacity-very-high: 0.8;
+
+$font-size-default: r(13);
+
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+$font-name-primary: 'Helvetica Neue', 'HelveticaNeue-Light', 'Helvetica Neue Light', Helvetica, Arial, 'Lucida Grande';
+$font-family-primary: $font-name-primary, sans-serif;
+
+$color-white: #ffffff;
+$color-black: #000000;
+
+$color-gray-000: #c0c0c0;
+$color-gray-100: #606060;
+$color-gray-200: #535353;
+
+$color-blue-000: #559fff;
+$color-blue-100: #007aff;
+
+$color-foreground: $color-black;
+$color-background: $color-white;
+
+$color-border-primary: $color-foreground;
+
+$transition-duration-fast: 0.2s;
+$transition-duration-medium: 0.4s;
+$transition-duration-slow: 0.6s;
+$transition-duration-very-slow: 1s;
+$transition-ease: ease-out;
 
 $page-gutters: (
-        tiny: $space-2,
-        small: $space-5,
-        tablet: $space-7,
+        tiny: $space-4,
+        small: $space-10,
+        tablet: $space-14,
         desktop: 0,
 );
 

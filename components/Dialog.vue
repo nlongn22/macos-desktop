@@ -13,10 +13,10 @@
     padding-inline: $space-4;
     padding-block-start: $space-3;
     padding-block-end: $space-2;
-    border-radius: $border-radius-s;
-    border: $border-width-ultra-thin solid rgba($color-border-darker, $opacity-very-high);
-    backdrop-filter: $blur-very-high;
-    box-shadow: rgba($color-foreground, 0.25) 0 r(3) $space-2;
-    background-color: rgba($color-background, $opacity-very-high);
+    border-radius: $border-radius-md;
+    border: $border-width-thin solid rgba($color-border-primary, $opacity-medium);
+    backdrop-filter: $blur-2xl;
+    box-shadow: rgba($color-foreground, $opacity-low) 0 r(3) $space-2;
+    background-color: rgba($color-background, $opacity-medium);
 }
 </style>
