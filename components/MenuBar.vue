@@ -18,19 +18,19 @@
 
         <div class="menu-bar__right">
             <div
-                v-click-outside="closeControl"
-                class="menu-bar__icon-controls"
+                v-click-outside="closeModule"
+                class="menu-bar__icons"
             >
                 <Icon
-                    v-for="(iconName, index) in controlCenterIcons"
+                    v-for="(iconName, index) in menuBarIcons"
                     :key="index"
                     :name="iconName"
-                    class="menu-bar__icon-control"
-                    :class="{'menu-bar__icon-control--active' : activeIcon === iconName }"
-                    @click="openControl(iconName)"
+                    class="menu-bar__icon"
+                    :class="{'menu-bar__icon--active' : activeIcon === iconName }"
+                    @click="openModule(iconName)"
                 />
-                <BatteryControl v-if="activeIcon === 'battery'" />
-                <WifiControl v-if="activeIcon === 'wifi'" />
+                <BatteryModule v-if="activeIcon === 'battery'" />
+                <WifiModule v-if="activeIcon === 'wifi'" />
             </div>
             <NuxtImg
                 src="programs/siri.png"
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
-const controlCenterIcons = ['battery', 'wifi', 'spotlight', 'control-center'];
+const menuBarIcons = ['battery', 'wifi', 'spotlight', 'control-centre'];
 const activeIcon = ref('');
 const time = ref('');
 
@@ -60,7 +60,7 @@ setInterval(() => {
         .format(new Date());
 }, 1000);
 
-function openControl(iconName: string): void {
+function openModule(iconName: string): void {
     if (iconName === activeIcon.value) {
         activeIcon.value = '';
         return;
@@ -71,7 +71,7 @@ function openControl(iconName: string): void {
     }, 1);
 }
 
-function closeControl(): void {
+function closeModule(): void {
     activeIcon.value = '';
 }
 </script>
@@ -93,7 +93,7 @@ function closeControl(): void {
 .menu-bar__left,
 .menu-bar__program-options,
 .menu-bar__right,
-.menu-bar__icon-controls {
+.menu-bar__icons {
     display: flex;
     align-items: center;
     block-size: 100%;
@@ -120,11 +120,11 @@ function closeControl(): void {
     column-gap: $space-5;
 }
 
-.menu-bar__icon-controls {
+.menu-bar__icons {
     position: relative;
 }
 
-.menu-bar__icon-control {
+.menu-bar__icon {
     inline-size: $space-9;
     block-size: 100%;
     padding-inline: calc($space-5 / 2);

@@ -1,5 +1,5 @@
 <template>
-    <Control class="battery-control">
+    <Module class="battery-module">
         <template #title>
             Battery
         </template>
@@ -21,14 +21,14 @@
         <template #settings-link>
             Battery Settings...
         </template>
-    </Control>
+    </Module>
 </template>
 
 <script setup lang="ts">
 </script>
 
 <style lang="scss" scoped>
-.battery-control {
+.battery-module {
     inline-size: r(310);
     transform: translateY(100%);
 }

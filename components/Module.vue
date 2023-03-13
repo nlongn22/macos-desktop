@@ -1,10 +1,10 @@
 <template>
-    <Dialog class="control">
-        <div class="control__header text-default">
-            <span class="control__title">
+    <Dialog class="module">
+        <div class="module__header text-default">
+            <span class="module__title">
                 <slot name="title" />
             </span>
-            <span class="control__additional-info">
+            <span class="module__additional-info">
                 <slot name="additional-info" />
             </span>
         </div>
@@ -25,7 +25,7 @@
 </script>
 
 <style lang="scss" scoped>
-.control {
+.module {
     inset-inline-start: 0;
     inset-block-end: 0;
     display: flex;
@@ -35,17 +35,17 @@
     color: $color-gray-100;
 }
 
-.control__header {
+.module__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.control__title {
+.module__title {
     font-weight: $font-weight-bold;
 }
 
-.control__additional-info {
+.module__additional-info {
     color: $color-gray-100;
 }
 </style>
