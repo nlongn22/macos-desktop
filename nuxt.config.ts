@@ -6,7 +6,7 @@ import svgLoader from 'vite-svg-loader';
 export default defineNuxtConfig({
     app: {
         head: {
-            title: 'Mock macOS desktop',
+            title: 'macOS Desktop',
             htmlAttrs: { lang: 'en' },
             meta: [
                 { charset: 'utf-8' },
@@ -16,15 +16,15 @@ export default defineNuxtConfig({
                 },
                 {
                     name: 'description',
-                    content: 'A mock of the macOS desktop with some of its UI elements',
+                    content: 'A replication of the macOS desktop with some of its UI elements',
                 },
                 { name: 'format-detection', content: 'telephone=no' },
                 { name: 'author', content: 'Ngoc Long Nguyen' },
-                { hid: 'og-site_name', property: 'og:site_name', content: 'mock-macos-desktop' },
+                { hid: 'og-site_name', property: 'og:site_name', content: 'macos-desktop' },
                 {
                     hid: 'og-title',
                     property: 'og:title',
-                    content: 'Mock macOS desktop',
+                    content: 'macOS desktop',
                 },
                 { hid: 'og-image', property: 'og:image', content: '/og/og.png' },
                 { property: 'og:image:type', content: 'image/png' },
