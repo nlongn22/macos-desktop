@@ -45,6 +45,7 @@ $blur-xl: blur($space-6);
 $blur-2xl: blur($space-10);
 $blur-3xl: blur($space-16);
 
+$opacity-very-low: 0.1;
 $opacity-low: 0.2;
 $opacity-medium: 0.4;
 $opacity-high: 0.6;
@@ -64,10 +65,6 @@ $font-family-primary: $font-name-primary, sans-serif;
 $color-white: #ffffff;
 $color-black: #000000;
 
-$color-gray-000: #c0c0c0;
-$color-gray-100: #606060;
-$color-gray-200: #535353;
-
 $color-blue-000: #559fff;
 $color-blue-100: #007aff;
 
@@ -76,10 +73,12 @@ $color-background: $color-white;
 
 $color-border: $color-foreground;
 
+$transition-duration-very-fast: 0.1s;
 $transition-duration-fast: 0.2s;
 $transition-duration-medium: 0.4s;
 $transition-duration-slow: 0.6s;
 $transition-duration-very-slow: 1s;
+
 $transition-ease: ease-out;
 
 $page-gutters: (

@@ -22,7 +22,6 @@
     inline-size: r(675);
     display: flex;
     align-items: center;
-    height: min-content;
     column-gap: $space-1;
     padding-inline: r(14);
     padding-block: $space-3;
@@ -32,9 +31,8 @@
 }
 
 .spotlight__icon {
-    inline-size: $space-6;
-    block-size: $space-6;
-    color: $color-gray-100;
+    opacity: $opacity-high;
+    font-size: $space-6;
 }
 
 .spotlight__input {
@@ -43,7 +41,7 @@
     font-weight: $font-weight-medium;
 
     &::placeholder {
-        color: rgba($color-gray-200, $opacity-medium);
+        color: rgba($color-foreground, 0.25);
     }
 
     @include has-hover {

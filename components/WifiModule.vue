@@ -93,7 +93,6 @@ function openDropdown(): void {
 
 <style lang="scss" scoped>
 .wifi-module {
-    inline-size: r(295);
     transform: translate(-72.5%, 100%);
 }
 
@@ -109,8 +108,7 @@ function openDropdown(): void {
 }
 
 .wifi-module__icon-chevron {
-    inline-size: $space-4;
-    block-size: $space-4;
+    font-size: $space-4;
 
     &--active {
         transform: rotate(90deg);
@@ -120,6 +118,6 @@ function openDropdown(): void {
 .wifi-module__dropdown {
     display: flex;
     flex-direction: column;
-    row-gap: $space-1;
+    row-gap: r(6);
 }
 </style>

@@ -25,7 +25,7 @@ const programs = [
     inset-inline-start: 50%;
     transform: translate(-50%, -5%);
     display: flex;
-    width: max-content;
+    inline-size: max-content;
     column-gap: $space-3;
     padding: $space-3;
     border-radius: $border-radius-3xl;

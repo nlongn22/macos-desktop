@@ -28,11 +28,15 @@
 .module {
     inset-inline-start: 0;
     inset-block-end: 0;
+    inline-size: r(300);
     display: flex;
     flex-direction: column;
     row-gap: $space-1;
-    font-size: r(12);
-    color: $color-gray-100;
+    padding-inline: $space-4;
+    padding-block-start: $space-3;
+    padding-block-end: $space-2;
+    font-size: $space-3;
+    color: rgba($color-foreground, $opacity-high);
 }
 
 .module__header {
@@ -42,10 +46,10 @@
 }
 
 .module__title {
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-semibold;
 }
 
 .module__additional-info {
-    color: $color-gray-100;
+    color: rgba($color-foreground, $opacity-high);
 }
 </style>

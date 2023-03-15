@@ -10,9 +10,6 @@
 <style lang="scss" scoped>
 .dialog {
     position: absolute;
-    padding-inline: $space-4;
-    padding-block-start: $space-3;
-    padding-block-end: $space-2;
     border-radius: $border-radius-md;
     border: $border-width-thin solid rgba($color-border, $opacity-medium);
     backdrop-filter: $blur-2xl;

@@ -1,0 +1,23 @@
+.colored-icon {
+    inline-size: 60% !important;
+    block-size: 60% !important;
+    color: $color-foreground;
+
+    &--active {
+        color: $color-background;
+    }
+}
+
+.colored-icon__background {
+    inline-size: r(26);
+    block-size: r(26);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: $border-radius-full;
+    background-color: rgba($color-foreground, $opacity-very-low);
+
+    &--active {
+        background-color: $color-blue-100;
+    }
+}

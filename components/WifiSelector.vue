@@ -4,12 +4,13 @@
         @click="toggleConnection"
     >
         <div
-            class="wifi-selector__icon-wifi-background"
-            :class="{ 'wifi-selector__icon-wifi-background--active' : props.isConnected }"
+            class="colored-icon__background"
+            :class="{ 'colored-icon__background--active' : props.isConnected }"
         >
             <Icon
                 name="wifi"
-                class="wifi-selector__icon-wifi"
+                class="colored-icon"
+                :class="{ 'colored-icon--active' : props.isConnected }"
             />
         </div>
 
@@ -54,25 +55,8 @@ function isLockVisible(): number {
     column-gap: $space-2;
 }
 
-.wifi-selector__icon-wifi-background {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: r(6);
-    border-radius: $border-radius-full;
-    color: $color-foreground;
-    background-color: rgba($color-gray-100, $opacity-low);
-
-    &--active {
-        color: $color-background;
-        background-color: $color-blue-100;
-    }
-}
-
-.wifi-selector__icon-wifi,
 .wifi-selector__icon-lock {
-    inline-size: $space-4;
-    block-size: $space-4;
+    font-size: $space-4;
 }
 
 .wifi-selector__wifi-name {

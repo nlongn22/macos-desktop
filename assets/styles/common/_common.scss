@@ -142,7 +142,7 @@ time {
 hr {
     margin-block: $space-1;
     border: 0;
-    border-block-end: $border-width-thin solid rgba($color-gray-200, $opacity-low);
+    border-block-end: $border-width-thin solid rgba($color-foreground, $opacity-very-low);
 }
 
 #app {

@@ -31,6 +31,7 @@
                 />
                 <BatteryModule v-if="activeIcon === 'battery'" />
                 <WifiModule v-if="activeIcon === 'wifi'" />
+                <ControlCentre v-if="activeIcon === 'control-centre'" />
             </div>
             <NuxtImg
                 src="programs/siri.png"
@@ -104,8 +105,7 @@ function closeModule(): void {
 }
 
 .menu-bar__icon-apple {
-    inline-size: $space-4;
-    block-size: $space-4;
+    font-size: $space-4;
 }
 
 .menu-bar__program-options {
@@ -131,7 +131,7 @@ function closeModule(): void {
 
     &--active {
         border-radius: $border-radius;
-        background-color: rgba($color-gray-100, $opacity-low);
+        background-color: rgba($color-foreground, $opacity-very-low);
     }
 
     &:first-child {
