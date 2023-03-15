@@ -26,7 +26,6 @@
 
 <style lang="scss" scoped>
 .module {
-    inset-inline-start: 0;
     inset-block-end: 0;
     inline-size: r(300);
     display: flex;

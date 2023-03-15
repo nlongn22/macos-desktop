@@ -1,10 +1,10 @@
 <template>
-    <div class="stage-manager-module control-centre-module">
+    <div class="stage-manager control-centre-module">
         <Icon
             name="table"
-            class="stage-manager-module__icon"
+            class="stage-manager__icon"
         />
-        <span class="stage-manager-module__text">
+        <span class="stage-manager__text">
             Stage
         </span>
         Manager
@@ -15,7 +15,7 @@
 </script>
 
 <style lang="scss" scoped>
-.stage-manager-module {
+.stage-manager {
     inline-size: 50%;
     block-size: 100%;
     padding-block: $space-2;
@@ -23,12 +23,12 @@
     font-size: r(10);
 }
 
-.stage-manager-module__icon {
+.stage-manager__icon {
     font-size: $space-5;
     color: rgba($color-foreground, $opacity-high);
 }
 
-.stage-manager-module__text {
+.stage-manager__text {
     display: block;
     margin-block-start: r(-6);
     margin-block-end: r(-8);

@@ -1,5 +1,5 @@
 <template>
-    <Module class="wifi-module">
+    <MenuBarModule class="wifi">
         <template #title>
             Wi-Fi
         </template>
@@ -9,38 +9,38 @@
         </template>
 
         <template #content>
-            <p class="wifi-module__known">
+            <p class="wifi__known">
                 Known Network
             </p>
-            <WifiSelector
+            <MenuBarWifiSelector
                 v-for="(network, index) in knownNetworks"
                 :key="index"
                 :name="network"
                 :is-connected="network === connectedNetwork"
-                class="wifi-module__selector-known"
+                class="wifi__selector-known"
                 @connection-change="toggleKnownConnection"
             />
             <hr>
             <div
-                class="wifi-module__other hover-effect"
+                class="wifi__other hover-effect"
                 @click="openDropdown"
             >
                 Other Networks
                 <Icon
                     name="chevron"
-                    class="wifi-module__icon-chevron"
-                    :class="{ 'wifi-module__icon-chevron--active' : isDropdownActive }"
+                    class="wifi__icon-chevron"
+                    :class="{ 'wifi__icon-chevron--active' : isDropdownActive }"
                 />
             </div>
             <div
                 v-if="isDropdownActive"
-                class="wifi-module__dropdown"
+                class="wifi__dropdown"
             >
-                <WifiSelector
+                <MenuBarWifiSelector
                     v-for="(network, index) in otherNetworks"
                     :key="index"
                     :name="network"
-                    class="wifi-module__selector-other"
+                    class="wifi__selector-other"
                     @connection-change="toggleOtherConnection"
                 />
                 <p class="text-default hover-effect">
@@ -52,7 +52,7 @@
         <template #settings-link>
             Wi-Fi settings...
         </template>
-    </Module>
+    </MenuBarModule>
 </template>
 
 <script setup lang="ts">
@@ -92,22 +92,22 @@ function openDropdown(): void {
 </script>
 
 <style lang="scss" scoped>
-.wifi-module {
+.wifi {
     transform: translate(-72.5%, 100%);
 }
 
-.wifi-module__known,
-.wifi-module__other {
+.wifi__known,
+.wifi__other {
     font-weight: $font-weight-semibold;
 }
 
-.wifi-module__other {
+.wifi__other {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.wifi-module__icon-chevron {
+.wifi__icon-chevron {
     font-size: $space-4;
 
     &--active {
@@ -115,7 +115,7 @@ function openDropdown(): void {
     }
 }
 
-.wifi-module__dropdown {
+.wifi__dropdown {
     display: flex;
     flex-direction: column;
     row-gap: r(6);

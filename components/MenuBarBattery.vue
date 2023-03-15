@@ -1,5 +1,5 @@
 <template>
-    <Module class="battery-module">
+    <MenuBarModule class="battery">
         <template #title>
             Battery
         </template>
@@ -21,14 +21,14 @@
         <template #settings-link>
             Battery Settings...
         </template>
-    </Module>
+    </MenuBarModule>
 </template>
 
 <script setup lang="ts">
 </script>
 
 <style lang="scss" scoped>
-.battery-module {
+.battery {
     transform: translateY(100%);
 }
 </style>

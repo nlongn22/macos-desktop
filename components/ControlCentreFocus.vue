@@ -1,9 +1,9 @@
 <template>
-    <div class="focus-module control-centre-module">
+    <div class="focus control-centre-module">
         <div class="colored-icon__background">
             <Icon
                 name="moon"
-                class="focus-module__icon colored-icon"
+                class="focus__icon colored-icon"
             />
         </div>
         <span class="control-centre-module__title">
@@ -16,7 +16,7 @@
 </script>
 
 <style lang="scss" scoped>
-.focus-module {
+.focus {
     inline-size: 100%;
     block-size: r(62.5);
     display: flex;
@@ -24,7 +24,7 @@
     column-gap: $space-2;
 }
 
-.focus-module__icon {
+.focus__icon {
     transform: rotate(-30deg);
     color: rgba($color-foreground, $opacity-high);
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="connectivity-module control-centre-module">
+    <div class="connectivities control-centre-module">
         <div
             v-for="(connectivity, index) in connectivities"
             :key="index"
@@ -50,7 +50,7 @@ const connectivities: Connectivity[] = [
 </script>
 
 <style lang="scss" scoped>
-.connectivity-module {
+.connectivities {
     block-size: max-content;
     display: flex;
     flex-direction: column;

@@ -29,8 +29,8 @@
                     :class="{'menu-bar__icon--active' : activeIcon === iconName }"
                     @click="openModule(iconName)"
                 />
-                <BatteryModule v-if="activeIcon === 'battery'" />
-                <WifiModule v-if="activeIcon === 'wifi'" />
+                <MenuBarBattery v-if="activeIcon === 'battery'" />
+                <MenuBarWifi v-if="activeIcon === 'wifi'" />
                 <ControlCentre v-if="activeIcon === 'control-centre'" />
             </div>
             <NuxtImg

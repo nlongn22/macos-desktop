@@ -1,11 +1,11 @@
 <template>
     <Dialog class="control-centre">
-        <ConnectivityModule />
+        <ControlCentreConnectivities />
         <div class="control-centre__right">
-            <FocusModule />
+            <ControlCentreFocus />
             <div class="control-center__subright">
-                <StageManagerModule />
-                <StageManagerModule />
+                <ControlCentreStageManager />
+                <ControlCentreStageManager />
             </div>
         </div>
     </Dialog>
@@ -16,9 +16,7 @@
 
 <style lang="scss" scoped>
 .control-centre {
-    inset-inline-start: 0;
-    inset-block-end: -$space-1;
-    transform: translate(2%, 100%);
+    transform: translate(-1%, 60%);
     inline-size: r(300);
     display: flex;
     gap: r(10);
