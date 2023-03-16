@@ -27,12 +27,12 @@
 </template>
 
 <script setup lang="ts">
-interface IProps {
+interface MenuBarWifiSelectorProps {
     name: string,
     isConnected?: boolean
 }
 
-const props = defineProps<IProps>();
+const props = defineProps<MenuBarWifiSelectorProps>();
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{

@@ -1,21 +1,28 @@
 <template>
-    <div class="stage-manager control-centre-module">
+    <div class="mini control-centre-module">
         <Icon
-            name="table"
-            class="stage-manager__icon"
+            :name="props.iconName"
+            class="mini__icon"
         />
-        <span class="stage-manager__text">
-            Stage
+        <span class="mini__text-first">
+            {{ props.textFirst }}
         </span>
-        Manager
+        {{ props.textSecond }}
     </div>
 </template>
 
 <script setup lang="ts">
+interface ControlCentreMiniProps {
+    iconName: string,
+    textFirst: string,
+    textSecond: string
+}
+
+const props = defineProps<ControlCentreMiniProps>();
 </script>
 
 <style lang="scss" scoped>
-.stage-manager {
+.mini {
     inline-size: 50%;
     block-size: 100%;
     padding-block: $space-2;
@@ -23,12 +30,12 @@
     font-size: r(10);
 }
 
-.stage-manager__icon {
+.mini__icon {
     font-size: $space-5;
     color: rgba($color-foreground, $opacity-high);
 }
 
-.stage-manager__text {
+.mini__text-first {
     display: block;
     margin-block-start: r(-6);
     margin-block-end: r(-8);

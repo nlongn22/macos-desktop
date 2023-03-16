@@ -4,8 +4,16 @@
         <div class="control-centre__right">
             <ControlCentreFocus />
             <div class="control-center__subright">
-                <ControlCentreStageManager />
-                <ControlCentreStageManager />
+                <ControlCentreMini
+                    icon-name="table"
+                    text-first="Stage"
+                    text-second="Manager"
+                />
+                <ControlCentreMini
+                    icon-name="display"
+                    text-first="Screen"
+                    text-second="Mirroring"
+                />
             </div>
         </div>
     </Dialog>
