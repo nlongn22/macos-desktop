@@ -1,4 +1,5 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import checkerPlugin from 'vite-plugin-checker';
 import eslintPlugin from 'vite-plugin-eslint';
 import stylelintPlugin from 'vite-plugin-stylelint';
 import svgLoader from 'vite-svg-loader';
@@ -66,6 +67,7 @@ export default defineNuxtConfig({
     ],
     vite: {
         plugins: [
+            checkerPlugin({ vueTsc: true /** or an object config */ }),
             eslintPlugin(),
             stylelintPlugin(),
             svgLoader(),
@@ -78,6 +80,7 @@ export default defineNuxtConfig({
             },
         },
     },
+    // @ts-ignore
     modules: [
         'nuxt-font-loader',
         '@nuxt/image-edge',
