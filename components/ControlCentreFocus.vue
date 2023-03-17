@@ -26,6 +26,5 @@
 
 .focus__icon {
     transform: rotate(-30deg);
-    color: rgba($color-foreground, $opacity-high);
 }
 </style>
