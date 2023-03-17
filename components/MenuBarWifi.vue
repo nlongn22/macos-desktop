@@ -27,7 +27,7 @@
             >
                 Other Networks
                 <Icon
-                    name="chevron"
+                    name="chevron-right"
                     class="wifi__icon-chevron"
                     :class="{ 'wifi__icon-chevron--active' : isDropdownActive }"
                 />
@@ -93,7 +93,7 @@ function openDropdown(): void {
 
 <style lang="scss" scoped>
 .wifi {
-    transform: translate(-72.5%, 100%);
+    transform: translate(-74.5%, 100%);
 }
 
 .wifi__known,
@@ -108,7 +108,7 @@ function openDropdown(): void {
 }
 
 .wifi__icon-chevron {
-    font-size: $space-4;
+    font-size: r(10);
 
     &--active {
         transform: rotate(90deg);

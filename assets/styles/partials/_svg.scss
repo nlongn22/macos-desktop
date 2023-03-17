@@ -1,7 +1,8 @@
 .svg {
-    display: inline-block;
     inline-size: 1em;
     block-size: 1em;
     max-inline-size: 100%;
     max-block-size: 100%;
+    display: inline-block;
+    fill: currentColor;
 }

@@ -31,13 +31,13 @@ const props = defineProps<ControlCentreMiniProps>();
 }
 
 .mini__icon {
-    font-size: $space-5;
+    margin-block-start: -$space-0;
+    font-size: r(22);
     color: rgba($color-foreground, $opacity-high);
 }
 
 .mini__text-first {
     display: block;
-    margin-block-start: r(-6);
-    margin-block-end: r(-8);
+    margin-block: -$space-2;
 }
 </style>

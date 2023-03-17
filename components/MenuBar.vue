@@ -2,7 +2,7 @@
     <div class="menu-bar">
         <div class="menu-bar__left">
             <Icon
-                name="apple"
+                name="apple-logo"
                 class="menu-bar__icon-apple"
             />
             <div class="menu-bar__program-options">
@@ -29,7 +29,7 @@
                     :class="{'menu-bar__icon--active' : activeIcon === iconName }"
                     @click="openModule(iconName)"
                 />
-                <MenuBarBattery v-if="activeIcon === 'battery'" />
+                <MenuBarBattery v-if="activeIcon === 'battery-75'" />
                 <MenuBarWifi v-if="activeIcon === 'wifi'" />
                 <ControlCentre v-if="activeIcon === 'control-centre'" />
             </div>
@@ -38,20 +38,20 @@
                 class="menu-bar__image-siri"
             />
             <span class="menu-bar__date">
-                Tue 7. 3.
+                Tue 17. 3.
             </span>
             <span class="menu-bar__time">
                 {{ time }}
             </span>
         </div>
 
-        <Spotlight v-if="activeIcon === 'spotlight'" />
+        <Spotlight v-if="activeIcon === 'magnifyingglass'" />
     </div>
 </template>
 
 <script setup lang="ts">
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
-const menuBarIcons = ['battery', 'wifi', 'spotlight', 'control-centre'];
+const menuBarIcons = ['battery-75', 'wifi', 'magnifyingglass', 'control-centre'];
 const activeIcon = ref('');
 const time = ref('');
 
@@ -117,17 +117,19 @@ function closeModule(): void {
 }
 
 .menu-bar__right {
-    column-gap: $space-5;
+    column-gap: $space-4;
 }
 
 .menu-bar__icons {
     position: relative;
+    display: flex;
 }
 
 .menu-bar__icon {
-    inline-size: $space-9;
+    // Uses inline-size instead of font-size due to need for padding.
+    inline-size: $space-8;
+    padding-inline: $space-2;
     block-size: 100%;
-    padding-inline: calc($space-5 / 2);
 
     &--active {
         border-radius: $border-radius;
@@ -135,21 +137,25 @@ function closeModule(): void {
     }
 
     &:first-child {
-        inline-size: $space-11;
+        inline-size: r(43);
     }
 
     &:nth-child(2) {
-        inline-size: r(38);
+        inline-size: r(33);
+    }
+
+    &:nth-child(3) {
+        inline-size: r(29);
     }
 }
 
 .menu-bar__image-siri {
     inline-size: r(14);
     block-size: r(14);
-    margin-inline-start: calc($space-5 / -2);
+    margin-inline-start: -$space-2;
 }
 
 .menu-bar__date {
-    margin-inline-end: calc($space-5 / -2);
+    margin-inline-end: -$space-2;
 }
 </style>

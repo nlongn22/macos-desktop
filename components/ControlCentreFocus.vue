@@ -2,8 +2,8 @@
     <div class="focus control-centre-module">
         <div class="colored-icon__background">
             <Icon
-                name="moon"
-                class="focus__icon colored-icon"
+                name="moon-fill"
+                class="colored-icon"
             />
         </div>
         <span class="control-centre-module__title">
@@ -22,9 +22,5 @@
     display: flex;
     align-items: center;
     column-gap: $space-2;
-}
-
-.focus__icon {
-    transform: rotate(-30deg);
 }
 </style>

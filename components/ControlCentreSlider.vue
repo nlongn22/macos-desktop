@@ -15,7 +15,7 @@
             >
                 <Icon
                     :name="secondaryIconName"
-                    class="control-centre__icon-secondary colored-icon"
+                    class="colored-icon"
                 />
             </div>
         </div>
@@ -49,13 +49,5 @@ const props = defineProps<ControlCentreSliderProps>();
     &--reduced {
         max-inline-size: r(224);
     }
-}
-
-.control-centre__icon-secondary {
-    // Override .colored-icon partial
-    inline-size: 100% !important;
-    block-size: 100% !important;
-    min-inline-size: r(26);
-    font-size: $space-14;
 }
 </style>

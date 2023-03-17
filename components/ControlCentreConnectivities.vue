@@ -8,7 +8,7 @@
             <div class="colored-icon__background colored-icon__background--active">
                 <Icon
                     :name="connectivity.type"
-                    class="colored-icon colored-icon--active"
+                    class="connectivity__icon colored-icon colored-icon--active"
                 />
             </div>
             <ul>
@@ -62,6 +62,11 @@ const connectivities: Connectivity[] = [
     display: flex;
     align-items: center;
     column-gap: $space-2;
+}
+
+.connectivity__icon {
+    inline-size: 55%;
+    block-size: 55%;
 }
 
 .connectivity__state {

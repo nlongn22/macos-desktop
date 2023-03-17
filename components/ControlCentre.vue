@@ -6,12 +6,12 @@
                 <ControlCentreFocus />
                 <div class="control-center__subright">
                     <ControlCentreMini
-                        icon-name="table"
+                        icon-name="squares-leading-rectangle"
                         text-first="Stage"
                         text-second="Manager"
                     />
                     <ControlCentreMini
-                        icon-name="display"
+                        icon-name="rectangle-on-rectangle"
                         text-first="Screen"
                         text-second="Mirroring"
                     />
@@ -21,12 +21,12 @@
 
         <ControlCentreSlider
             title="Display"
-            primary-icon-name="sun"
+            primary-icon-name="sun-max-fill"
         />
         <ControlCentreSlider
             title="Sound"
-            primary-icon-name="speaker"
-            secondary-icon-name="airplay"
+            primary-icon-name="speaker-wave-3-fill"
+            secondary-icon-name="airplayaudio"
         />
     </Dialog>
 </template>
@@ -36,7 +36,7 @@
 
 <style lang="scss" scoped>
 .control-centre {
-    transform: translate(-1%, 60%);
+    transform: translate(-4.5%, 55%);
     inline-size: r(300);
     display: flex;
     flex-direction: column;

@@ -20,7 +20,7 @@
 
         <Icon
             v-if="isLockVisible()"
-            name="lock"
+            name="lock-fill"
             class="wifi-selector__icon-lock"
         />
     </div>
@@ -56,7 +56,7 @@ function isLockVisible(): number {
 }
 
 .wifi-selector__icon-lock {
-    font-size: $space-4;
+    font-size: $space-3;
 }
 
 .wifi-selector__wifi-name {

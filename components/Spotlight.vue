@@ -1,7 +1,7 @@
 <template>
     <Dialog class="spotlight">
         <Icon
-            name="spotlight"
+            name="magnifyingglass"
             class="spotlight__icon"
         />
         <input
@@ -23,7 +23,7 @@
     display: flex;
     align-items: center;
     column-gap: $space-1;
-    padding-inline: r(14);
+    padding-inline: $space-4;
     padding-block: $space-3;
     border-radius: $border-radius-xl;
     border-color: rgba($color-border, $opacity-low);
@@ -31,8 +31,9 @@
 }
 
 .spotlight__icon {
+    margin-inline-end: $space-0;
     opacity: $opacity-high;
-    font-size: $space-6;
+    font-size: $space-5;
 }
 
 .spotlight__input {

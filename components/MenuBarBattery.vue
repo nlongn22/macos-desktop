@@ -5,7 +5,7 @@
         </template>
 
         <template #additional-info>
-            100 %
+            75 %
         </template>
 
         <template #content>
@@ -29,6 +29,7 @@
 
 <style lang="scss" scoped>
 .battery {
+    inline-size: r(290);
     transform: translateY(100%);
 }
 </style>
