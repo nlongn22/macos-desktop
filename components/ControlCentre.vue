@@ -23,11 +23,14 @@
             title="Display"
             primary-icon-name="sun-max-fill"
         />
+
         <ControlCentreSlider
             title="Sound"
             primary-icon-name="speaker-wave-3-fill"
             secondary-icon-name="airplayaudio"
         />
+
+        <ControlCentreMusic />
     </Dialog>
 </template>
 
@@ -36,30 +39,25 @@
 
 <style lang="scss" scoped>
 .control-centre {
-    transform: translate(-4.5%, 55%);
+    transform: translate(-4%, 55%);
     inline-size: r(300);
     display: flex;
     flex-direction: column;
-    gap: r(10);
+    row-gap: r(10);
     padding: r(10);
     border-radius: $border-radius-2xl;
 }
 
-.control-centre__top {
-    display: flex;
+.control-centre__top,
+.control-centre__right,
+.control-center__subright {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: r(10);
 }
 
 .control-centre__right {
-    display: flex;
-    flex-direction: column;
-    flex-basis: 50%;
-    gap: r(10);
-}
-
-.control-center__subright {
-    block-size: r(62.5);
-    display: flex;
-    gap: r(10);
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: unset;
 }
 </style>

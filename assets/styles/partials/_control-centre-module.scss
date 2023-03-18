@@ -4,10 +4,28 @@
     backdrop-filter: $blur-3xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(3) $space-2;
     background-color: rgba($color-background, $opacity-low);
+
+    @include has-hover {
+        .control-centre-module__icon {
+            opacity: 1;
+        }
+    }
 }
 
 .control-centre-module__title {
     font-size: $space-3;
     font-weight: $font-weight-medium;
     color: $color-foreground;
+
+    &--has-icon {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.control-centre-module__icon {
+    opacity: 0;
+    font-size: r(10);
+    color: rgba($color-foreground, $opacity-medium);
 }

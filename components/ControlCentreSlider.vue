@@ -1,7 +1,11 @@
 <template>
     <div class="control-centre__slider control-centre-module">
-        <span class="control-centre-module__title">
+        <span class="control-centre-module__title control-centre-module__title--has-icon">
             {{ props.title }}
+            <Icon
+                name="chevron-right"
+                class="control-centre-module__icon"
+            />
         </span>
         <div class="control-centre__slider-controls">
             <Slider

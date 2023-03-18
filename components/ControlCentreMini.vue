@@ -23,8 +23,6 @@ const props = defineProps<ControlCentreMiniProps>();
 
 <style lang="scss" scoped>
 .mini {
-    inline-size: 50%;
-    block-size: 100%;
     padding-block: $space-2;
     text-align: center;
     font-size: r(10);

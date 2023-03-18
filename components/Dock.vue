@@ -36,7 +36,6 @@ const programs = [
 }
 
 .dock__program {
-    inline-size: $space-14;
-    block-size: $space-14;
+    @include size($space-14);
 }
 </style>

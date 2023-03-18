@@ -79,12 +79,11 @@ function closeModule(): void {
 
 <style lang="scss" scoped>
 .menu-bar {
+    @include size(100%, $space-6);
     position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    inline-size: 100%;
-    block-size: $space-6;
     margin-block-end: -$space-6;
     padding-inline: $space-5;
     backdrop-filter: $blur-3xl;
@@ -95,9 +94,9 @@ function closeModule(): void {
 .menu-bar__program-options,
 .menu-bar__right,
 .menu-bar__icons {
+    block-size: 100%;
     display: flex;
     align-items: center;
-    block-size: 100%;
 }
 
 .menu-bar__left {
@@ -126,10 +125,9 @@ function closeModule(): void {
 }
 
 .menu-bar__icon {
-    // Uses inline-size instead of font-size due to need for padding.
-    inline-size: $space-8;
+    // Uses regular sizes instead of font-size due to need for padding.
+    @include size($space-8, 100%);
     padding-inline: $space-2;
-    block-size: 100%;
 
     &--active {
         border-radius: $border-radius;
@@ -150,8 +148,7 @@ function closeModule(): void {
 }
 
 .menu-bar__image-siri {
-    inline-size: r(14);
-    block-size: r(14);
+    @include size(r(14));
     margin-inline-start: -$space-2;
 }
 

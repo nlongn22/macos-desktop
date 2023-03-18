@@ -97,8 +97,7 @@ onBeforeUnmount(() => {
 }
 
 .slider__handle {
-    inline-size: $space-5;
-    block-size: $space-5;
+    @include size($space-5);
     border-radius: $border-radius-full;
     border: $border-width-thin solid rgba($color-border, $opacity-very-low);
     box-shadow: rgba($color-foreground, $opacity-low) 0 $space-2 $space-6;

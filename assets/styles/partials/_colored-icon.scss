@@ -1,6 +1,4 @@
 .colored-icon {
-    inline-size: 50%;
-    block-size: 50%;
     color: rgba($color-foreground, $opacity-high);
 
     &--active {
@@ -9,11 +7,9 @@
 }
 
 .colored-icon__background {
-    inline-size: r(26);
-    block-size: r(26);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    @include size(r(26));
+    display: grid;
+    place-items: center;
     border-radius: $border-radius-full;
     background-color: rgba($color-foreground, $opacity-very-low);
 

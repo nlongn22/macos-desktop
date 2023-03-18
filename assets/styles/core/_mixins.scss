@@ -39,3 +39,8 @@
         }
     }
 }
+
+@mixin size($inline-size, $block-size: $inline-size) {
+    inline-size: $inline-size;
+    block-size: $block-size;
+}

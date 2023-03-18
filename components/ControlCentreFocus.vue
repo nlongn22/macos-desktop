@@ -6,9 +6,13 @@
                 class="colored-icon"
             />
         </div>
-        <span class="control-centre-module__title">
+        <div class="focus__title control-centre-module__title control-centre-module__title--has-icon">
             Focus
-        </span>
+            <Icon
+                name="chevron-right"
+                class="control-centre-module__icon"
+            />
+        </div>
     </div>
 </template>
 
@@ -17,10 +21,12 @@
 
 <style lang="scss" scoped>
 .focus {
-    inline-size: 100%;
-    block-size: r(62.5);
     display: flex;
     align-items: center;
     column-gap: $space-2;
+}
+
+.focus__title {
+    flex-grow: 1;
 }
 </style>

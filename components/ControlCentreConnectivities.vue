@@ -12,8 +12,12 @@
                 />
             </div>
             <ul>
-                <li class="control-centre-module__title">
+                <li class="control-centre-module__title control-centre-module__title--has-icon">
                     {{ connectivity.name }}
+                    <Icon
+                        name="chevron-right"
+                        class="control-centre-module__icon"
+                    />
                 </li>
                 <li class="connectivity__state">
                     {{ connectivity.state }}
@@ -51,10 +55,9 @@ const connectivities: Connectivity[] = [
 
 <style lang="scss" scoped>
 .connectivities {
-    block-size: max-content;
     display: flex;
     flex-direction: column;
-    flex-basis: 50%;
+    justify-content: center;
     row-gap: $space-2;
 }
 
@@ -65,8 +68,7 @@ const connectivities: Connectivity[] = [
 }
 
 .connectivity__icon {
-    inline-size: 55%;
-    block-size: 55%;
+    @include size(55%);
 }
 
 .connectivity__state {

@@ -12,7 +12,6 @@
 
 <style lang="scss" scoped>
 .container {
-    inline-size: 100vw;
-    block-size: 100vh;
+    @include size(100vw, 100vh);
 }
 </style>
