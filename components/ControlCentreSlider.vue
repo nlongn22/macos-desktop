@@ -50,6 +50,7 @@ const props = defineProps<ControlCentreSliderProps>();
 }
 
 .control-centre__slider-control {
+
     &--reduced {
         max-inline-size: r(224);
     }

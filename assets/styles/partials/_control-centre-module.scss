@@ -6,6 +6,7 @@
     background-color: rgba($color-background, $opacity-low);
 
     @include has-hover {
+
         .control-centre-module__icon {
             opacity: 1;
         }

@@ -1,11 +1,7 @@
 <template>
     <div class="container">
         <MenuBar />
-        <Transition name="page" mode="out-in">
-            <div :key="$route.fullPath">
-                <NuxtPage />
-            </div>
-        </Transition>
+        <NuxtPage />
         <Dock />
     </div>
 </template>
