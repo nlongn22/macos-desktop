@@ -24,7 +24,7 @@ const programs = [
 const dockRef = ref();
 
 function isOutOfBound(currentPosition: number, boundSize: number): boolean {
-    return Math.abs(currentPosition) > boundSize;
+    return Math.abs(currentPosition) >= boundSize;
 }
 
 function updateProgramBrightness(program: HTMLElement, brightness = 1): void {
@@ -32,11 +32,15 @@ function updateProgramBrightness(program: HTMLElement, brightness = 1): void {
 }
 
 function updateProgramOpacity(program: HTMLElement, opacity = 1): void {
-    $gsap.to(program, { opacity });
+    $gsap.to(program, { opacity, duration: 0.35 });
 }
 
-function updateProgramPosition(program: HTMLElement, position = 'static'): void {
-    $gsap.set(program, { position });
+function updateProgramMargin(program: HTMLElement, margin = 0): void {
+    $gsap.to(program, {
+        marginInline: margin,
+        duration: 0.15,
+        ease: 'linear',
+    });
 }
 
 function updateDOM(
@@ -63,26 +67,29 @@ function initDock(): void {
             updateProgramBrightness(this.target);
         },
         onDrag: function() {
-            if (isOutOfBound(this.y, 100)) {
-                updateProgramOpacity(this.target, 0.25);
+            if (isOutOfBound(this.y, 120)) {
+                updateProgramOpacity(this.target, 0.4);
             } else {
                 updateProgramOpacity(this.target);
             }
 
             if (isOutOfBound(this.y, 60)) {
-                updateProgramPosition(this.target, 'absolute');
+                updateProgramMargin(this.target, -34);
             }
 
             const currentPositionIndex = Array.prototype.indexOf.call(dockRef.value.children, this.target);
             const relativePositionIndex = Math.round(this.x / 68);
             const newPositionIndex = currentPositionIndex + relativePositionIndex;
 
-            if (parseInt(this.deltaY) >= 4 && this.y >= -20) {
+            if (parseInt(this.deltaY) >= 4 && !isOutOfBound(this.y, 20)) {
                 updateDOM(this.target, newPositionIndex);
-                updateProgramPosition(this.target);
+                updateProgramMargin(this.target);
             }
 
-            if (this.y >= -60) {
+            if (
+                !isOutOfBound(this.y, 60) &&
+                currentPositionIndex !== newPositionIndex // prevent unnecessary DOM updates
+            ) {
                 if (this.x < 0) {
                     updateDOM(this.target, newPositionIndex);
                 } else {
@@ -93,12 +100,17 @@ function initDock(): void {
             this.update(true, true);
         },
         onDragEnd: function() {
-            if (isOutOfBound(this.y, 100)) {
+            if (isOutOfBound(this.y, 120)) {
                 this.target.remove();
             }
 
-            updateProgramPosition(this.target);
-            $gsap.to(this.target, { x: 0, y: 0 });
+            updateProgramMargin(this.target);
+            $gsap.to(this.target, {
+                x: 0,
+                y: 0,
+                duration: 0.35,
+                ease: 'linear',
+            });
         },
     });
 }
