@@ -39,6 +39,14 @@ function updateProgramPosition(program: HTMLElement, position = 'static'): void 
     $gsap.set(program, { position });
 }
 
+function updateDOM(
+    program: HTMLElement,
+    newPositionIndex: number,
+    insertPosition = 'before',
+) {
+    dockRef.value?.children[newPositionIndex]?.[insertPosition](program);
+}
+
 function initDock(): void {
     $Draggable.create('.dock__program', {
         cursor: 'revert',
@@ -65,23 +73,21 @@ function initDock(): void {
                 updateProgramPosition(this.target, 'absolute');
             }
 
-            const currentProgramIndex = Array.prototype.indexOf.call(dockRef.value.children, this.target);
-            const nextProgramIndex = currentProgramIndex + Math.round(this.x / 68);
+            const currentPositionIndex = Array.prototype.indexOf.call(dockRef.value.children, this.target);
+            const relativePositionIndex = Math.round(this.x / 68);
+            const newPositionIndex = currentPositionIndex + relativePositionIndex;
 
             if (parseInt(this.deltaY) >= 4 && this.y >= -20) {
-                dockRef.value.children[nextProgramIndex]?.before(this.target);
+                updateDOM(this.target, newPositionIndex);
                 updateProgramPosition(this.target);
             }
 
-            const previousProgram = this.target.previousSibling;
-            const nextProgram = this.target.nextSibling;
-
-            if (this.hitTest(previousProgram, '50%')) {
-                previousProgram.before(this.target);
-            }
-
-            if (this.hitTest(nextProgram, '50%')) {
-                nextProgram.after(this.target);
+            if (this.y >= -60) {
+                if (this.x < 0) {
+                    updateDOM(this.target, newPositionIndex);
+                } else {
+                    updateDOM(this.target, newPositionIndex, 'after');
+                }
             }
 
             this.update(true, true);
