@@ -20,10 +20,20 @@ const programs = [
     'calendar', 'clock', 'contacts',
     'facetime', 'messages', 'notes',
     'photos', 'reminders', 'safari',
+    'trash',
 ];
+
 const dockRef = ref();
 
-function isOutOfBound(currentPosition: number, boundSize: number): boolean {
+function isEdgeElement(positionIndex: number): boolean {
+    return (positionIndex === 0 || positionIndex === programs.length - 1);
+}
+
+function isOutOfBoundX(currentPosition: number): boolean {
+    return Math.abs(currentPosition) > 100;
+}
+
+function isOutOfBoundY(currentPosition: number, boundSize: number): boolean {
     return Math.abs(currentPosition) >= boundSize;
 }
 
@@ -48,6 +58,10 @@ function updateDOM(
     newPositionIndex: number,
     insertPosition = 'before',
 ) {
+    if (isEdgeElement(newPositionIndex)) {
+        return;
+    }
+
     dockRef.value?.children[newPositionIndex]?.[insertPosition](program);
 }
 
@@ -67,28 +81,32 @@ function initDock(): void {
             updateProgramBrightness(this.target);
         },
         onDrag: function() {
-            if (isOutOfBound(this.y, 120)) {
+            if (isOutOfBoundY(this.y, 150)) {
                 updateProgramOpacity(this.target, 0.4);
             } else {
                 updateProgramOpacity(this.target);
             }
 
-            if (isOutOfBound(this.y, 60)) {
+            if (isOutOfBoundX(this.x) || isOutOfBoundY(this.y, 50)) {
                 updateProgramMargin(this.target, -34);
+            } else {
+                updateProgramMargin(this.target);
             }
 
             const currentPositionIndex = Array.prototype.indexOf.call(dockRef.value.children, this.target);
             const relativePositionIndex = Math.round(this.x / 68);
             const newPositionIndex = currentPositionIndex + relativePositionIndex;
 
-            if (parseInt(this.deltaY) >= 4 && !isOutOfBound(this.y, 20)) {
-                updateDOM(this.target, newPositionIndex);
-                updateProgramMargin(this.target);
+            if (isEdgeElement(currentPositionIndex)) {
+                this.endDrag(this.target);
+                return;
             }
 
+            // Prevent unnecessary DOM updates.
             if (
-                !isOutOfBound(this.y, 60) &&
-                currentPositionIndex !== newPositionIndex // prevent unnecessary DOM updates
+                !isOutOfBoundY(this.y, 50) &&
+                !isEdgeElement(currentPositionIndex) &&
+                currentPositionIndex !== newPositionIndex
             ) {
                 if (this.x < 0) {
                     updateDOM(this.target, newPositionIndex);
@@ -100,11 +118,12 @@ function initDock(): void {
             this.update(true, true);
         },
         onDragEnd: function() {
-            if (isOutOfBound(this.y, 120)) {
+            if (isOutOfBoundY(this.y, 150)) {
                 this.target.remove();
             }
 
             updateProgramMargin(this.target);
+
             $gsap.to(this.target, {
                 x: 0,
                 y: 0,
@@ -126,10 +145,12 @@ onMounted(() => {
     inset-block-end: 0;
     inset-inline-start: 50%;
     transform: translate(-50%, -5%);
-    display: flex;
     inline-size: max-content;
+    display: flex;
+    align-items: center;
     column-gap: $space-3;
     padding: $space-3;
+    padding-block-start: $space-2;
     border-radius: $border-radius-3xl;
     border: $border-width-thin solid rgba($color-border, $opacity-low);
     backdrop-filter: $blur-xl;
@@ -139,5 +160,15 @@ onMounted(() => {
 
 .dock__program {
     @include size($space-14);
+
+    &:last-child {
+        @include size($space-16);
+        inline-size: 100%;
+        // Override GSAP
+        margin-inline-start: $space-3 !important;
+        margin-inline-end: -$space-2 !important;
+        padding-inline-start: $space-3;
+        border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
+    }
 }
 </style>
