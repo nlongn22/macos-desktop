@@ -1,10 +1,10 @@
 <template>
     <Dialog class="control-centre">
-        <div class="control-centre__top">
+        <div class="control-centre__group">
             <ControlCentreConnectivities />
-            <div class="control-centre__right">
+            <div class="control-centre__subgroup">
                 <ControlCentreFocus />
-                <div class="control-center__subright">
+                <div class="control-center__minis">
                     <ControlCentreMini
                         icon-name="squares-leading-rectangle"
                         text-first="Stage"
@@ -39,7 +39,7 @@
 
 <style lang="scss" scoped>
 .control-centre {
-    transform: translate(-4%, 55%);
+    transform: translate(-10%, 55%);
     inline-size: r(300);
     display: flex;
     flex-direction: column;
@@ -48,15 +48,15 @@
     border-radius: $border-radius-2xl;
 }
 
-.control-centre__top,
-.control-centre__right,
-.control-center__subright {
+.control-centre__group,
+.control-centre__subgroup,
+.control-center__minis {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: r(10);
 }
 
-.control-centre__right {
+.control-centre__subgroup {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: unset;
 }

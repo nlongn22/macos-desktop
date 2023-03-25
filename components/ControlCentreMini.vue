@@ -1,14 +1,16 @@
 <template>
-    <div class="mini control-centre-module">
-        <Icon
-            :name="props.iconName"
-            class="mini__icon"
-        />
-        <span class="mini__text-first">
-            {{ props.textFirst }}
-        </span>
-        {{ props.textSecond }}
-    </div>
+    <ControlCentreModule class="mini">
+        <template #content>
+            <Icon
+                :name="props.iconName"
+                class="mini__icon"
+            />
+            <span class="mini__text-first">
+                {{ props.textFirst }}
+            </span>
+            {{ props.textSecond }}
+        </template>
+    </ControlCentreModule>
 </template>
 
 <script setup lang="ts">
@@ -29,7 +31,6 @@ const props = defineProps<ControlCentreMiniProps>();
 }
 
 .mini__icon {
-    margin-block-start: -$space-0;
     font-size: r(22);
     color: rgba($color-foreground, $opacity-high);
 }

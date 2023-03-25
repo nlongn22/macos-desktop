@@ -1,29 +1,31 @@
 <template>
-    <div class="control-centre__slider control-centre-module">
-        <span class="control-centre-module__title control-centre-module__title--has-icon">
+    <ControlCentreModule
+        has-chevron
+        class="cc__slider"
+    >
+        <template #title>
             {{ props.title }}
-            <Icon
-                name="chevron-right"
-                class="control-centre-module__icon"
-            />
-        </span>
-        <div class="control-centre__slider-controls">
-            <Slider
-                :icon-name="props.primaryIconName"
-                class="control-centre__slider-control"
-                :class="{ 'control-centre__slider-control--reduced' : props.secondaryIconName }"
-            />
-            <div
-                v-if="secondaryIconName"
-                class="colored-icon__background"
-            >
-                <Icon
-                    :name="secondaryIconName"
-                    class="colored-icon"
+        </template>
+
+        <template #content>
+            <div class="cc__slider-controls">
+                <Slider
+                    :icon-name="props.primaryIconName"
+                    class="cc__slider-control"
+                    :class="{ 'cc__slider-control--reduced' : props.secondaryIconName }"
                 />
+                <div
+                    v-if="secondaryIconName"
+                    class="colored-icon__background"
+                >
+                    <Icon
+                        :name="secondaryIconName"
+                        class="colored-icon"
+                    />
+                </div>
             </div>
-        </div>
-    </div>
+        </template>
+    </ControlCentreModule>
 </template>
 
 <script setup lang="ts">
@@ -37,19 +39,19 @@ const props = defineProps<ControlCentreSliderProps>();
 </script>
 
 <style lang="scss" scoped>
-.control-centre__slider {
+.cc__slider {
     display: flex;
     flex-direction: column;
     row-gap: $space-1;
 }
 
-.control-centre__slider-controls {
+.cc__slider-controls {
     display: flex;
     align-items: center;
     column-gap: $space-2;
 }
 
-.control-centre__slider-control {
+.cc__slider-control {
 
     &--reduced {
         max-inline-size: r(224);

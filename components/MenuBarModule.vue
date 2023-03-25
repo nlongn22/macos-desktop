@@ -1,10 +1,10 @@
 <template>
-    <Dialog class="module">
-        <div class="module__header text-default">
-            <span class="module__title">
+    <Dialog class="menu-bar-module">
+        <div class="menu-bar-module__header text-default">
+            <span class="menu-bar-module__title">
                 <slot name="title" />
             </span>
-            <span class="module__additional-info">
+            <span class="menu-bar-module__additional-info">
                 <slot name="additional-info" />
             </span>
         </div>
@@ -25,7 +25,7 @@
 </script>
 
 <style lang="scss" scoped>
-.module {
+.menu-bar-module {
     inset-block-end: 0;
     inline-size: r(300);
     display: flex;
@@ -38,17 +38,17 @@
     color: rgba($color-foreground, $opacity-high);
 }
 
-.module__header {
+.menu-bar-module__header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.module__title {
+.menu-bar-module__title {
     font-weight: $font-weight-semibold;
 }
 
-.module__additional-info {
+.menu-bar-module__additional-info {
     color: rgba($color-foreground, $opacity-high);
 }
 </style>

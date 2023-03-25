@@ -1,16 +1,17 @@
 <template>
     <div class="slider">
         <div
-            ref="sliderContainer"
-            class="slider__container"
+            ref="sliderBackgroundRef"
+            class="slider__background"
             @mousedown="updateProgress"
         >
             <Icon
                 :name="props.iconName"
                 class="slider__icon"
             />
+
             <div
-                ref="sliderProgress"
+                ref="sliderProgressRef"
                 class="slider__progress"
             >
                 <div
@@ -29,17 +30,17 @@ interface SliderProps {
 
 const props = defineProps<SliderProps>();
 
-const sliderContainer = ref();
-const sliderProgress = ref();
+const sliderBackgroundRef = ref();
+const sliderProgressRef = ref();
 const isHandleBorderVisible = ref();
 
 function updateSliderProgress(event: MouseEvent): any {
-    const sliderContainerPosition = sliderContainer.value.getBoundingClientRect();
-    const progressWidth = Math.ceil(event.clientX - sliderContainerPosition.left + 10); // + 10 so pointer is middle of handle
+    const sliderBackgroundRefPosition = sliderBackgroundRef.value.getBoundingClientRect();
+    const progressWidth = Math.ceil(event.clientX - sliderBackgroundRefPosition.left + 10); // + 10 so pointer is middle of handle
 
     isHandleBorderVisible.value = progressWidth <= 40;
 
-    sliderProgress.value.style.width = `calc(${progressWidth}px`;
+    sliderProgressRef.value.style.width = `calc(${progressWidth}px`;
 }
 
 function removeMouseMovementListener(): any {
@@ -52,7 +53,7 @@ function updateProgress(): void {
 }
 
 onMounted(() => {
-    sliderProgress.value.style.width = '50%';
+    sliderProgressRef.value.style.width = '50%';
 });
 
 onBeforeUnmount(() => {
@@ -68,7 +69,7 @@ onBeforeUnmount(() => {
     row-gap: $space-1;
 }
 
-.slider__container {
+.slider__background {
     position: relative;
     block-size: r(22);
     display: flex;

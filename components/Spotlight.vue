@@ -4,6 +4,7 @@
             name="magnifyingglass"
             class="spotlight__icon"
         />
+
         <input
             placeholder="Spotlight Search"
             class="spotlight__input"
