@@ -39,7 +39,7 @@
 
 <style lang="scss" scoped>
 .control-centre {
-    transform: translate(-10%, 55%);
+    transform: translate(-6%, 55%);
     inline-size: r(300);
     display: flex;
     flex-direction: column;

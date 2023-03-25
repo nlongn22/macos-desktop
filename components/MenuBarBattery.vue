@@ -29,7 +29,6 @@
 
 <style lang="scss" scoped>
 .battery {
-    inline-size: r(290);
-    transform: translateY(100%);
+    transform: translate(-85%, 100%);
 }
 </style>

@@ -162,8 +162,8 @@ onMounted(() => {
     @include size($space-14);
 
     &:last-child {
-        @include size($space-16);
-        inline-size: 100%;
+        inline-size: auto;
+        block-size: $space-16;
         // Override GSAP
         margin-inline-start: $space-3 !important;
         margin-inline-end: -$space-2 !important;
