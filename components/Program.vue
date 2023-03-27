@@ -24,9 +24,14 @@ const programRef = ref();
 let draggable: Draggable[] | undefined;
 
 function isPointerNearEdge(e: MouseEvent): boolean {
+    const bounds = programRef.value?.getBoundingClientRect();
     const offsetX = Math.abs(Math.floor(e.offsetX));
+    const offsetY = Math.abs(Math.floor(e.offsetY));
 
-    return programRef.value?.offsetWidth - 3 <= offsetX || offsetX <= 1;
+    return bounds?.width - 3 <= offsetX ||
+        offsetX <= 1 ||
+        bounds?.height - 3 <= offsetY ||
+        offsetY <= 1;
 }
 
 function getClosestEdge(event: MouseEvent, element: Element): string {
@@ -95,30 +100,41 @@ function startResize(): void {
 }
 
 function resize(e: MouseEvent): void {
-    const programBounds = programRef.value.getBoundingClientRect();
-    let result: number;
+    const bounds = programRef.value?.getBoundingClientRect();
+    let result = 0;
+    let cursor = 'unset';
 
     switch (getClosestEdge(e, programRef.value)) {
         case 'left':
-            result = programBounds.right - (e.clientX + programBounds.width);
-            if (result < 0) {
-                updateCursor('e-resize');
-            } else {
-                updateCursor('w-resize');
-            }
-            $gsap.set(programRef.value, { width: programBounds.width + result });
+            result = bounds.right - (e.clientX + bounds.width);
+            cursor = result < 0 ? 'e-resize' : 'w-resize';
+
+            $gsap.set(programRef.value, { width: bounds.width + result });
             break;
 
         case 'right':
-            result = e.clientX - (programBounds.left + programBounds.width);
-            if (result < 0) {
-                updateCursor('w-resize');
-            } else {
-                updateCursor('e-resize');
-            }
-            $gsap.set(programRef.value, { width: programBounds.width + result });
+            result = e.clientX - (bounds.left + bounds.width);
+            cursor = result < 0 ? 'w-resize' : 'e-resize';
+
+            $gsap.set(programRef.value, { width: bounds.width + result });
+            break;
+
+        case 'top':
+            result = bounds.bottom - (e.clientY + bounds.height);
+            cursor = result < 0 ? 's-resize' : 'n-resize';
+
+            $gsap.set(programRef.value, { height: bounds.height + result });
+            break;
+
+        case 'bottom':
+            result = e.clientY - (bounds.top + bounds.height);
+            cursor = result < 0 ? 'n-resize' : 's-resize';
+
+            $gsap.set(programRef.value, { height: bounds.height + result });
             break;
     }
+
+    updateCursor(cursor);
 }
 
 function endResize(): void {
@@ -149,7 +165,7 @@ function initDraggable(): void {
     min-inline-size: r(800);
     min-block-size: r(200);
     max-inline-size: 100%;
-    max-block-size: 100%;
+    max-block-size: calc(100% - #{$space-6});
     position: absolute;
     inset-inline-start: 50%;
     inset-block-start: 45%;
