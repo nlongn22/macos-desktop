@@ -3,7 +3,7 @@
         ref="programRef"
         class="program"
         @mousemove="detectAction($event)"
-        @mousedown="startResize"
+        @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
     >
         <slot />
@@ -22,6 +22,7 @@ const props = defineProps<ProgramProps>();
 const programRef = ref();
 
 let draggable: Draggable[] | undefined;
+let closestEdge: string;
 
 function isPointerNearEdge(e: MouseEvent): boolean {
     const bounds = programRef.value?.getBoundingClientRect();
@@ -94,44 +95,47 @@ function detectAction(event: MouseEvent): void {
     updateCursor(cursor);
 }
 
-function startResize(): void {
+function startResize(event: MouseEvent): void {
+    closestEdge = getClosestEdge(event, programRef.value);
+
     document.addEventListener('mousemove', resize);
     document.addEventListener('mouseup', endResize);
 }
 
+// TODO: Maybe refactor.
 function resize(e: MouseEvent): void {
     const bounds = programRef.value?.getBoundingClientRect();
-    let result = 0;
+    const inline = ['left', 'right'];
+
+    let delta = 0;
     let cursor = 'unset';
 
-    switch (getClosestEdge(e, programRef.value)) {
+    switch (closestEdge) {
         case 'left':
-            result = bounds.right - (e.clientX + bounds.width);
-            cursor = result < 0 ? 'e-resize' : 'w-resize';
-
-            $gsap.set(programRef.value, { width: bounds.width + result });
+            delta = bounds.right - (e.clientX + bounds.width);
+            cursor = delta < 0 ? 'e-resize' : 'w-resize';
             break;
 
         case 'right':
-            result = e.clientX - (bounds.left + bounds.width);
-            cursor = result < 0 ? 'w-resize' : 'e-resize';
-
-            $gsap.set(programRef.value, { width: bounds.width + result });
+            delta = e.clientX - (bounds.left + bounds.width);
+            cursor = delta < 0 ? 'w-resize' : 'e-resize';
             break;
 
         case 'top':
-            result = bounds.bottom - (e.clientY + bounds.height);
-            cursor = result < 0 ? 's-resize' : 'n-resize';
-
-            $gsap.set(programRef.value, { height: bounds.height + result });
+            delta = bounds.bottom - (e.clientY + bounds.height);
+            cursor = delta < 0 ? 's-resize' : 'n-resize';
             break;
 
         case 'bottom':
-            result = e.clientY - (bounds.top + bounds.height);
-            cursor = result < 0 ? 'n-resize' : 's-resize';
-
-            $gsap.set(programRef.value, { height: bounds.height + result });
+            delta = e.clientY - (bounds.top + bounds.height);
+            cursor = delta < 0 ? 'n-resize' : 's-resize';
             break;
+    }
+
+    if (inline.includes(closestEdge)) {
+        $gsap.set(programRef.value, { width: bounds.width + delta });
+    } else {
+        $gsap.set(programRef.value, { height: bounds.height + delta });
     }
 
     updateCursor(cursor);
