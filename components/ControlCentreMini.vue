@@ -14,13 +14,13 @@
 </template>
 
 <script setup lang="ts">
-interface ControlCentreMiniProps {
+interface MiniProps {
     iconName: string,
     textFirst: string,
     textSecond: string
 }
 
-const props = defineProps<ControlCentreMiniProps>();
+const props = defineProps<MiniProps>();
 </script>
 
 <style lang="scss" scoped>

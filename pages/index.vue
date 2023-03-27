@@ -1,12 +1,11 @@
 <template>
-    <main>
-        <section class="desktop">
-            <NuxtImg
-                :src="`/wallpapers/${wallpapers[0]}.jpg`"
-                class="desktop__wallpaper"
-            />
-        </section>
-    </main>
+    <div class="desktop">
+        <NuxtImg
+            :src="`/wallpapers/${wallpapers[0]}.jpg`"
+            class="desktop__wallpaper"
+        />
+        <ProgramSafari />
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -15,7 +14,7 @@ const wallpapers = ['ventura-light'];
 
 <style lang="scss" scoped>
 .desktop {
-    block-size: 100vh;
+    block-size: 100%;
 }
 
 .desktop__wallpaper {

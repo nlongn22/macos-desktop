@@ -25,8 +25,8 @@ const programs = [
 
 const dockRef = ref();
 
-function isEdgeElement(positionIndex: number): boolean {
-    return (positionIndex === 0 || positionIndex === programs.length - 1);
+function isEdgeElement(position: number): boolean {
+    return (position === 0 || position === programs.length - 1);
 }
 
 function isOutOfBoundX(currentPosition: number): boolean {
@@ -37,15 +37,15 @@ function isOutOfBoundY(currentPosition: number, boundSize: number): boolean {
     return Math.abs(currentPosition) >= boundSize;
 }
 
-function updateProgramBrightness(program: HTMLElement, brightness = 1): void {
+function updateBrightness(program: HTMLElement, brightness = 1): void {
     $gsap.set(program, { filter: `brightness(${brightness})` });
 }
 
-function updateProgramOpacity(program: HTMLElement, opacity = 1): void {
+function updateOpacity(program: HTMLElement, opacity = 1): void {
     $gsap.to(program, { opacity, duration: 0.35 });
 }
 
-function updateProgramMargin(program: HTMLElement, margin = 0): void {
+function updateMargin(program: HTMLElement, margin = 0): void {
     $gsap.to(program, {
         marginInline: margin,
         duration: 0.15,
@@ -55,49 +55,48 @@ function updateProgramMargin(program: HTMLElement, margin = 0): void {
 
 function updateDOM(
     program: HTMLElement,
-    newPositionIndex: number,
-    insertPosition = 'before',
+    newPosition: number,
+    insertType = 'before',
 ) {
-    if (isEdgeElement(newPositionIndex)) {
+    if (isEdgeElement(newPosition)) {
         return;
     }
 
-    dockRef.value?.children[newPositionIndex]?.[insertPosition](program);
+    dockRef.value?.children[newPosition]?.[insertType](program);
 }
 
 function initDock(): void {
     $Draggable.create('.dock__program', {
         cursor: 'revert',
         activeCursor: 'revert',
-        type: 'x,y',
         bounds: '.container',
         onPress: function() {
-            updateProgramBrightness(this.target, 0.5);
+            updateBrightness(this.target, 0.5);
         },
         onRelease: function() {
-            updateProgramBrightness(this.target);
+            updateBrightness(this.target);
         },
         onDragStart: function() {
-            updateProgramBrightness(this.target);
+            updateBrightness(this.target);
         },
         onDrag: function() {
             if (isOutOfBoundY(this.y, 150)) {
-                updateProgramOpacity(this.target, 0.4);
+                updateOpacity(this.target, 0.4);
             } else {
-                updateProgramOpacity(this.target);
+                updateOpacity(this.target);
             }
 
             if (isOutOfBoundX(this.x) || isOutOfBoundY(this.y, 50)) {
-                updateProgramMargin(this.target, -34);
+                updateMargin(this.target, -34);
             } else {
-                updateProgramMargin(this.target);
+                updateMargin(this.target);
             }
 
-            const currentPositionIndex = Array.prototype.indexOf.call(dockRef.value.children, this.target);
-            const relativePositionIndex = Math.round(this.x / 68);
-            const newPositionIndex = currentPositionIndex + relativePositionIndex;
+            const currentPosition = Array.prototype.indexOf.call(dockRef.value.children, this.target);
+            const relativePosition = Math.round(this.x / 68);
+            const newPosition = currentPosition + relativePosition;
 
-            if (isEdgeElement(currentPositionIndex)) {
+            if (isEdgeElement(currentPosition)) {
                 this.endDrag(this.target);
                 return;
             }
@@ -105,13 +104,13 @@ function initDock(): void {
             // Prevent unnecessary DOM updates.
             if (
                 !isOutOfBoundY(this.y, 50) &&
-                !isEdgeElement(currentPositionIndex) &&
-                currentPositionIndex !== newPositionIndex
+                !isEdgeElement(currentPosition) &&
+                currentPosition !== newPosition
             ) {
                 if (this.x < 0) {
-                    updateDOM(this.target, newPositionIndex);
+                    updateDOM(this.target, newPosition);
                 } else {
-                    updateDOM(this.target, newPositionIndex, 'after');
+                    updateDOM(this.target, newPosition, 'after');
                 }
             }
 
@@ -122,7 +121,7 @@ function initDock(): void {
                 this.target.remove();
             }
 
-            updateProgramMargin(this.target);
+            updateMargin(this.target);
 
             $gsap.to(this.target, {
                 x: 0,
@@ -162,8 +161,7 @@ onMounted(() => {
     @include size($space-14);
 
     &:last-child {
-        inline-size: auto;
-        block-size: $space-16;
+        @include size(auto, $space-16);
         // Override GSAP
         margin-inline-start: $space-3 !important;
         margin-inline-end: -$space-2 !important;

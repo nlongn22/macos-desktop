@@ -52,6 +52,7 @@
 <script setup lang="ts">
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
 const menuBarIcons = ['battery-75', 'wifi', 'magnifyingglass', 'control-centre'];
+
 const activeIcon = ref('');
 const time = ref('');
 
@@ -88,6 +89,7 @@ function closeModule(): void {
     padding-inline: $space-5;
     backdrop-filter: $blur-3xl;
     background: rgba($color-background, $opacity-high);
+    z-index: 2;
 }
 
 .menu-bar__left,

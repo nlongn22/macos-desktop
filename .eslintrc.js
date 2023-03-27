@@ -3,7 +3,7 @@ module.exports = {
     rules: {
         semi: ['error', 'always'],
         quotes: ['error', 'single'],
-        indent: ['error', 4],
+        indent: ['error', 4, { SwitchCase: 1 }],
         'comma-dangle': ['error', 'always-multiline'],
         'space-before-function-paren': ['error', 'never'],
         'vue/html-indent': ['error', 4],

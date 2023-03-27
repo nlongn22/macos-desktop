@@ -1,7 +1,7 @@
 <template>
     <div class="slider">
         <div
-            ref="sliderBackgroundRef"
+            ref="backgroundRef"
             class="slider__background"
             @mousedown="updateProgress"
         >
@@ -11,7 +11,7 @@
             />
 
             <div
-                ref="sliderProgressRef"
+                ref="progressRef"
                 class="slider__progress"
             >
                 <div
@@ -30,30 +30,31 @@ interface SliderProps {
 
 const props = defineProps<SliderProps>();
 
-const sliderBackgroundRef = ref();
-const sliderProgressRef = ref();
+const backgroundRef = ref();
+const progressRef = ref();
+
 const isHandleBorderVisible = ref();
-
-function updateSliderProgress(event: MouseEvent): any {
-    const sliderBackgroundRefPosition = sliderBackgroundRef.value.getBoundingClientRect();
-    const progressWidth = Math.ceil(event.clientX - sliderBackgroundRefPosition.left + 10); // + 10 so pointer is middle of handle
-
-    isHandleBorderVisible.value = progressWidth <= 40;
-
-    sliderProgressRef.value.style.width = `calc(${progressWidth}px`;
-}
-
-function removeMouseMovementListener(): any {
-    document.removeEventListener('mousemove', updateSliderProgress);
-}
 
 function updateProgress(): void {
     document.addEventListener('mousemove', updateSliderProgress);
     document.addEventListener('mouseup', removeMouseMovementListener);
 }
 
+function updateSliderProgress(event: MouseEvent): void {
+    const backgroundRefPosition = backgroundRef.value.getBoundingClientRect();
+    const progressWidth = Math.ceil(event.clientX - backgroundRefPosition.left + 10); // + 10 so pointer is middle of handle
+
+    isHandleBorderVisible.value = progressWidth <= 40;
+
+    progressRef.value.style.width = `calc(${progressWidth}px`;
+}
+
+function removeMouseMovementListener(): any {
+    document.removeEventListener('mousemove', updateSliderProgress);
+}
+
 onMounted(() => {
-    sliderProgressRef.value.style.width = '50%';
+    progressRef.value.style.width = '50%';
 });
 
 onBeforeUnmount(() => {

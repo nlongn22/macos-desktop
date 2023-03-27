@@ -102,6 +102,5 @@ const connectivities: Connectivity[] = [
     margin-block-start: r(-6);
     opacity: $opacity-high;
     font-size: r(11);
-    white-space: nowrap;
 }
 </style>

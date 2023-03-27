@@ -18,12 +18,12 @@
 </template>
 
 <script setup lang="ts">
-interface ControlCentreModuleProps {
+interface ModuleProps {
     hasAdditionalIcon?: boolean,
     hasChevron?: boolean,
 }
 
-const props = defineProps<ControlCentreModuleProps>();
+const props = defineProps<ModuleProps>();
 </script>
 
 <style lang="scss" scoped>

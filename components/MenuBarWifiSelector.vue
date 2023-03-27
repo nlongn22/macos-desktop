@@ -19,7 +19,6 @@
         </span>
 
         <Icon
-            v-if="isLockVisible()"
             name="lock-fill"
             class="wifi-selector__icon-lock"
         />
@@ -27,12 +26,12 @@
 </template>
 
 <script setup lang="ts">
-interface MenuBarWifiSelectorProps {
+interface SelectorProps {
     name: string,
     isConnected?: boolean
 }
 
-const props = defineProps<MenuBarWifiSelectorProps>();
+const props = defineProps<SelectorProps>();
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
@@ -41,10 +40,6 @@ const emit = defineEmits<{
 
 function toggleConnection(): void {
     emit('connectionChange', props.name);
-}
-
-function isLockVisible(): number {
-    return Math.round(Math.random());
 }
 </script>
 
