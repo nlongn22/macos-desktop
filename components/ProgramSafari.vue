@@ -1,6 +1,7 @@
 <template>
     <Program
         :draggable-elements="[safariNavbarRef, safariLeftRef, safariRightRef]"
+        :is-minimized="isMinimized"
         class="safari"
     >
         <div
@@ -22,6 +23,7 @@
                         <Icon
                             name="minus"
                             class="safari__dot"
+                            @click="minimize"
                         />
                     </div>
                     <div class="safari__dot-background">
@@ -86,9 +88,15 @@
 </template>
 
 <script setup lang="ts">
-const safariNavbarRef = ref();
-const safariLeftRef = ref();
-const safariRightRef = ref();
+const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
+const safariLeftRef: Ref<HTMLElement | undefined> = ref();
+const safariRightRef: Ref<HTMLElement | undefined> = ref();
+
+const isMinimized = ref(false);
+
+function minimize(): void {
+    isMinimized.value = true;
+}
 </script>
 
 <style lang="scss" scoped>

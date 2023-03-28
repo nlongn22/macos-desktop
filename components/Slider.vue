@@ -30,10 +30,10 @@ interface SliderProps {
 
 const props = defineProps<SliderProps>();
 
-const backgroundRef = ref();
-const progressRef = ref();
+const backgroundRef: Ref<HTMLElement | undefined> = ref();
+const progressRef: Ref<HTMLElement | undefined> = ref();
 
-const isHandleBorderVisible = ref();
+const isHandleBorderVisible = ref(false);
 
 function updateProgress(): void {
     document.addEventListener('mousemove', updateSliderProgress);
@@ -41,21 +41,19 @@ function updateProgress(): void {
 }
 
 function updateSliderProgress(event: MouseEvent): void {
-    const backgroundRefPosition = backgroundRef.value.getBoundingClientRect();
-    const progressWidth = Math.ceil(event.clientX - backgroundRefPosition.left + 10); // + 10 so pointer is middle of handle
+    const backgroundRefPosition = backgroundRef.value?.getBoundingClientRect();
+    const progressWidth = Math.ceil(event.clientX - (backgroundRefPosition?.left ?? 0) + 10); // + 10 so pointer is middle of handle
 
     isHandleBorderVisible.value = progressWidth <= 40;
 
-    progressRef.value.style.width = `calc(${progressWidth}px`;
+    if (progressRef.value) {
+        progressRef.value.style.width = `calc(${progressWidth}px`;
+    }
 }
 
 function removeMouseMovementListener(): any {
     document.removeEventListener('mousemove', updateSliderProgress);
 }
-
-onMounted(() => {
-    progressRef.value.style.width = '50%';
-});
 
 onBeforeUnmount(() => {
     document.removeEventListener('mouseup', removeMouseMovementListener);
@@ -81,6 +79,7 @@ onBeforeUnmount(() => {
 }
 
 .slider__progress {
+    inline-size: 50%;
     min-inline-size: $space-5;
     display: flex;
     align-items: center;

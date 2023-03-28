@@ -64,6 +64,21 @@ export default defineNuxtConfig({
         '@/assets/styles/common/index.scss',
         '@/assets/styles/partials/index.scss',
     ],
+    imports: {
+        dirs: ['stores'],
+    },
+    modules: [
+        '@pinia/nuxt',
+        'nuxt-font-loader',
+        '@nuxt/image-edge',
+        '@nuxtjs/color-mode',
+        '@funken-studio/sitemap-nuxt-3',
+    ],
+    pinia: {
+        autoImports: [
+            'defineStore',
+        ],
+    },
     vite: {
         plugins: [
             eslintPlugin(),
@@ -78,12 +93,6 @@ export default defineNuxtConfig({
             },
         },
     },
-    modules: [
-        'nuxt-font-loader',
-        '@nuxt/image-edge',
-        '@nuxtjs/color-mode',
-        '@funken-studio/sitemap-nuxt-3',
-    ],
     image: {
         dir: 'assets/images',
     },

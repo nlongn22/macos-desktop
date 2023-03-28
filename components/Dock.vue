@@ -13,6 +13,9 @@
 </template>
 
 <script setup lang="ts">
+import { useDockStore } from '~/store/dock';
+
+const dockStore = useDockStore();
 const { $gsap, $Draggable } = useNuxtApp();
 
 const programs = [
@@ -23,7 +26,7 @@ const programs = [
     'trash',
 ];
 
-const dockRef = ref();
+const dockRef: Ref<HTMLElement | undefined> = ref();
 
 function isEdgeElement(position: number): boolean {
     return (position === 0 || position === programs.length - 1);
@@ -62,7 +65,8 @@ function updateDOM(
         return;
     }
 
-    dockRef.value?.children[newPosition]?.[insertType](program);
+    const relativeProgram = dockRef.value?.children[newPosition] as any;
+    relativeProgram?.[insertType](program);
 }
 
 function initDock(): void {
@@ -92,7 +96,7 @@ function initDock(): void {
                 updateMargin(this.target);
             }
 
-            const currentPosition = Array.prototype.indexOf.call(dockRef.value.children, this.target);
+            const currentPosition = Array.prototype.indexOf.call(dockRef.value?.children, this.target);
             const relativePosition = Math.round(this.x / 68);
             const newPosition = currentPosition + relativePosition;
 
@@ -135,6 +139,7 @@ function initDock(): void {
 
 onMounted(() => {
     initDock();
+    dockStore.addBounds(dockRef.value?.getBoundingClientRect());
 });
 </script>
 
