@@ -29,22 +29,20 @@ function isPointerNearEdge(e: MouseEvent): boolean {
     const offsetX = Math.abs(Math.floor(e.offsetX));
     const offsetY = Math.abs(Math.floor(e.offsetY));
 
-    return bounds?.width - 3 <= offsetX ||
-        offsetX <= 1 ||
-        bounds?.height - 3 <= offsetY ||
-        offsetY <= 1;
+    return (bounds?.width - 3 <= offsetX || offsetX <= 1 || bounds?.height - 3 <= offsetY || offsetY <= 1) &&
+        e.target === programRef.value;
 }
 
 function getClosestEdge(event: MouseEvent, element: Element): string {
-    const elementBounds = element.getBoundingClientRect();
+    const elementBounds = element?.getBoundingClientRect();
 
     const pointerX = event.pageX;
     const pointerY = event.pageY;
 
-    const leftEdge = elementBounds.left;
-    const rightEdge = elementBounds.right;
-    const topEdge = elementBounds.top;
-    const bottomEdge = elementBounds.bottom;
+    const leftEdge = elementBounds?.left;
+    const rightEdge = elementBounds?.right;
+    const topEdge = elementBounds?.top;
+    const bottomEdge = elementBounds?.bottom;
 
     const leftEdgeDistance = Math.abs(leftEdge - pointerX);
     const rightEdgeDistance = Math.abs(rightEdge - pointerX);
@@ -133,9 +131,9 @@ function resize(e: MouseEvent): void {
     }
 
     if (inline.includes(closestEdge)) {
-        $gsap.set(programRef.value, { width: bounds.width + delta });
+        $gsap.set(programRef.value, { inlineSize: bounds.width + delta });
     } else {
-        $gsap.set(programRef.value, { height: bounds.height + delta });
+        $gsap.set(programRef.value, { blockSize: bounds.height + delta });
     }
 
     updateCursor(cursor);
@@ -174,6 +172,7 @@ function initDraggable(): void {
     inset-inline-start: 50%;
     inset-block-start: 45%;
     transform: translate(-50%, -50%);
+    padding: $space-0;
     border-radius: $border-radius-xl;
     border: $border-width-thin solid rgba($color-gray, $opacity-low);
     overflow: hidden;

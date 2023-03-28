@@ -57,7 +57,7 @@ function updateDOM(
     program: HTMLElement,
     newPosition: number,
     insertType = 'before',
-) {
+): void {
     if (isEdgeElement(newPosition)) {
         return;
     }
