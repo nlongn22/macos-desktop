@@ -81,6 +81,7 @@
                 <Icon
                     name="square-on-square"
                     class="safari__navbar-icon"
+                    @click="minimize"
                 />
             </div>
         </div>
