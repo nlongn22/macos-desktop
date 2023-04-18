@@ -1,7 +1,6 @@
 <template>
     <Program
         :draggable-elements="[safariNavbarRef, safariLeftRef, safariRightRef]"
-        :is-minimized="isMinimized"
         class="safari"
     >
         <div

@@ -6,32 +6,11 @@
         @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
     >
-        <svg class="svg">
-            <clipPath
-                id="initial-path"
-                clipPathUnits="objectBoundingBox"
-            >
-                <path d="M0,0 L1,0 C1,0.308,1,0.692,1,1 L0,1 C0,0.385,0,0.462,0,0">
-                    <animate
-                        ref="animateRef"
-                        attributeName="d"
-                        begin="indefinite"
-                        fill="freeze"
-                        dur="0.2s"
-                        :to="clipPath"
-                    />
-                </path>
-            </clipPath>
-        </svg>
-
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
-import { useDockStore } from '~/store/dock';
-
-const dockStore = useDockStore();
 const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
@@ -42,19 +21,9 @@ interface ProgramProps {
 const props = defineProps<ProgramProps>();
 
 const programRef: Ref<HTMLElement | undefined> = ref();
-const animateRef: Ref<SVGAnimationElement | undefined> = ref();
-
-const clipPath = ref('M0,0 L1,0 C1,0.385,0.813,0.692,0.813,1 L0.781,1 C0.75,0.462,0.063,0.462,0,0');
 
 let draggable: Draggable[] | undefined;
 let closestEdge: string;
-
-watch(
-    () => props.isMinimized,
-    () => {
-        minimize();
-    },
-);
 
 function isPointerNearEdge(e: MouseEvent): boolean {
     const bounds = programRef.value?.getBoundingClientRect();
@@ -191,19 +160,6 @@ function endResize(): void {
     document.removeEventListener('mouseup', endResize);
 }
 
-function minimize(): void {
-    const programOffsetLeft = programRef.value?.getBoundingClientRect().left;
-    const dockOffsetRight = window.innerWidth - (dockStore.dockBounds?.right ?? 0);
-    const programToDockDistance = window.innerWidth - (programOffsetLeft ?? 0) - dockOffsetRight;
-    console.log(programToDockDistance);
-
-    animateRef.value?.beginElement();
-
-    setTimeout(() => {
-        $gsap.to('.safari', {});
-    }, 150);
-}
-
 function initDraggable(): void {
     draggable = $Draggable.create(programRef.value, {
         cursor: 'revert',
@@ -214,19 +170,6 @@ function initDraggable(): void {
             if (!props.draggableElements?.includes(event.target as HTMLElement)) {
                 this.endDrag();
             }
-        },
-        onDrag: () => {
-            const dockOffset = window.innerWidth - (dockStore.dockBounds?.right ?? 0);
-
-            const programOffsetLeft = programRef.value?.getBoundingClientRect().left;
-            const programLeftToDockDistance = window.innerWidth - (programOffsetLeft ?? 0) - dockOffset;
-            const resultLeft = programLeftToDockDistance / 1000;
-
-            const programOffsetRight = window.innerWidth - (programRef.value?.getBoundingClientRect().right ?? 0);
-            const programRightToDockDistance = window.innerWidth - (programOffsetRight ?? 0) - (dockStore.dockBounds?.right ?? 0);
-            const resultRight = programRightToDockDistance / 1000;
-
-            clipPath.value = `M0,0 L1,0 C1,0.385,${resultRight},0.692,${resultRight},1 L${resultLeft},1 C${resultLeft},0.462,0.063,0.462,0,0`;
         },
     });
 }
@@ -247,6 +190,5 @@ function initDraggable(): void {
     border-radius: $border-radius-xl;
     border: $border-width-thin solid rgba($color-gray, $opacity-low);
     overflow: hidden;
-    clip-path: url(#initial-path);
 }
 </style>
