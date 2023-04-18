@@ -18,7 +18,7 @@
 
         <div class="menu-bar__right">
             <div
-                v-click-outside="closeModule"
+                v-on-click-outside="closeModule"
                 class="menu-bar__icons"
             >
                 <Icon
@@ -50,6 +50,8 @@
 </template>
 
 <script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components';
+
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
 const menuBarIcons = ['battery-75', 'wifi', 'magnifyingglass', 'control-centre'];
 

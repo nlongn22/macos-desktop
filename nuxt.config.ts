@@ -69,10 +69,10 @@ export default defineNuxtConfig({
     },
     modules: [
         '@pinia/nuxt',
-        'nuxt-font-loader',
+        '@vueuse/nuxt',
         '@nuxt/image-edge',
+        'nuxt-font-loader',
         '@nuxtjs/color-mode',
-        '@funken-studio/sitemap-nuxt-3',
     ],
     pinia: {
         autoImports: [
