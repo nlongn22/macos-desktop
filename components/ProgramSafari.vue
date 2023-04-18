@@ -22,7 +22,6 @@
                         <Icon
                             name="minus"
                             class="safari__dot"
-                            @click="minimize"
                         />
                     </div>
                     <div class="safari__dot-background">
@@ -80,7 +79,6 @@
                 <Icon
                     name="square-on-square"
                     class="safari__navbar-icon"
-                    @click="minimize"
                 />
             </div>
         </div>
@@ -91,12 +89,6 @@
 const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
 const safariLeftRef: Ref<HTMLElement | undefined> = ref();
 const safariRightRef: Ref<HTMLElement | undefined> = ref();
-
-const isMinimized = ref(false);
-
-function minimize(): void {
-    isMinimized.value = true;
-}
 </script>
 
 <style lang="scss" scoped>

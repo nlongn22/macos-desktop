@@ -15,7 +15,6 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
     draggableElements: HTMLElement[] | undefined,
-    isMinimized: boolean,
 }
 
 const props = defineProps<ProgramProps>();
