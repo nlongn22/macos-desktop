@@ -9,7 +9,15 @@
 </template>
 
 <script lang="ts" setup>
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 const wallpapers = ['ventura-light'];
+
+onMounted(() => {
+    document.body.style.filter = `brightness(${globalStore.brightness})`;
+});
 </script>
 
 <style lang="scss" scoped>

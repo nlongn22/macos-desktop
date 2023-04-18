@@ -5,6 +5,7 @@
     >
         <NuxtImg
             v-for="(program, index) in programs"
+            :id="program"
             :key="index"
             :src="`/programs/${program}.png`"
             class="dock__program"
@@ -13,18 +14,12 @@
 </template>
 
 <script setup lang="ts">
-import { useDockStore } from '~/store/dock';
+import { useGlobalStore } from '~/store/global';
 
-const dockStore = useDockStore();
+const globalStore = useGlobalStore();
 const { $gsap, $Draggable } = useNuxtApp();
 
-const programs = [
-    'finder', 'launchpad', 'calculator',
-    'calendar', 'clock', 'contacts',
-    'facetime', 'messages', 'notes',
-    'photos', 'reminders', 'safari',
-    'trash',
-];
+const programs = globalStore.dock;
 
 const dockRef: Ref<HTMLElement | undefined> = ref();
 
@@ -67,6 +62,7 @@ function updateDOM(
 
     const relativeProgram = dockRef.value?.children[newPosition] as any;
     relativeProgram?.[insertType](program);
+    saveProgramsOrder();
 }
 
 function initDock(): void {
@@ -123,6 +119,7 @@ function initDock(): void {
         onDragEnd: function() {
             if (isOutOfBoundY(this.y, 150)) {
                 this.target.remove();
+                saveProgramsOrder();
             }
 
             updateMargin(this.target);
@@ -137,9 +134,18 @@ function initDock(): void {
     });
 }
 
+function saveProgramsOrder(): void {
+    const programs = dockRef.value?.children;
+
+    if (!programs) {
+        return;
+    }
+
+    globalStore.saveDockOrder([...programs].map(({ id }) => id));
+}
+
 onMounted(() => {
     initDock();
-    dockStore.addBounds(dockRef.value?.getBoundingClientRect());
 });
 </script>
 

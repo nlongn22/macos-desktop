@@ -24,6 +24,10 @@
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 interface SliderProps {
     iconName: string,
 }
@@ -46,14 +50,39 @@ function updateSliderProgress(event: MouseEvent): void {
 
     isHandleBorderVisible.value = progressWidth <= 40;
 
-    if (progressRef.value) {
-        progressRef.value.style.width = `calc(${progressWidth}px`;
+    if (!progressRef.value) {
+        return;
+    }
+
+    progressRef.value.style.width = `calc(${progressWidth}px`;
+
+    if (props.iconName === 'sun-max-fill') {
+        let normalizedValue = progressWidth / 256;
+
+        if (normalizedValue < 0) {
+            normalizedValue = 0.05;
+        }
+
+        if (normalizedValue > 1) {
+            normalizedValue = 1;
+        }
+
+        document.body.style.filter = `brightness(${normalizedValue})`;
+        globalStore.saveBrightness(normalizedValue);
     }
 }
 
 function removeMouseMovementListener(): any {
     document.removeEventListener('mousemove', updateSliderProgress);
 }
+
+onMounted(() => {
+    if (!progressRef.value) {
+        return;
+    }
+
+    progressRef.value.style.width = `calc(${globalStore.brightness * 256}px`;
+});
 
 onBeforeUnmount(() => {
     document.removeEventListener('mouseup', removeMouseMovementListener);
@@ -79,7 +108,7 @@ onBeforeUnmount(() => {
 }
 
 .slider__progress {
-    inline-size: 50%;
+    inline-size: 100%;
     min-inline-size: $space-5;
     display: flex;
     align-items: center;

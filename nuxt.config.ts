@@ -79,6 +79,7 @@ export default defineNuxtConfig({
             'defineStore',
         ],
     },
+    ssr: false,
     vite: {
         plugins: [
             eslintPlugin(),
