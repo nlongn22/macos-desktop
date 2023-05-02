@@ -53,15 +53,25 @@
                 </div>
             </div>
 
-            <div class="safari__middle">
-                <Icon
-                    class="spotlight__icon"
-                    name="magnifyingglass"
-                />
-                <input
-                    placeholder="Search or enter website name"
-                    class="spotlight__input"
+            <div
+                class="safari__middle"
+                :class="{ 'safari__middle--active' : isSafariMiddleActive }"
+                v-on-click-outside="disableInput"
+                @click="activateInput"
+            >
+                <div
+                    ref="safariInputRef"
+                    class="safari__input"
                 >
+                    <Icon
+                        class="spotlight__icon"
+                        name="magnifyingglass"
+                    />
+                    <input
+                        placeholder="Search or enter website name"
+                        class="spotlight__input"
+                    >
+                </div>
             </div>
 
             <div
@@ -86,14 +96,26 @@
 </template>
 
 <script setup lang="ts">
+import { vOnClickOutside } from '@vueuse/components';
+
 const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
 const safariLeftRef: Ref<HTMLElement | undefined> = ref();
 const safariRightRef: Ref<HTMLElement | undefined> = ref();
+
+const isSafariMiddleActive = ref(false);
+
+function activateInput(): void {
+    isSafariMiddleActive.value = true;
+}
+
+function disableInput(): void {
+    isSafariMiddleActive.value = false;
+}
 </script>
 
 <style lang="scss" scoped>
 .safari {
-    background-color: $color-background;
+    background-color: $color-white-100;
 }
 
 .safari__navbar,
@@ -110,8 +132,7 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 .safari__navbar {
     justify-content: space-between;
     padding-inline: $space-6;
-    padding-block: $space-3;
-    background-color: $color-background;
+    padding-block: $space-2;
 }
 
 .safari__left {
@@ -125,6 +146,15 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
     flex-grow: 1;
     flex-basis: 0;
     column-gap: $space-4;
+}
+
+.safari__dots {
+    column-gap: $space-2;
+}
+
+.safari__dot {
+    font-size: r(7);
+    color: rgba($color-foreground, $opacity-very-high)
 }
 
 .safari__dot-background {
@@ -147,25 +177,28 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
     }
 }
 
-.safari__dots {
-    column-gap: $space-2;
-}
-
-.safari__dot {
-    font-size: r(7);
-    color: rgba($color-foreground, $opacity-very-high)
-}
-
 .safari__sidebar-icon-sidebar {
-    margin-inline-end: $space-2;
-    padding-inline-end: $space-2;
-    width: 55%;
-    border-inline-end: $border-width-thin solid rgba($color-border, $opacity-low);
+    @include size($space-9, 100%);
+    padding-inline: $space-2;
+    padding-block: r(6);
+
+    @include has-hover {
+        border-radius: $border-radius;
+        background-color: rgba($color-gray, $opacity-low);
+    }
 }
 
 .safari__sidebar-icon-chevron {
+    @include size($space-5, 100%);
     transform: rotate(90deg);
+    padding: $space-2;
     font-size: $space-2 !important;
+    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-low);
+
+    @include has-hover {
+        border-radius: $border-radius;
+        background-color: rgba($color-gray, $opacity-low);
+    }
 }
 
 .safari__navigations {
@@ -177,37 +210,47 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 }
 
 .safari__middle {
-    display: flex;
-    justify-content: center;
     width: 40%;
     padding: $space-2;
     padding-block: $space-1;
     border-radius: $border-radius-md;
-    background-color: rgba($color-foreground, $opacity-very-low);
+    background-color: rgba($color-gray, $opacity-very-low);
+
+    &--active {
+        margin: r(-3);
+        border: r(3) solid rgba($color-blue, 0.5);
+        cursor: text;
+
+        .safari__input {
+            transform: translateX(-65%);
+        }
+
+        @include has-hover {
+            cursor: text;
+        }
+    }
+}
+
+.safari__input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-inline: auto;
+    transition: all $transition-duration-fast;
 }
 
 .spotlight__icon {
     margin-right: $space-1;
+    font-size: $space-3;
     color: rgba($color-foreground, $opacity-medium);
 }
 
 .spotlight__input {
-    inline-size: auto;
-    transition: inline-size $transition-duration-medium;
+    cursor: inherit;
 
     &::placeholder {
         color: rgba($color-foreground, $opacity-low);
     }
-
-    @include has-hover {
-        cursor: revert;
-    }
-}
-
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
 }
 
 .safari__navbar-icon {
