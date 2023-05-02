@@ -150,11 +150,12 @@ function disableInput(): void {
 
 .safari__dots {
     column-gap: $space-2;
-}
 
-.safari__dot {
-    font-size: r(7);
-    color: rgba($color-foreground, $opacity-very-high)
+    @include has-hover {
+        .safari__dot {
+            visibility: visible;
+        }
+    }
 }
 
 .safari__dot-background {
@@ -175,6 +176,12 @@ function disableInput(): void {
     &:last-child {
         background-color: $color-green;
     }
+}
+
+.safari__dot {
+    visibility: hidden;
+    font-size: r(6);
+    color: $color-foreground;
 }
 
 .safari__sidebar-icon-sidebar {
