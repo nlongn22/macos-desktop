@@ -13,22 +13,19 @@
             >
                 <div class="safari__dots">
                     <div class="safari__dot-background">
-                        <Icon
-                            name="xmark"
-                            class="safari__dot"
-                        />
+                        <span class="safari__dot">
+                            &times;
+                        </span>
                     </div>
                     <div class="safari__dot-background">
-                        <Icon
-                            name="minus"
-                            class="safari__dot"
-                        />
+                        <span class="safari__dot">
+                            &minus;
+                        </span>
                     </div>
                     <div class="safari__dot-background">
-                        <Icon
-                            name="minus"
-                            class="safari__dot"
-                        />
+                        <span class="safari__dot">
+                            &plus;
+                        </span>
                     </div>
                 </div>
                 <div class="safari__sidebar">
@@ -54,22 +51,23 @@
             </div>
 
             <div
+                v-on-click-outside="disableInput"
                 class="safari__middle"
                 :class="{ 'safari__middle--active' : isSafariMiddleActive }"
-                v-on-click-outside="disableInput"
                 @click="activateInput"
             >
                 <div
                     ref="safariInputRef"
                     class="safari__input"
+                    :class="{ 'safari__input--active' : isSafariMiddleActive }"
                 >
                     <Icon
-                        class="spotlight__icon"
+                        class="safari__input-icon"
                         name="magnifyingglass"
                     />
                     <input
                         placeholder="Search or enter website name"
-                        class="spotlight__input"
+                        class="safari__input-text"
                     >
                 </div>
             </div>
@@ -121,6 +119,7 @@ function disableInput(): void {
 .safari__navbar,
 .safari__left,
 .safari__dots,
+.safari__dot-background,
 .safari__sidebar,
 .safari__navigations,
 .safari__middle,
@@ -152,17 +151,23 @@ function disableInput(): void {
     column-gap: $space-2;
 
     @include has-hover {
+
         .safari__dot {
             visibility: visible;
         }
     }
 }
 
+.safari__dot {
+    transform: translate(r(0.5), r(-1.5));
+    visibility: hidden;
+    font-size: r(13);
+    color: rgba($color-foreground, $opacity-high);
+}
+
 .safari__dot-background {
-    @include size(r(13));
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
+    @include size($space-3);
+    justify-content: center;
     border-radius: $border-radius-full;
 
     &:first-child {
@@ -175,13 +180,11 @@ function disableInput(): void {
 
     &:last-child {
         background-color: $color-green;
-    }
-}
 
-.safari__dot {
-    visibility: hidden;
-    font-size: r(6);
-    color: $color-foreground;
+        .safari__dot {
+            transform: translateY(-$space-0);
+        }
+    }
 }
 
 .safari__sidebar-icon-sidebar {
@@ -217,46 +220,44 @@ function disableInput(): void {
 }
 
 .safari__middle {
-    width: 40%;
-    padding: $space-2;
-    padding-block: $space-1;
-    border-radius: $border-radius-md;
-    background-color: rgba($color-gray, $opacity-very-low);
+    inline-size: 40%;
+    padding: r(6);
+    border-radius: $border-radius-lg;
+    background-color: rgba($color-gray, $opacity-low);
 
     &--active {
-        margin: r(-3);
-        border: r(3) solid rgba($color-blue, 0.5);
+        margin: -$space-1;
+        border: $space-1 solid rgba($color-blue, 0.5);
         cursor: text;
-
-        .safari__input {
-            transform: translateX(-65%);
-        }
-
-        @include has-hover {
-            cursor: text;
-        }
     }
 }
 
 .safari__input {
+    inline-size: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-inline: auto;
-    transition: all $transition-duration-fast;
+    transition: margin-inline-end $transition-duration-fast;
+
+    &--active {
+        margin-inline-end: 100%;
+    }
 }
 
-.spotlight__icon {
-    margin-right: $space-1;
+.safari__input-icon {
+    min-inline-size: $space-3;
+    margin-inline-end: $space-1;
     font-size: $space-3;
     color: rgba($color-foreground, $opacity-medium);
 }
 
-.spotlight__input {
+.safari__input-text {
+    min-inline-size: r(175);
     cursor: inherit;
+    font-size: r(13);
 
     &::placeholder {
-        color: rgba($color-foreground, $opacity-low);
+        color: rgba($color-gray, $opacity-high);
     }
 }
 

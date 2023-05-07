@@ -32,6 +32,7 @@ h6 {
 *::before,
 *::after {
     box-sizing: border-box;
+    user-select: none;
 }
 
 html {
@@ -63,7 +64,6 @@ body {
     transition: all $transition-duration-slow;
     overflow: hidden;
     cursor: default !important;
-    user-select: none;
 }
 
 h1,
