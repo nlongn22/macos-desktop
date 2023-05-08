@@ -254,7 +254,7 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 }
 
 .safari__iframe {
-    @include size(100%);
+    @include size(100%, 95.8%);
     border: 0;
 }
 </style>
