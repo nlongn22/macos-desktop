@@ -159,7 +159,7 @@ function disableInput(): void {
 }
 
 .safari__dot {
-    transform: translate(r(0.5), r(-1.5));
+    transform: translateY(r(-1.5));
     visibility: hidden;
     font-size: r(13);
     color: rgba($color-foreground, $opacity-high);
@@ -182,7 +182,7 @@ function disableInput(): void {
         background-color: $color-green;
 
         .safari__dot {
-            transform: translateY(-$space-0);
+            transform: translate(r(-0.5), r(-1.5));
         }
     }
 }
