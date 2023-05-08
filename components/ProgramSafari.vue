@@ -50,23 +50,19 @@
                 </div>
             </div>
 
-            <div
-                v-on-click-outside="disableInput"
-                class="safari__middle"
-                :class="{ 'safari__middle--active' : isSafariMiddleActive }"
-                @click="activateInput"
-            >
-                <div
-                    ref="safariInputRef"
-                    class="safari__input"
-                    :class="{ 'safari__input--active' : isSafariMiddleActive }"
-                >
+            <div class="safari__middle">
+                <div class="safari__input">
                     <Icon
                         class="safari__input-icon"
                         name="magnifyingglass"
                     />
+                    <Icon
+                        class="safari__input-icon"
+                        name="lock-fill"
+                    />
                     <input
-                        placeholder="Search or enter website name"
+                        placeholder="nln.fyi"
+                        size="4"
                         class="safari__input-text"
                     >
                 </div>
@@ -90,30 +86,28 @@
                 />
             </div>
         </div>
+
+        <iframe
+            src="https://nln.fyi"
+            class="safari__iframe"
+        />
     </Program>
 </template>
 
 <script setup lang="ts">
-import { vOnClickOutside } from '@vueuse/components';
-
 const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
 const safariLeftRef: Ref<HTMLElement | undefined> = ref();
 const safariRightRef: Ref<HTMLElement | undefined> = ref();
-
-const isSafariMiddleActive = ref(false);
-
-function activateInput(): void {
-    isSafariMiddleActive.value = true;
-}
-
-function disableInput(): void {
-    isSafariMiddleActive.value = false;
-}
 </script>
 
 <style lang="scss" scoped>
+// Most websites don't allow accessing from iframes -> show my personal website.
+// The only way to remove the white padding around iframe is to set the same background-color
+// as my website to mask it.
+// Then reapply white background to navbar separately.
 .safari {
-    background-color: $color-white-100;
+    border: 0;
+    background-color: #232931; // from personal website!
 }
 
 .safari__navbar,
@@ -130,8 +124,11 @@ function disableInput(): void {
 
 .safari__navbar {
     justify-content: space-between;
+    margin-inline: -$space-0;
+    margin-block-start: -$space-0;
     padding-inline: $space-6;
     padding-block: $space-2;
+    background-color: $color-white-100;
 }
 
 .safari__left {
@@ -224,40 +221,26 @@ function disableInput(): void {
     padding: r(6);
     border-radius: $border-radius-lg;
     background-color: rgba($color-gray, $opacity-low);
-
-    &--active {
-        margin: -$space-1;
-        border: $space-1 solid rgba($color-blue, 0.5);
-        cursor: text;
-    }
 }
 
 .safari__input {
-    inline-size: 100%;
     display: flex;
-    justify-content: center;
     align-items: center;
-    transition: margin-inline-end $transition-duration-fast;
-
-    &--active {
-        margin-inline-end: 100%;
-    }
+    margin-inline: auto;
 }
 
 .safari__input-icon {
-    min-inline-size: $space-3;
     margin-inline-end: $space-1;
     font-size: $space-3;
     color: rgba($color-foreground, $opacity-medium);
 }
 
 .safari__input-text {
-    min-inline-size: r(175);
     cursor: inherit;
     font-size: r(13);
 
     &::placeholder {
-        color: rgba($color-gray, $opacity-high);
+        color: $color-foreground;
     }
 }
 
@@ -268,5 +251,10 @@ function disableInput(): void {
     &--smaller {
         font-size: $space-4;
     }
+}
+
+.safari__iframe {
+    @include size(100%);
+    border: 0;
 }
 </style>
