@@ -1,10 +1,24 @@
 <template>
     <div class="container">
-        <MenuBar />
-        <NuxtPage />
-        <Dock />
+        <BootScreen
+            v-if="isBootScreenVisible"
+            @loading-has-finished="hideBootScreen"
+        />
+        <div v-else>
+            <MenuBar />
+            <NuxtPage />
+            <Dock />
+        </div>
     </div>
 </template>
+
+<script setup lang="ts">
+const isBootScreenVisible = ref(true);
+
+function hideBootScreen() {
+    isBootScreenVisible.value = false;
+}
+</script>
 
 <style lang="scss" scoped>
 .container {
