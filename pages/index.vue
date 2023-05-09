@@ -4,7 +4,8 @@
             :src="`/wallpapers/${wallpapers[0]}.jpg`"
             class="desktop__wallpaper"
         />
-        <ProgramSafari />
+
+        <ProgramSafari v-if="isProgramActive('safari')" />
     </div>
 </template>
 
@@ -14,6 +15,10 @@ import { useGlobalStore } from '~/store/global';
 const globalStore = useGlobalStore();
 
 const wallpapers = ['ventura-light'];
+
+function isProgramActive(programName: string): boolean {
+    return globalStore.activePrograms.includes(programName);
+}
 
 onMounted(() => {
     document.body.style.filter = `brightness(${globalStore.brightness})`;

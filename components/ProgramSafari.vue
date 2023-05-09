@@ -12,7 +12,10 @@
                 class="safari__left"
             >
                 <div class="safari__dots">
-                    <div class="safari__dot-background">
+                    <div
+                        class="safari__dot-background"
+                        @click="closeProgram"
+                    >
                         <span class="safari__dot">
                             &times;
                         </span>
@@ -95,19 +98,22 @@
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
 const safariLeftRef: Ref<HTMLElement | undefined> = ref();
 const safariRightRef: Ref<HTMLElement | undefined> = ref();
+
+function closeProgram(): void {
+    globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== 'safari');
+}
 </script>
 
 <style lang="scss" scoped>
-// Most websites don't allow accessing from iframes -> show my personal website.
-// The only way to remove the white padding around iframe is to set the same background-color
-// as my website to mask it.
-// Then reapply white background to navbar separately.
 .safari {
-    border: 0;
-    background-color: #232931; // from personal website!
+    background-color: $color-white-100;
 }
 
 .safari__navbar,
@@ -124,11 +130,9 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 
 .safari__navbar {
     justify-content: space-between;
-    margin-inline: -$space-0;
-    margin-block-start: -$space-0;
     padding-inline: $space-6;
-    padding-block: $space-2;
-    background-color: $color-white-100;
+    padding-block-start: r(6);
+    padding-block-end: $space-2;
 }
 
 .safari__left {
@@ -159,6 +163,7 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
     transform: translateY(r(-1.5));
     visibility: hidden;
     font-size: r(13);
+    font-weight: $font-weight-medium;
     color: rgba($color-foreground, $opacity-high);
 }
 
@@ -179,7 +184,7 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
         background-color: $color-green;
 
         .safari__dot {
-            transform: translate(r(-0.5), r(-1.5));
+            transform: translateY(r(-1.5));
         }
     }
 }
@@ -254,7 +259,7 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 }
 
 .safari__iframe {
-    @include size(100%, 95.8%);
+    @include size(100%, 93%);
     border: 0;
 }
 </style>

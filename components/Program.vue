@@ -178,7 +178,7 @@ function initDraggable(): void {
 .program {
     @include size(80vw, 80vh);
     min-inline-size: r(800);
-    min-block-size: r(200);
+    min-block-size: r(300);
     max-inline-size: 100%;
     max-block-size: calc(100% - #{$space-6});
     position: absolute;
@@ -187,7 +187,6 @@ function initDraggable(): void {
     transform: translate(-50%, -50%);
     padding: $space-0;
     border-radius: $border-radius-xl;
-    border: $border-width-thin solid rgba($color-gray, $opacity-low);
     overflow: hidden;
 }
 </style>

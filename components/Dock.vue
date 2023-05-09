@@ -3,13 +3,19 @@
         ref="dockRef"
         class="dock"
     >
-        <NuxtImg
+        <div
             v-for="(program, index) in programs"
             :id="program"
             :key="index"
-            :src="`/programs/${program}.png`"
             class="dock__program"
-        />
+            :class="{ 'dock__program--active' : isProgramActive(program) }"
+        >
+            <NuxtImg
+                :src="`/programs/${program}.png`"
+                class="dock__program-image"
+            />
+            <div class="dock__program-dot" />
+        </div>
     </div>
 </template>
 
@@ -21,10 +27,14 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 const programs = globalStore.dock;
 
+const staticPrograms: string[] = ['finder', 'launchpad', 'trash'];
+
 const dockRef: Ref<HTMLElement | undefined> = ref();
 
-function isEdgeElement(position: number): boolean {
-    return (position === 0 || position === programs.length - 1);
+const isDragging = ref(false);
+
+function isStaticProgram(programName: string): boolean {
+    return staticPrograms.includes(programName);
 }
 
 function isOutOfBoundX(currentPosition: number): boolean {
@@ -56,7 +66,7 @@ function updateDOM(
     newPosition: number,
     insertType = 'before',
 ): void {
-    if (isEdgeElement(newPosition)) {
+    if (isStaticProgram(program.id)) {
         return;
     }
 
@@ -76,7 +86,11 @@ function initDock(): void {
         onRelease: function() {
             updateBrightness(this.target);
         },
+        onClick: function() {
+            openProgram(this.target);
+        },
         onDragStart: function() {
+            isDragging.value = true;
             updateBrightness(this.target);
         },
         onDrag: function() {
@@ -96,7 +110,7 @@ function initDock(): void {
             const relativePosition = Math.round(this.x / 68);
             const newPosition = currentPosition + relativePosition;
 
-            if (isEdgeElement(currentPosition)) {
+            if (isStaticProgram(this.target.id)) {
                 this.endDrag(this.target);
                 return;
             }
@@ -104,7 +118,7 @@ function initDock(): void {
             // Prevent unnecessary DOM updates.
             if (
                 !isOutOfBoundY(this.y, 50) &&
-                !isEdgeElement(currentPosition) &&
+                !isStaticProgram(this.target.id) &&
                 currentPosition !== newPosition
             ) {
                 if (this.x < 0) {
@@ -117,6 +131,8 @@ function initDock(): void {
             this.update(true, true);
         },
         onDragEnd: function() {
+            isDragging.value = false;
+
             if (isOutOfBoundY(this.y, 150)) {
                 this.target.remove();
                 saveProgramsOrder();
@@ -144,6 +160,25 @@ function saveProgramsOrder(): void {
     globalStore.saveDockOrder([...programs].map(({ id }) => id));
 }
 
+function openProgram(program: HTMLElement): void {
+    if (isStaticProgram(program.id)) {
+        return;
+    }
+
+    const tl = $gsap.timeline({
+        onComplete: () => {
+            globalStore.openProgram(program.id);
+        },
+    });
+
+    tl.to(program, { y: -20, duration: 0.5 });
+    tl.to(program, { y: 0 });
+}
+
+function isProgramActive(programName: string): boolean {
+    return !isDragging.value && globalStore.isProgramActive(programName);
+}
+
 onMounted(() => {
     initDock();
 });
@@ -159,8 +194,8 @@ onMounted(() => {
     display: flex;
     align-items: center;
     column-gap: $space-3;
-    padding: $space-3;
-    padding-block-start: $space-2;
+    padding-inline: $space-3;
+    padding-block: $space-2;
     border-radius: $border-radius-3xl;
     border: $border-width-thin solid rgba($color-border, $opacity-low);
     backdrop-filter: $blur-xl;
@@ -169,15 +204,37 @@ onMounted(() => {
 }
 
 .dock__program {
-    @include size($space-14);
+    position: relative;
+
+    &--active {
+        .dock__program-dot {
+            visibility: visible;
+        }
+    }
 
     &:last-child {
-        @include size(auto, $space-16);
-        // Override GSAP
-        margin-inline-start: $space-3 !important;
-        margin-inline-end: -$space-2 !important;
-        padding-inline-start: $space-3;
-        border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
+        .dock__program-image {
+            @include size($space-19, auto);
+            margin-inline-start: $space-1;
+            margin-inline-end: -$space-3;
+            padding-inline-start: $space-2;
+            border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
+        }
     }
+}
+
+.dock__program-image {
+    @include size($space-13);
+}
+
+.dock__program-dot {
+    @include size($space-1);
+    position: absolute;
+    inset-inline-start: 50%;
+    inset-block-end: 0;
+    transform: translate(-50%, 200%);
+    border-radius: $border-radius-full;
+    visibility: hidden;
+    background-color: rgba($color-black, $opacity-high);
 }
 </style>

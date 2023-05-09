@@ -11,6 +11,8 @@ export const useGlobalStore = defineStore('dock', () => {
         'trash',
     ]);
 
+    const activePrograms: Ref<string[]> = ref([]);
+
     function saveBrightness(value: number): void {
         brightness.value = value;
     }
@@ -19,5 +21,13 @@ export const useGlobalStore = defineStore('dock', () => {
         dock.value = programs;
     }
 
-    return { brightness, dock, saveBrightness, saveDockOrder };
+    function openProgram(programName: string): void {
+        activePrograms.value.push(programName);
+    }
+
+    function isProgramActive(programName: string): boolean {
+        return activePrograms.value.includes(programName);
+    }
+
+    return { brightness, dock, activePrograms, saveBrightness, saveDockOrder, openProgram, isProgramActive };
 });
