@@ -59,10 +59,6 @@
                 <div class="safari__input">
                     <Icon
                         class="safari__input-icon"
-                        name="magnifyingglass"
-                    />
-                    <Icon
-                        class="safari__input-icon"
                         name="lock-fill"
                     />
                     <input
@@ -92,9 +88,30 @@
             </div>
         </div>
 
+        <div class="safari__tabs">
+            <div
+                v-for="(page, index) in safariPages"
+                :key="index"
+                class="safari__tab"
+                :class="{ 'safari__tab--inactive' : activePage !== index }"
+                @click="switchPage(index)"
+            >
+                <NuxtImg
+                    class="safari__tab-favicon"
+                    :src="`/favicons/${page.name}.png`"
+                />
+                <div class="safari__tab-title">
+                    {{ page.title }}
+                </div>
+            </div>
+        </div>
+
         <iframe
-            src="https://nln.fyi"
+            v-for="(page, index) in safariPages"
+            :key="index"
+            :src="page.url"
             class="safari__iframe"
+            :class="{ 'safari__iframe--active' : activePage === index }"
         />
     </Program>
 </template>
@@ -104,9 +121,35 @@ import { useGlobalStore } from '~/store/global';
 
 const globalStore = useGlobalStore();
 
+interface SafariPage {
+    name: string,
+    title: string,
+    url: string,
+}
+
 const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
 const safariLeftRef: Ref<HTMLElement | undefined> = ref();
 const safariRightRef: Ref<HTMLElement | undefined> = ref();
+
+const safariPages: SafariPage[] = [
+    {
+        name: 'nln',
+        title: 'Ngoc Long Nguyen | Home',
+        url: 'https://nln.fyi',
+    },
+    {
+        name: 'linkedin',
+        title: 'Ngoc Long Nguyen | LinkedIn',
+        url: 'https://linkedin.com/in/ngoc-long-nguyen',
+    },
+    {
+        name: 'github',
+        title: 'nlongn22 (Ngoc Long Nguyen) • GitHub',
+        url: 'https://github.com/nlongn22',
+    },
+];
+
+const activePage = ref(0);
 
 function closeProgram(): void {
     globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== 'safari');
@@ -119,10 +162,16 @@ function navigateBack(): void {
 function navigateForward(): void {
     window.history.forward();
 }
+
+function switchPage(newPage: number): void {
+    activePage.value = newPage;
+}
 </script>
 
 <style lang="scss" scoped>
 .safari {
+    display: flex;
+    flex-direction: column;
     background-color: $color-white-100;
 }
 
@@ -146,7 +195,9 @@ function navigateForward(): void {
 .safari__sidebar,
 .safari__navigations,
 .safari__middle,
-.safari__right {
+.safari__right,
+.safari__tabs,
+.safari__tab {
     display: flex;
     align-items: center;
 }
@@ -254,8 +305,55 @@ function navigateForward(): void {
     column-gap: $space-5;
 }
 
+.safari__tabs {
+    margin-inline: -$space-0;
+    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-medium);
+}
+
+.safari__tab {
+    flex-basis: 33.33%;
+    justify-content: center;
+    padding: $space-1;
+    transition: background-color $transition-duration-fast;
+
+    &--inactive {
+        box-shadow: inset 0 $space-0 0 0 rgba($color-gray, $opacity-low);
+        background-color: rgba($color-gray, $opacity-very-low);
+
+        @include has-hover {
+            background-color: rgba($color-gray, $opacity-low);
+        }
+    }
+
+    &:first-child {
+        .safari__tab-favicon {
+            @include size($space-4);
+        }
+    }
+
+    &:nth-child(2) {
+        border-inline: $border-width-thin solid rgba($color-gray, $opacity-low);
+    }
+}
+
+.safari__tab-favicon {
+    @include size($space-5);
+    margin-inline-end: $space-1;
+}
+
+.safari__tab-title {
+    font-size: r(11);
+    color: rgba($color-foreground, $opacity-very-high);
+}
+
 .safari__iframe {
     @include size(100%);
+    display: none;
     border: 0;
+
+    &--active {
+        display: block;
+        visibility: visible;
+    }
 }
 </style>
