@@ -45,10 +45,12 @@
                     <Icon
                         name="chevron-right"
                         class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
+                        @click="navigateBack"
                     />
                     <Icon
                         name="chevron-right"
                         class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
+                        @click="navigateForward"
                     />
                 </div>
             </div>
@@ -109,6 +111,14 @@ const safariRightRef: Ref<HTMLElement | undefined> = ref();
 function closeProgram(): void {
     globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== 'safari');
 }
+
+function navigateBack(): void {
+    window.history.back();
+}
+
+function navigateForward(): void {
+    window.history.forward();
+}
 </script>
 
 <style lang="scss" scoped>
@@ -144,8 +154,8 @@ function closeProgram(): void {
 .safari__navbar {
     justify-content: space-between;
     padding-inline: $space-6;
-    padding-block-start: r(6);
-    padding-block-end: $space-2;
+    padding-block-start: $space-2;
+    padding-block-end: $space-3;
 }
 
 .safari__left {

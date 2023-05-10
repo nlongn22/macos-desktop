@@ -37,6 +37,10 @@ function isStaticProgram(programName: string): boolean {
     return staticPrograms.includes(programName);
 }
 
+function isEdgeProgram(position: number): boolean {
+    return (position === 0 || position === programs.length - 1);
+}
+
 function isOutOfBoundX(currentPosition: number): boolean {
     return Math.abs(currentPosition) > 100;
 }
@@ -66,10 +70,6 @@ function updateDOM(
     newPosition: number,
     insertType = 'before',
 ): void {
-    if (isStaticProgram(program.id)) {
-        return;
-    }
-
     const relativeProgram = dockRef.value?.children[newPosition] as any;
     relativeProgram?.[insertType](program);
     saveProgramsOrder();
@@ -110,7 +110,7 @@ function initDock(): void {
             const relativePosition = Math.round(this.x / 68);
             const newPosition = currentPosition + relativePosition;
 
-            if (isStaticProgram(this.target.id)) {
+            if (isEdgeProgram(currentPosition)) {
                 this.endDrag(this.target);
                 return;
             }
@@ -118,7 +118,7 @@ function initDock(): void {
             // Prevent unnecessary DOM updates.
             if (
                 !isOutOfBoundY(this.y, 50) &&
-                !isStaticProgram(this.target.id) &&
+                !isEdgeProgram(newPosition) &&
                 currentPosition !== newPosition
             ) {
                 if (this.x < 0) {
@@ -196,7 +196,7 @@ onMounted(() => {
     column-gap: $space-3;
     padding-inline: r(10);
     padding-block: $space-2;
-    border-radius: $border-radius-3xl;
+    border-radius: $space-5;
     border: $border-width-thin solid rgba($color-border, $opacity-low);
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
