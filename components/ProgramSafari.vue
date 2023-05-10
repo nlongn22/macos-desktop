@@ -34,21 +34,21 @@
                 <div class="safari__sidebar">
                     <Icon
                         name="sidebar-left"
-                        class="safari__sidebar-icon-sidebar safari__navbar-icon"
+                        class="safari__navbar-icon hover-effect hover-effect--smaller"
                     />
                     <Icon
                         name="chevron-right"
-                        class="safari__sidebar-icon-chevron safari__navbar-icon"
+                        class="safari__sidebar-icon-chevron safari__navbar-icon hover-effect hover-effect--smaller"
                     />
                 </div>
                 <div class="safari__navigations">
                     <Icon
                         name="chevron-right"
-                        class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smaller"
+                        class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
                     />
                     <Icon
                         name="chevron-right"
-                        class="safari__navbar-icon safari__navbar-icon--smaller"
+                        class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
                     />
                 </div>
             </div>
@@ -77,15 +77,15 @@
             >
                 <Icon
                     name="square-and-arrow-up"
-                    class="safari__navbar-icon"
+                    class="safari__navbar-icon safari__navbar-icon--smaller hover-effect hover-effect--smaller"
                 />
                 <Icon
                     name="plus"
-                    class="safari__navbar-icon safari__navbar-icon--smaller"
+                    class="safari__navbar-icon safari__navbar-icon--smaller hover-effect hover-effect--smaller"
                 />
                 <Icon
                     name="square-on-square"
-                    class="safari__navbar-icon"
+                    class="safari__navbar-icon hover-effect hover-effect--smaller"
                 />
             </div>
         </div>
@@ -116,6 +116,19 @@ function closeProgram(): void {
     background-color: $color-white-100;
 }
 
+.safari__navbar-icon {
+    font-size: $space-9;
+    color: rgba($color-foreground, $opacity-high);
+
+    &--smaller {
+        font-size: $space-8;
+    }
+
+    &--smallest {
+        font-size: $space-6;
+    }
+}
+
 .safari__navbar,
 .safari__left,
 .safari__dots,
@@ -138,21 +151,13 @@ function closeProgram(): void {
 .safari__left {
     flex-grow: 1;
     flex-basis: 0;
-    column-gap: $space-6;
-}
-
-.safari__right {
-    justify-content: flex-end;
-    flex-grow: 1;
-    flex-basis: 0;
-    column-gap: $space-4;
+    column-gap: $space-7;
 }
 
 .safari__dots {
     column-gap: $space-2;
 
     @include has-hover {
-
         .safari__dot {
             visibility: visible;
         }
@@ -160,7 +165,7 @@ function closeProgram(): void {
 }
 
 .safari__dot {
-    transform: translateY(r(-1.5));
+    transform: translate(r(0.1), r(-0.25));
     visibility: hidden;
     font-size: r(13);
     font-weight: $font-weight-medium;
@@ -184,37 +189,20 @@ function closeProgram(): void {
         background-color: $color-green;
 
         .safari__dot {
-            transform: translateY(r(-1.5));
+            transform: translateY(r(-1.25));
         }
     }
 }
 
-.safari__sidebar-icon-sidebar {
-    @include size($space-9, 100%);
-    padding-inline: $space-2;
-    padding-block: r(6);
-
-    @include has-hover {
-        border-radius: $border-radius;
-        background-color: rgba($color-gray, $opacity-low);
-    }
-}
-
 .safari__sidebar-icon-chevron {
-    @include size($space-5, 100%);
     transform: rotate(90deg);
-    padding: $space-2;
-    font-size: $space-2 !important;
+    margin-inline-start: $space-2;
     border-block-end: $border-width-thin solid rgba($color-gray, $opacity-low);
-
-    @include has-hover {
-        border-radius: $border-radius;
-        background-color: rgba($color-gray, $opacity-low);
-    }
+    font-size: $space-5;
 }
 
 .safari__navigations {
-    column-gap: $space-4;
+    column-gap: $space-7;
 }
 
 .safari__navigation-icon-chevron {
@@ -249,17 +237,15 @@ function closeProgram(): void {
     }
 }
 
-.safari__navbar-icon {
-    font-size: $space-5;
-    color: rgba($color-foreground, $opacity-high);
-
-    &--smaller {
-        font-size: $space-4;
-    }
+.safari__right {
+    justify-content: flex-end;
+    flex-grow: 1;
+    flex-basis: 0;
+    column-gap: $space-5;
 }
 
 .safari__iframe {
-    @include size(100%, 93%);
+    @include size(100%);
     border: 0;
 }
 </style>

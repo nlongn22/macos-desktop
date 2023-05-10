@@ -1,9 +1,15 @@
 .hover-effect {
     margin-inline: r(-10);
-    margin-block: r(-2);
-    padding-block: r(2);
+    margin-block: -$space-0;
+    padding-block: $space-0;
     padding-inline: r(10);
     border-radius: $border-radius;
+
+    &--smaller {
+        margin-inline: -$space-2;
+        padding-inline: $space-2;
+        border-radius: $border-radius-md;
+    }
 
     @include has-hover {
         background-color: rgba($color-foreground, $opacity-very-low);

@@ -194,7 +194,7 @@ onMounted(() => {
     display: flex;
     align-items: center;
     column-gap: $space-3;
-    padding-inline: $space-3;
+    padding-inline: r(10);
     padding-block: $space-2;
     border-radius: $border-radius-3xl;
     border: $border-width-thin solid rgba($color-border, $opacity-low);
