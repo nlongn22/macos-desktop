@@ -4,11 +4,7 @@ export const useGlobalStore = defineStore('dock', () => {
     const brightness = useStorage('brightness', 1);
 
     const dock = useStorage('dock', [
-        'finder', 'launchpad', 'calculator',
-        'calendar', 'clock', 'contacts',
-        'facetime', 'messages', 'notes',
-        'photos', 'reminders', 'safari',
-        'trash',
+        'finder', 'launchpad', 'system-settings', 'safari', 'calculator', 'messages', 'notes', 'trash',
     ]);
 
     const activePrograms: Ref<string[]> = ref([]);
