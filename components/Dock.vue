@@ -161,7 +161,7 @@ function saveProgramsOrder(): void {
 }
 
 function openProgram(program: HTMLElement): void {
-    if (isStaticProgram(program.id)) {
+    if (isStaticProgram(program.id) || globalStore.activePrograms.includes(program.id)) {
         return;
     }
 

@@ -6,7 +6,7 @@
         />
 
         <ProgramSafari v-if="isProgramActive('safari')" />
-        <ProgramSettings v-if="isProgramActive('system-settings')" />
+        <ProgramSettings v-if="isProgramActive('settings')" />
     </div>
 </template>
 

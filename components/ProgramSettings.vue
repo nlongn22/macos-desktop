@@ -1,6 +1,7 @@
 <template>
     <Program
         :draggable-elements="[settingsNavbarRef]"
+        vertical-only
         class="settings"
     >
         <div class="settings__sidebar">
@@ -8,7 +9,7 @@
                 ref="settingsNavbarRef"
                 class="settings__navbar"
             >
-                <ProgramDots program-name="system-settings" />
+                <ProgramDots program-name="settings" />
             </div>
         </div>
 
@@ -24,6 +25,8 @@ const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
 
 <style lang="scss" scoped>
 .settings {
+    @include size(r(720), r(700));
+    min-inline-size: initial;
     display: flex;
     backdrop-filter: $blur-xl;
     background-color: rgba($color-white-100, $opacity-very-high);

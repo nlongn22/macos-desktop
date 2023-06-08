@@ -15,6 +15,7 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
     draggableElements: Ref<HTMLElement[]> | undefined,
+    verticalOnly?: boolean,
 }
 
 const props = defineProps<ProgramProps>();
@@ -78,11 +79,21 @@ function getClosestEdge(event: MouseEvent, element: HTMLElement | undefined): st
     }
 }
 
+function isInline(event: MouseEvent): boolean {
+    const closestEdge = getClosestEdge(event, programRef?.value);
+
+    return closestEdge === 'left' || closestEdge === 'right';
+}
+
 function updateCursor(type: string): void {
     $gsap.set(['.desktop__wallpaper', programRef.value], { cursor: type });
 }
 
 function detectAction(event: MouseEvent): void {
+    if (isInline(event) && props.verticalOnly) {
+        return;
+    }
+
     if (!isPointerNearEdge(event)) {
         if (!$Draggable.get(programRef.value)) {
             initDraggable();
@@ -95,8 +106,7 @@ function detectAction(event: MouseEvent): void {
         draggable[0].kill();
     }
 
-    const closestEdge = getClosestEdge(event, programRef?.value);
-    const cursor = closestEdge === 'left' || closestEdge === 'right' ? 'ew-resize' : 'ns-resize';
+    const cursor = isInline(event) ? 'ew-resize' : 'ns-resize';
 
     updateCursor(cursor);
 }
@@ -109,7 +119,11 @@ function startResize(event: MouseEvent): void {
 }
 
 // TODO: Maybe refactor.
-function resize(e: MouseEvent): void {
+function resize(event: MouseEvent): void {
+    if (isInline(event) && props.verticalOnly) {
+        return;
+    }
+
     const bounds = programRef.value?.getBoundingClientRect();
 
     if (!bounds) {
@@ -123,22 +137,22 @@ function resize(e: MouseEvent): void {
 
     switch (closestEdge) {
         case 'left':
-            delta = bounds.right - (e.clientX + bounds.width);
+            delta = bounds.right - (event.clientX + bounds.width);
             cursor = delta < 0 ? 'e-resize' : 'w-resize';
             break;
 
         case 'right':
-            delta = e.clientX - (bounds.left + bounds.width);
+            delta = event.clientX - (bounds.left + bounds.width);
             cursor = delta < 0 ? 'w-resize' : 'e-resize';
             break;
 
         case 'top':
-            delta = bounds.bottom - (e.clientY + bounds.height);
+            delta = bounds.bottom - (event.clientY + bounds.height);
             cursor = delta < 0 ? 's-resize' : 'n-resize';
             break;
 
         case 'bottom':
-            delta = e.clientY - (bounds.top + bounds.height);
+            delta = event.clientY - (bounds.top + bounds.height);
             cursor = delta < 0 ? 'n-resize' : 's-resize';
             break;
     }
@@ -184,10 +198,8 @@ function initDraggable(): void {
     inset-inline-start: 50%;
     inset-block-start: 45%;
     transform: translate(-50%, -50%);
-    border: $border-width-thin solid rgba($color-black, $opacity-low);
+    border: $space-0 solid rgba($color-black, $opacity-low);
     border-radius: $border-radius-xl;
     overflow: hidden;
-    // Focus on start
-    z-index: 1500;
 }
 </style>
