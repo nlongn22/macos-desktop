@@ -29,13 +29,13 @@
 </template>
 
 <script setup lang="ts">
-interface CCSliderProps {
+interface ControlCentreSliderProps {
     title: string,
     primaryIconName: string,
     secondaryIconName?: string,
 }
 
-const props = defineProps<CCSliderProps>();
+const props = defineProps<ControlCentreSliderProps>();
 </script>
 
 <style lang="scss" scoped>

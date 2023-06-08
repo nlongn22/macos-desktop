@@ -14,7 +14,7 @@
 const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
-    draggableElements: HTMLElement[] | undefined,
+    draggableElements: Ref<HTMLElement[]> | undefined,
 }
 
 const props = defineProps<ProgramProps>();
@@ -163,7 +163,6 @@ function initDraggable(): void {
     draggable = $Draggable.create(programRef.value, {
         cursor: 'revert',
         activeCursor: 'revert',
-        zIndexBoost: false,
         bounds: { top: 24, left: -9999 },
         onPress: function(event: MouseEvent) {
             if (!props.draggableElements?.includes(event.target as HTMLElement)) {
@@ -185,8 +184,10 @@ function initDraggable(): void {
     inset-inline-start: 50%;
     inset-block-start: 45%;
     transform: translate(-50%, -50%);
-    padding: $space-0;
+    border: $border-width-thin solid rgba($color-black, $opacity-low);
     border-radius: $border-radius-xl;
     overflow: hidden;
+    // Focus on start
+    z-index: 1500;
 }
 </style>

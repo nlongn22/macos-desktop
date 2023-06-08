@@ -91,7 +91,8 @@ function closeModule(): void {
     padding-inline: $space-5;
     backdrop-filter: $blur-3xl;
     background: rgba($color-background, $opacity-high);
-    z-index: 2;
+    // Set higher z-index than Draggable
+    z-index: 2000;
 }
 
 .menu-bar__left,

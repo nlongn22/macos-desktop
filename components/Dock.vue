@@ -201,6 +201,8 @@ onMounted(() => {
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
     background-color: rgba($color-background, $opacity-low);
+    // Set higher z-index than Draggable
+    z-index: 2000;
 }
 
 .dock__program {

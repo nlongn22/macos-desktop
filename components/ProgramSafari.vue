@@ -11,26 +11,7 @@
                 ref="safariLeftRef"
                 class="safari__left"
             >
-                <div class="safari__dots">
-                    <div
-                        class="safari__dot-background"
-                        @click="closeProgram"
-                    >
-                        <span class="safari__dot">
-                            &times;
-                        </span>
-                    </div>
-                    <div class="safari__dot-background">
-                        <span class="safari__dot">
-                            &minus;
-                        </span>
-                    </div>
-                    <div class="safari__dot-background">
-                        <span class="safari__dot">
-                            &plus;
-                        </span>
-                    </div>
-                </div>
+                <ProgramDots program-name="safari" />
                 <div class="safari__sidebar">
                     <Icon
                         name="sidebar-left"
@@ -117,10 +98,6 @@
 </template>
 
 <script setup lang="ts">
-import { useGlobalStore } from '~/store/global';
-
-const globalStore = useGlobalStore();
-
 interface SafariPage {
     name: string,
     title: string,
@@ -150,10 +127,6 @@ const safariPages: SafariPage[] = [
 ];
 
 const activePage = ref(0);
-
-function closeProgram(): void {
-    globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== 'safari');
-}
 
 function navigateBack(): void {
     window.history.back();
@@ -190,8 +163,6 @@ function switchPage(newPage: number): void {
 
 .safari__navbar,
 .safari__left,
-.safari__dots,
-.safari__dot-background,
 .safari__sidebar,
 .safari__navigations,
 .safari__middle,
@@ -213,46 +184,6 @@ function switchPage(newPage: number): void {
     flex-grow: 1;
     flex-basis: 0;
     column-gap: $space-7;
-}
-
-.safari__dots {
-    column-gap: $space-2;
-
-    @include has-hover {
-        .safari__dot {
-            visibility: visible;
-        }
-    }
-}
-
-.safari__dot {
-    transform: translate(r(0.1), r(-0.25));
-    visibility: hidden;
-    font-size: r(13);
-    font-weight: $font-weight-medium;
-    color: rgba($color-foreground, $opacity-high);
-}
-
-.safari__dot-background {
-    @include size($space-3);
-    justify-content: center;
-    border-radius: $border-radius-full;
-
-    &:first-child {
-        background-color: $color-red;
-    }
-
-    &:nth-child(2) {
-        background-color: $color-orange;
-    }
-
-    &:last-child {
-        background-color: $color-green;
-
-        .safari__dot {
-            transform: translateY(r(-1.25));
-        }
-    }
 }
 
 .safari__sidebar-icon-chevron {
@@ -307,7 +238,7 @@ function switchPage(newPage: number): void {
 
 .safari__tabs {
     margin-inline: -$space-0;
-    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-medium);
+    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-low);
 }
 
 .safari__tab {

@@ -26,12 +26,12 @@
 </template>
 
 <script setup lang="ts">
-interface SelectorProps {
+interface WifiSelectorProps {
     name: string,
     isConnected?: boolean
 }
 
-const props = defineProps<SelectorProps>();
+const props = defineProps<WifiSelectorProps>();
 
 // eslint-disable-next-line func-call-spacing
 const emit = defineEmits<{
