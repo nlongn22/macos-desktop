@@ -198,7 +198,7 @@ function initDraggable(): void {
     inset-inline-start: 50%;
     inset-block-start: 45%;
     transform: translate(-50%, -50%);
-    border: $space-0 solid rgba($color-black, $opacity-low);
+    border: $space-0 solid rgba($color-black, $opacity-very-low);
     border-radius: $border-radius-xl;
     overflow: hidden;
 }

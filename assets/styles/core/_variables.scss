@@ -63,7 +63,8 @@ $font-name-primary: 'Helvetica Neue', 'HelveticaNeue-Light', 'Helvetica Neue Lig
 $font-family-primary: $font-name-primary, sans-serif;
 
 $color-white: #ffffff;
-$color-white-100: #f9f5f3;
+$color-white-100: #f7efee;
+$color-white-200: #f4efed;
 $color-gray: #8e8e93;
 $color-gray-100: #403b36;
 $color-black: #000000;
@@ -71,12 +72,13 @@ $color-black: #000000;
 $color-red: #ff3b30;
 $color-orange: #ff9500;
 $color-green: #28cd41;
+$color-cyan: #55bef0;
 $color-blue: #007aff;
 
 $color-foreground: $color-black;
 $color-background: $color-white;
 
-$color-border: $color-foreground;
+$color-border: rgba($color-foreground, $opacity-very-low);
 
 $transition-duration-very-fast: 0.1s;
 $transition-duration-fast: 0.2s;

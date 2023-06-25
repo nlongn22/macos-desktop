@@ -1,14 +1,15 @@
 <template>
-    <div class="container">
-        <BootScreen
-            v-if="isBootScreenVisible"
-            @loading-has-finished="hideBootScreen"
-        />
-        <div v-else>
-            <MenuBar />
-            <NuxtPage />
-            <Dock />
-        </div>
+    <BootScreen
+        v-if="isBootScreenVisible"
+        @loading-has-finished="hideBootScreen"
+    />
+    <div
+        v-else
+        class="container"
+    >
+        <MenuBar />
+        <NuxtPage />
+        <Dock />
     </div>
 </template>
 

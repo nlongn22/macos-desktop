@@ -27,7 +27,7 @@
     padding-inline: $space-4;
     padding-block: $space-3;
     border-radius: $border-radius-xl;
-    border-color: rgba($color-border, $opacity-low);
+    border-color: $color-border;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(20) r(30);
 }
 

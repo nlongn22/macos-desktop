@@ -1,6 +1,6 @@
 <template>
     <div
-        class="wifi-selector hover-effect"
+        class="wifi-selector hover-effect hover-effect--big"
         @click="toggleConnection"
     >
         <div

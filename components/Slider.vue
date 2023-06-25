@@ -102,7 +102,7 @@ onBeforeUnmount(() => {
     block-size: r(22);
     display: flex;
     border-radius: $border-radius-3xl;
-    border: $border-width-thin solid rgba($color-border, $opacity-very-low);
+    border: $border-width-thin solid $color-border;
     background-color: rgba($color-foreground, $opacity-very-low);
     overflow: hidden;
 }
@@ -129,7 +129,7 @@ onBeforeUnmount(() => {
 .slider__handle {
     @include size($space-5);
     border-radius: $border-radius-full;
-    border: $border-width-thin solid rgba($color-border, $opacity-very-low);
+    border: $border-width-thin solid $color-border;
     box-shadow: rgba($color-foreground, $opacity-low) 0 $space-2 $space-6;
     background-color: $color-background;
     transition: all $transition-duration-slow;

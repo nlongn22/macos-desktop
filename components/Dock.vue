@@ -197,7 +197,7 @@ onMounted(() => {
     padding-inline: r(10);
     padding-block: $space-2;
     border-radius: $space-5;
-    border: $border-width-thin solid rgba($color-border, $opacity-low);
+    border: $border-width-thin solid $color-border;
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
     background-color: rgba($color-background, $opacity-low);

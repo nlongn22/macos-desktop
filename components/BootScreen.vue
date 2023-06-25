@@ -29,7 +29,7 @@ onMounted(() => {
 
 <style lang="scss" scoped>
 .boot-screen {
-    @include size(100%);
+    @include size(100vw, 100vh);
     display: flex;
     justify-content: center;
     align-items: center;

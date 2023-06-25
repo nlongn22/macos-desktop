@@ -11,10 +11,27 @@
             >
                 <ProgramDots program-name="settings" />
             </div>
+
+            <div class="settings__items">
+                <div
+                    class="settings__item settings__item--active">
+                    <div class="item__icon-background">
+                        <Icon
+                            name="circle-hexagongrid"
+                            class="item__icon"
+                        />
+                    </div>
+                    Wallpaper
+                </div>
+            </div>
         </div>
 
         <div class="settings__main">
-            Appearance
+            <div class="settings__main-title">
+                Wallpaper
+            </div>
+
+            <SettingsWallpaper />
         </div>
     </Program>
 </template>
@@ -34,7 +51,7 @@ const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
 
 .settings__sidebar {
     inline-size: r(300);
-    border-inline-end: $border-width-thin solid rgba($color-gray, $opacity-low);
+    border-inline-end: $border-width-thin solid $color-border;
     background-color: rgba($color-gray, $opacity-very-low);
 }
 
@@ -46,8 +63,47 @@ const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
     padding-block-end: $space-3;
 }
 
+.settings__items {
+    padding: $space-3;
+}
+
+.settings__item {
+    display: flex;
+    align-items: center;
+
+    &--active {
+        padding-inline: $space-2;
+        padding-block: $space-1;
+        border-radius: $border-radius;
+        color: $color-background;
+        background-color: $color-blue;
+    }
+}
+
+.item__icon-background {
+    display: flex;
+    margin-inline-end: $space-2;
+    padding: $space-0;
+    border-radius: $border-radius-md;
+    background-color: $color-cyan;
+}
+
+.item__icon {
+    color: $color-background;
+    font-size: $space-4;
+}
+
 .settings__main {
     inline-size: 100%;
+    padding-inline: $space-5;
     background-color: $color-white-100;
+}
+
+.settings__main-title {
+    margin-inline-start: $space-3;
+    margin-block: $space-4;
+    font-size: r(15);
+    font-weight: $font-weight-semibold;
+    color: rgba($color-gray-100, $opacity-very-high);
 }
 </style>

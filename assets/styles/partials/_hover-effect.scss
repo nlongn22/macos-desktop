@@ -5,10 +5,15 @@
     padding-inline: r(10);
     border-radius: $border-radius;
 
-    &--smaller {
+    &--small {
         margin-inline: -$space-2;
         padding-inline: $space-2;
         border-radius: $border-radius-md;
+    }
+
+    &--big {
+        margin-block: -$space-1;
+        padding-block: $space-1;
     }
 
     @include has-hover {

@@ -15,22 +15,22 @@
                 <div class="safari__sidebar">
                     <Icon
                         name="sidebar-left"
-                        class="safari__navbar-icon hover-effect hover-effect--smaller"
+                        class="safari__navbar-icon hover-effect hover-effect--small"
                     />
                     <Icon
                         name="chevron-right"
-                        class="safari__sidebar-icon-chevron safari__navbar-icon hover-effect hover-effect--smaller"
+                        class="safari__sidebar-icon-chevron safari__navbar-icon hover-effect hover-effect--small"
                     />
                 </div>
                 <div class="safari__navigations">
                     <Icon
                         name="chevron-right"
-                        class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
+                        class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
                         @click="navigateBack"
                     />
                     <Icon
                         name="chevron-right"
-                        class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--smaller"
+                        class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
                         @click="navigateForward"
                     />
                 </div>
@@ -56,15 +56,15 @@
             >
                 <Icon
                     name="square-and-arrow-up"
-                    class="safari__navbar-icon safari__navbar-icon--smaller hover-effect hover-effect--smaller"
+                    class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
                 />
                 <Icon
                     name="plus"
-                    class="safari__navbar-icon safari__navbar-icon--smaller hover-effect hover-effect--smaller"
+                    class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
                 />
                 <Icon
                     name="square-on-square"
-                    class="safari__navbar-icon hover-effect hover-effect--smaller"
+                    class="safari__navbar-icon hover-effect hover-effect--small"
                 />
             </div>
         </div>
@@ -152,7 +152,7 @@ function switchPage(newPage: number): void {
     font-size: $space-9;
     color: rgba($color-foreground, $opacity-high);
 
-    &--smaller {
+    &--small {
         font-size: $space-8;
     }
 
@@ -189,7 +189,6 @@ function switchPage(newPage: number): void {
 .safari__sidebar-icon-chevron {
     transform: rotate(90deg);
     margin-inline-start: $space-2;
-    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-low);
     font-size: $space-5;
 }
 
@@ -238,7 +237,7 @@ function switchPage(newPage: number): void {
 
 .safari__tabs {
     margin-inline: -$space-0;
-    border-block-end: $border-width-thin solid rgba($color-gray, $opacity-low);
+    border-block-end: $border-width-thin solid $color-border;
 }
 
 .safari__tab {
@@ -263,7 +262,7 @@ function switchPage(newPage: number): void {
     }
 
     &:nth-child(2) {
-        border-inline: $border-width-thin solid rgba($color-gray, $opacity-low);
+        border-inline: $border-width-thin solid $color-border;
     }
 }
 
