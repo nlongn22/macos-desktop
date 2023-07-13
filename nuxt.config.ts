@@ -69,7 +69,6 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@vueuse/nuxt',
         '@nuxt/image',
-        'nuxt-font-loader',
     ],
     pinia: {
         autoImports: [

@@ -3955,11 +3955,6 @@ nuxi@3.2.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-nuxt-font-loader@^2.3.1:
-  version "2.3.1"
-  resolved "https://registry.npmjs.org/nuxt-font-loader/-/nuxt-font-loader-2.3.1.tgz"
-  integrity sha512-PJlQm3OXf7dkCPX55548L/GXETA9sA4aXpXNrD1NaRVvO79FVNl9fRHNLdire5rbwkSsAf7jOtPvUAuOx281OQ==
-
 nuxt@^3.2.0:
   version "3.2.0"
   resolved "https://registry.npmjs.org/nuxt/-/nuxt-3.2.0.tgz"

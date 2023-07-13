@@ -19,7 +19,6 @@
     "eslint": "^8.34.0",
     "gsap": "^3.11.5",
     "nuxt": "^3.2.0",
-    "nuxt-font-loader": "^2.3.1",
     "sass": "^1.58.0",
     "vite-svg-loader": "^4.0.0"
   },
