@@ -13,8 +13,7 @@
             </div>
 
             <div class="settings__items">
-                <div
-                    class="settings__item settings__item--active">
+                <div class="settings__item settings__item--active">
                     <div class="item__icon-background">
                         <Icon
                             name="circle-hexagongrid"

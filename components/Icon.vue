@@ -4,5 +4,8 @@ const icon = defineAsyncComponent(() => import(`@/assets/icons/${props.name}.svg
 </script>
 
 <template>
-    <component :is="icon" v-show="icon" />
+    <component
+        :is="icon"
+        v-show="icon"
+    />
 </template>

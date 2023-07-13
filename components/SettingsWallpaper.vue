@@ -4,8 +4,7 @@
             <div class="wallpaper__dynamic-title">
                 Dynamic Wallpapers
             </div>
-            <div class="wallpaper__dynamic-images">
-            </div>
+            <div class="wallpaper__dynamic-images" />
         </div>
     </div>
 </template>
