@@ -1,6 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import eslintPlugin from 'vite-plugin-eslint';
-import stylelintPlugin from 'vite-plugin-stylelint';
 import svgLoader from 'vite-svg-loader';
 
 export default defineNuxtConfig({
@@ -81,8 +79,6 @@ export default defineNuxtConfig({
     ssr: false,
     vite: {
         plugins: [
-            eslintPlugin(),
-            stylelintPlugin(),
             svgLoader(),
         ],
         css: {
