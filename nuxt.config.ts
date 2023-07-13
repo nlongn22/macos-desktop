@@ -70,9 +70,8 @@ export default defineNuxtConfig({
     modules: [
         '@pinia/nuxt',
         '@vueuse/nuxt',
-        '@nuxt/image-edge',
+        '@nuxt/image',
         'nuxt-font-loader',
-        '@nuxtjs/color-mode',
     ],
     pinia: {
         autoImports: [

@@ -11,9 +11,8 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "^0.1.1",
-    "@nuxt/image-edge": "^1.0.0-27968280.9739e4d",
+    "@nuxt/image": "^1.0.0-rc.1",
     "@nuxtjs/color-mode": "^3.2.0",
-    "@nuxtjs/eslint-config-typescript": "^12.0.0",
     "@vueuse/components": "^10.0.2",
     "@vueuse/core": "^10.0.2",
     "@vueuse/nuxt": "^10.0.2",

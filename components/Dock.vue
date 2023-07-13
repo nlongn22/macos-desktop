@@ -8,7 +8,7 @@
             :id="program"
             :key="index"
             class="dock__program"
-            :class="{ 'dock__program--active' : isProgramActive(program) }"
+            :class="{ 'dock__program--active': isProgramActive(program) }"
         >
             <NuxtImg
                 :src="`/programs/${program}.png`"
