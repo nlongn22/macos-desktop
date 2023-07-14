@@ -69,6 +69,7 @@ export default defineNuxtConfig({
         '@pinia/nuxt',
         '@vueuse/nuxt',
         '@nuxt/image',
+        '@nuxtjs/color-mode',
     ],
     pinia: {
         autoImports: [

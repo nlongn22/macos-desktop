@@ -1,7 +1,7 @@
 import { useStorage } from '@vueuse/core';
 
 export const useGlobalStore = defineStore('dock', () => {
-    const wallpaper = useStorage('wallpaper', 'ventura-light');
+    const wallpaper = useStorage('wallpaper', 'ventura');
 
     const brightness = useStorage('brightness', 1);
 

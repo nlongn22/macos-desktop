@@ -19,7 +19,7 @@
             <NuxtImg
                 v-for="(wallpaper, index) in wallpapers"
                 :key="index"
-                :src="`wallpapers/${wallpaper}.png`"
+                :src="`wallpapers/${wallpaper}-light.png`"
                 class="wallpaper__image"
                 :class="{ 'wallpaper__image--active': globalStore.wallpaper === wallpaper }"
                 @click="updateWallpaper(wallpaper)"
@@ -33,7 +33,7 @@ import { useGlobalStore } from '~~/store/global';
 
 const globalStore = useGlobalStore();
 
-const wallpapers = ['sonoma-light', 'ventura-light', 'big-sur-light', 'monterey-light', 'catalina-light', 'mojave-light'];
+const wallpapers = ['sonoma', 'ventura', 'big-sur', 'monterey', 'catalina', 'mojave'];
 
 const isExpanded = ref(false);
 
@@ -52,11 +52,10 @@ function updateWallpaper(name: string): void {
 
 <style lang="scss" scoped>
 .wallpaper {
-    block-size: 100%;
+    // Needed for a full width border.
     margin-inline: -$space-5;
     padding-inline: $space-5;
     border-block-start: $border-width-thin solid $color-border;
-    background-color: $color-white-200;
 }
 
 .wallpaper__menu {
@@ -97,7 +96,7 @@ function updateWallpaper(name: string): void {
 }
 
 .wallpaper__image {
-    @include size(r(111), r(72));
+    @include size(r(109.2), r(72));
     flex-shrink: 0;
     block-size: $space-18;
     object-fit: cover;;

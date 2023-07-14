@@ -1,7 +1,7 @@
 <template>
     <div class="desktop">
         <NuxtImg
-            :src="`/wallpapers/${globalStore.wallpaper}.png`"
+            :src="`/wallpapers/${wallpaper()}.png`"
             class="desktop__wallpaper"
         />
 
@@ -13,7 +13,14 @@
 <script lang="ts" setup>
 import { useGlobalStore } from '~/store/global';
 
+const colorMode = useColorMode();
 const globalStore = useGlobalStore();
+
+function wallpaper(): string {
+    return colorMode.value === 'light' ?
+        globalStore.wallpaper + '-light' :
+        globalStore.wallpaper + '-dark';
+}
 
 function isProgramActive(programName: string): boolean {
     return globalStore.activePrograms.includes(programName);
