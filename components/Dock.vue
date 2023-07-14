@@ -27,15 +27,11 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 const programs = globalStore.dock;
 
-const staticPrograms: string[] = ['finder', 'launchpad', 'trash'];
+const wipPrograms = ['finder', 'launchpad', 'calculator', 'messages', 'notes', 'trash'];
 
 const dockRef: Ref<HTMLElement | undefined> = ref();
 
 const isDragging = ref(false);
-
-function isStaticProgram(programName: string): boolean {
-    return staticPrograms.includes(programName);
-}
 
 function isEdgeProgram(position: number): boolean {
     return (position === 0 || position === programs.length - 1);
@@ -161,13 +157,7 @@ function saveProgramsOrder(): void {
 }
 
 function openProgram(program: HTMLElement): void {
-    const wipPrograms = ['finder', 'launchpad', 'calculator', 'messages', 'notes', 'trash'];
-
-    if (
-        isStaticProgram(program.id) ||
-        globalStore.activePrograms.includes(program.id) ||
-        wipPrograms.includes(program.id)
-    ) {
+    if (globalStore.activePrograms.includes(program.id) || wipPrograms.includes(program.id)) {
         return;
     }
 
