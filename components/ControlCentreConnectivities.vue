@@ -71,7 +71,6 @@ const connectivities: Connectivity[] = [
     column-gap: $space-2;
 
     @include has-hover {
-
         .connectivity__icon-chevron {
             opacity: 1;
         }

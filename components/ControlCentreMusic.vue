@@ -6,7 +6,7 @@
         <template #icon>
             <div class="music__image-background">
                 <NuxtImg
-                    :src="`/programs/music.png`"
+                    src="programs/music.png"
                     class="music__image"
                 />
             </div>

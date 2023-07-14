@@ -161,7 +161,13 @@ function saveProgramsOrder(): void {
 }
 
 function openProgram(program: HTMLElement): void {
-    if (isStaticProgram(program.id) || globalStore.activePrograms.includes(program.id)) {
+    const wipPrograms = ['finder', 'launchpad', 'calculator', 'messages', 'notes', 'trash'];
+
+    if (
+        isStaticProgram(program.id) ||
+        globalStore.activePrograms.includes(program.id) ||
+        wipPrograms.includes(program.id)
+    ) {
         return;
     }
 

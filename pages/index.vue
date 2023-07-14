@@ -1,7 +1,7 @@
 <template>
     <div class="desktop">
         <NuxtImg
-            :src="`/wallpapers/${wallpapers[0]}.jpg`"
+            :src="`/wallpapers/${globalStore.wallpaper}.png`"
             class="desktop__wallpaper"
         />
 
@@ -14,8 +14,6 @@
 import { useGlobalStore } from '~/store/global';
 
 const globalStore = useGlobalStore();
-
-const wallpapers = ['ventura-light'];
 
 function isProgramActive(programName: string): boolean {
     return globalStore.activePrograms.includes(programName);

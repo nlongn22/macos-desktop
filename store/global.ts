@@ -1,6 +1,8 @@
 import { useStorage } from '@vueuse/core';
 
 export const useGlobalStore = defineStore('dock', () => {
+    const wallpaper = useStorage('wallpaper', 'ventura-light');
+
     const brightness = useStorage('brightness', 1);
 
     const dock = useStorage('dock', [
@@ -8,6 +10,10 @@ export const useGlobalStore = defineStore('dock', () => {
     ]);
 
     const activePrograms: Ref<string[]> = ref([]);
+
+    function saveWallpaper(name: string): void {
+        wallpaper.value = name;
+    }
 
     function saveBrightness(value: number): void {
         brightness.value = value;
@@ -25,5 +31,5 @@ export const useGlobalStore = defineStore('dock', () => {
         return activePrograms.value.includes(programName);
     }
 
-    return { brightness, dock, activePrograms, saveBrightness, saveDockOrder, openProgram, isProgramActive };
+    return { wallpaper, brightness, dock, activePrograms, saveWallpaper, saveBrightness, saveDockOrder, openProgram, isProgramActive };
 });

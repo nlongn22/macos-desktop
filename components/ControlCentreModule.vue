@@ -35,7 +35,6 @@ const props = defineProps<ControlCentreModuleProps>();
     background-color: rgba($color-background, $opacity-low);
 
     @include has-hover {
-
         .control-centre-module__icon-chevron {
             opacity: 1;
         }
