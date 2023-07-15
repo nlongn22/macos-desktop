@@ -213,10 +213,9 @@ onMounted(() => {
 
     &:last-child {
         :deep(.dock__program-image) {
-            @include size($space-19, auto);
-            margin-inline-start: $space-1;
-            margin-inline-end: -$space-3;
-            padding-inline-start: $space-2;
+            @include size($space-16, auto);
+            margin-inline-start: $space-3;
+            padding-inline-start: $space-3;
             border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
         }
     }

@@ -155,6 +155,7 @@ function closeModule(): void {
 .menu-bar__image-siri {
     @include size(r(14));
     margin-inline-start: -$space-2;
+    border-radius: $border-radius-full;
 }
 
 .menu-bar__date {
