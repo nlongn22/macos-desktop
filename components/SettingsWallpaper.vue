@@ -13,15 +13,17 @@
         </div>
 
         <div
-            class="wallpaper__images"
-            :class="{ 'wallpaper__images--expanded': isExpanded }"
+            class="wallpaper__list"
+            :class="{ 'wallpaper__list--expanded': isExpanded }"
         >
-            <NuxtImg
+            <NuxtPicture
                 v-for="(wallpaper, index) in wallpapers"
                 :key="index"
+                preload
                 :src="`wallpapers/${wallpaper}-light.png`"
-                class="wallpaper__image"
-                :class="{ 'wallpaper__image--active': globalStore.wallpaper === wallpaper }"
+                :img-attrs="{ class: 'wallpaper__image' }"
+                class="wallpaper__picture"
+                :class="{ 'wallpaper__picture--active': globalStore.wallpaper === wallpaper }"
                 @click="updateWallpaper(wallpaper)"
             />
         </div>
@@ -33,7 +35,7 @@ import { useGlobalStore } from '~~/store/global';
 
 const globalStore = useGlobalStore();
 
-const wallpapers = ['sonoma', 'ventura', 'big-sur', 'monterey', 'catalina', 'mojave'];
+const wallpapers = ['sonoma', 'ventura', 'monterey', 'big-sur', 'catalina', 'mojave'];
 
 const isExpanded = ref(false);
 
@@ -81,7 +83,7 @@ function updateWallpaper(name: string): void {
     }
 }
 
-.wallpaper__images {
+.wallpaper__list {
     display: flex;
     gap: $space-2;
     overflow-x: scroll;
@@ -95,16 +97,21 @@ function updateWallpaper(name: string): void {
     }
 }
 
-.wallpaper__image {
-    @include size(r(109.2), r(72));
-    flex-shrink: 0;
+.wallpaper__picture {
     block-size: $space-18;
-    object-fit: cover;;
-    padding: $space-0;
-    border-radius: $border-radius-md;
+    flex-shrink: 0;
 
     &--active {
-        border: $border-width-thin solid $color-border;
+        &:deep(.wallpaper__image) {
+            border: $border-width-thin solid $color-border;
+        }
     }
+}
+
+:deep(.wallpaper__image) {
+    @include size(r(109.2), 100%);
+    padding: $space-0;
+    border-radius: $border-radius-md;
+    object-fit: cover;
 }
 </style>

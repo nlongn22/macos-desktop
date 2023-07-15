@@ -10,9 +10,10 @@
             class="dock__program"
             :class="{ 'dock__program--active': isProgramActive(program) }"
         >
-            <NuxtImg
+            <NuxtPicture
+                preload
                 :src="`/programs/${program}.png`"
-                class="dock__program-image"
+                :img-attrs="{ class: 'dock__program-image' }"
             />
             <div class="dock__program-dot" />
         </div>
@@ -211,7 +212,7 @@ onMounted(() => {
     }
 
     &:last-child {
-        .dock__program-image {
+        :deep(.dock__program-image) {
             @include size($space-19, auto);
             margin-inline-start: $space-1;
             margin-inline-end: -$space-3;
@@ -221,7 +222,7 @@ onMounted(() => {
     }
 }
 
-.dock__program-image {
+:deep(.dock__program-image) {
     @include size($space-13);
 }
 

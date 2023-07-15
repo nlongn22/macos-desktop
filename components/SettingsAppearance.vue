@@ -10,9 +10,11 @@
                 :class="{ 'appearance__mode--active': colorMode.preference === mode }"
                 @click="changeMode(mode)"
             >
-                <NuxtImg
+                <NuxtPicture
+                    preload
                     :src="`thumbnails/${mode}.png`"
-                    class="appearance__mode-image"
+                    :img-attrs="{ class: 'appearance__mode-image' }"
+                    class="appearance__mode-picture"
                 />
                 <div class="appearance__mode-title">
                     {{ mode }}
@@ -46,22 +48,23 @@ function changeMode(mode: string): void {
 .appearance__switcher {
     display: flex;
     align-items: baseline;
-    column-gap: $space-3;
+    column-gap: $space-2;
 }
 
 .appearance__mode {
     &--active {
-        .appearance__mode-image {
+        &:deep(.appearance__mode-image) {
             border-color: $color-blue;
         }
 
         .appearance__mode-title {
+            margin-block-start: -$border-width-thin;
             font-weight: $font-weight-semibold;
         }
     }
 }
 
-.appearance__mode-image {
+:deep(.appearance__mode-image) {
     @include size($space-17, $space-11);
     box-sizing: unset;
     border-radius: $border-radius-lg;
