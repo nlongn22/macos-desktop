@@ -6,6 +6,7 @@
         />
 
         <input
+            autofocus
             placeholder="Spotlight Search"
             class="spotlight__input"
         >
@@ -41,6 +42,10 @@
     inline-size: 100%;
     font-size: $space-6;
     font-weight: $font-weight-medium;
+
+    &:not(:placeholder-shown) {
+        font-weight: $font-weight-regular;
+    }
 
     &::placeholder {
         color: rgba($color-foreground, 0.25);

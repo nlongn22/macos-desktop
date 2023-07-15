@@ -45,7 +45,10 @@
             </span>
         </div>
 
-        <Spotlight v-if="activeIcon === 'magnifyingglass'" />
+        <Spotlight
+            v-if="activeIcon === 'magnifyingglass'"
+            ref="spotlightRef"
+        />
     </div>
 </template>
 
@@ -55,6 +58,7 @@ import { vOnClickOutside } from '@vueuse/components';
 const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
 const menuBarIcons = ['battery-75', 'wifi', 'magnifyingglass', 'control-centre'];
 
+const spotlightRef: Ref<HTMLElement | undefined> = ref();
 const activeIcon = ref('');
 const time = ref('');
 
@@ -75,9 +79,12 @@ function openModule(iconName: string): void {
     }, 1);
 }
 
-function closeModule(): void {
-    activeIcon.value = '';
-}
+const closeModule = [
+    () => {
+        activeIcon.value = '';
+    },
+    { ignore: [spotlightRef] },
+];
 </script>
 
 <style lang="scss" scoped>
