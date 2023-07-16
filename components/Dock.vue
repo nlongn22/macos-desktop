@@ -213,7 +213,7 @@ onMounted(() => {
     }
 
     &:last-child {
-        :deep(.dock__program-image) {
+        &:deep(.dock__program-image) {
             @include size($space-16, auto);
             margin-inline-start: $space-3;
             padding-inline-start: $space-3;
