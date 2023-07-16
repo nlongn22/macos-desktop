@@ -15,6 +15,7 @@
                 :src="`/programs/${program}.png`"
                 :img-attrs="{ class: 'dock__program-image' }"
             />
+
             <div class="dock__program-dot" />
         </div>
     </div>
