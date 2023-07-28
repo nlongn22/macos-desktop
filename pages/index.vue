@@ -13,8 +13,8 @@
 <script lang="ts" setup>
 import { useGlobalStore } from '~/store/global';
 
-const colorMode = useColorMode();
 const globalStore = useGlobalStore();
+const colorMode = useColorMode();
 
 function wallpaper(): string {
     return colorMode.value === 'light' ?

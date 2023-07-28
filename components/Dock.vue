@@ -159,6 +159,8 @@ function saveProgramsOrder(): void {
 }
 
 function openProgram(program: HTMLElement): void {
+    globalStore.focusProgram(program.id);
+
     if (globalStore.activePrograms.includes(program.id) || wipPrograms.includes(program.id)) {
         return;
     }

@@ -11,6 +11,8 @@ export const useGlobalStore = defineStore('dock', () => {
 
     const activePrograms: Ref<string[]> = ref([]);
 
+    const focusedProgram = ref('');
+
     function saveWallpaper(name: string): void {
         wallpaper.value = name;
     }
@@ -31,5 +33,21 @@ export const useGlobalStore = defineStore('dock', () => {
         return activePrograms.value.includes(programName);
     }
 
-    return { wallpaper, brightness, dock, activePrograms, saveWallpaper, saveBrightness, saveDockOrder, openProgram, isProgramActive };
+    function focusProgram(programName: string): void {
+        focusedProgram.value = programName;
+    }
+
+    return {
+        wallpaper,
+        brightness,
+        dock,
+        activePrograms,
+        focusedProgram,
+        saveWallpaper,
+        saveBrightness,
+        saveDockOrder,
+        openProgram,
+        isProgramActive,
+        focusProgram,
+    };
 });

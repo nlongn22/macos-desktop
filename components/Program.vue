@@ -2,15 +2,20 @@
     <div
         ref="programRef"
         class="program"
+        :class="{ 'program--active': globalStore.focusedProgram === programRef?.classList[1]}"
         @mousemove="detectAction($event)"
         @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
+        @click="focusProgram"
     >
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~~/store/global';
+
+const globalStore = useGlobalStore();
 const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
@@ -83,6 +88,10 @@ function isInline(event: MouseEvent): boolean {
     const closestEdge = getClosestEdge(event, programRef?.value);
 
     return closestEdge === 'left' || closestEdge === 'right';
+}
+
+function focusProgram(): void {
+    globalStore.focusProgram(programRef.value?.classList[1] || 'program');
 }
 
 function updateCursor(type: string): void {
@@ -198,8 +207,14 @@ function initDraggable(): void {
     inset-inline-start: 50%;
     inset-block-start: 45%;
     transform: translate(-50%, -50%);
-    border: $space-0 solid rgba($color-black, $opacity-very-low);
+    border: $border-width-thin solid rgba($color-foreground, $opacity-low);
     border-radius: $border-radius-xl;
     overflow: hidden;
+
+    &--active {
+        box-shadow: rgba($color-foreground, 0.3) 0 $space-4 $space-8;
+        // Focus on program (1999 - less than menu bar and dock).
+        z-index: 1999 !important;
+    }
 }
 </style>
