@@ -2,18 +2,17 @@
     <div
         ref="programRef"
         class="program"
-        :class="{ 'program--active': globalStore.focusedProgram === programRef?.classList[1]}"
+        :class="{ 'program--active': globalStore.focusedProgram === programName() }"
         @mousemove="detectAction($event)"
         @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
-        @click="focusProgram"
     >
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
-import { useGlobalStore } from '~~/store/global';
+import { useGlobalStore } from '~/store/global';
 
 const globalStore = useGlobalStore();
 const { $gsap, $Draggable } = useNuxtApp();
@@ -29,6 +28,12 @@ const programRef: Ref<HTMLElement | undefined> = ref();
 
 let draggable: Draggable[] | undefined;
 let closestEdge: string;
+
+function programName(): string {
+    const classList = programRef.value?.classList ?? ['program'];
+
+    return classList[classList?.length - 1];
+}
 
 function isPointerNearEdge(e: MouseEvent): boolean {
     const bounds = programRef.value?.getBoundingClientRect();
@@ -88,10 +93,6 @@ function isInline(event: MouseEvent): boolean {
     const closestEdge = getClosestEdge(event, programRef?.value);
 
     return closestEdge === 'left' || closestEdge === 'right';
-}
-
-function focusProgram(): void {
-    globalStore.focusProgram(programRef.value?.classList[1] || 'program');
 }
 
 function updateCursor(type: string): void {
@@ -188,6 +189,8 @@ function initDraggable(): void {
         activeCursor: 'revert',
         bounds: { top: 24, left: -9999 },
         onPress: function(event: MouseEvent) {
+            globalStore.focusProgram(programName());
+
             if (!props.draggableElements?.includes(event.target as HTMLElement)) {
                 this.endDrag();
             }
