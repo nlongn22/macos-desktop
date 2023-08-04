@@ -1,6 +1,6 @@
 <template>
     <Program
-        :draggable-elements="[settingsNavbarRef]"
+        :draggable-elements="[settingsNavbarRef, settingsMainTitleRef]"
         vertical-only
         class="settings"
     >
@@ -33,7 +33,10 @@
         </div>
 
         <div class="settings__main">
-            <div class="settings__main-title">
+            <div
+                ref="settingsMainTitleRef"
+                class="settings__main-title"
+            >
                 {{ activeSettingsPage }}
             </div>
             <SettingsAppearance v-if="activeSettingsPage === 'appearance'" />
@@ -49,6 +52,7 @@ interface SettingsPage {
 }
 
 const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
+const settingsMainTitleRef: Ref<HTMLElement | undefined> = ref();
 
 const settingsPages: SettingsPage[] = [
     {
