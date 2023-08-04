@@ -1,7 +1,7 @@
 <template>
     <Program
         :draggable-elements="[settingsNavbarRef, settingsMainTitleRef]"
-        vertical-only
+        vertical-resize-only
         class="settings"
     >
         <div class="settings__sidebar">
@@ -75,8 +75,7 @@ function switchPage(name: string): void {
 <style lang="scss" scoped>
 .settings {
     @include size(r(720), r(360));
-    min-inline-size: initial;
-    max-block-size: r(500);
+    min-block-size: r(360);
     display: flex;
     backdrop-filter: $blur-xl;
     background-color: rgba($color-white-100, $opacity-very-high);
@@ -89,7 +88,7 @@ function switchPage(name: string): void {
 }
 
 .settings__navbar {
-    @include size(100%, $space-13);
+    block-size: $space-13;
     display: flex;
     padding-inline: $space-6;
     padding-block-start: $space-2;

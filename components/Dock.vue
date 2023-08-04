@@ -29,7 +29,7 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 const programs = globalStore.dock;
 
-const wipPrograms = ['finder', 'launchpad', 'calculator', 'messages', 'notes', 'trash'];
+const wipPrograms = ['finder', 'launchpad', 'messages', 'notes', 'trash'];
 
 const dockRef: Ref<HTMLElement | undefined> = ref();
 
@@ -159,9 +159,13 @@ function saveProgramsOrder(): void {
 }
 
 function openProgram(program: HTMLElement): void {
+    if (wipPrograms.includes(program.id)) {
+        return;
+    }
+
     globalStore.focusProgram(program.id);
 
-    if (globalStore.activePrograms.includes(program.id) || wipPrograms.includes(program.id)) {
+    if (globalStore.activePrograms.includes(program.id)) {
         return;
     }
 
@@ -208,6 +212,7 @@ onMounted(() => {
 .dock__program {
     position: relative;
 
+    &:first-child,
     &--active {
         .dock__program-dot {
             visibility: visible;

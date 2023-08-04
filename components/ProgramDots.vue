@@ -34,6 +34,7 @@ const props = defineProps<DotsProps>();
 
 function closeProgram(): void {
     globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== props.programName);
+    globalStore.focusProgram('finder');
 }
 </script>
 

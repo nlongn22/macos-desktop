@@ -7,6 +7,7 @@
 
         <ProgramSafari v-if="isProgramActive('safari')" />
         <ProgramSettings v-if="isProgramActive('settings')" />
+        <ProgramCalculator v-if="isProgramActive('calculator')" />
     </div>
 </template>
 

@@ -143,6 +143,9 @@ function switchPage(newPage: number): void {
 
 <style lang="scss" scoped>
 .safari {
+    @include size(80vw, 80vh);
+    min-inline-size: r(800);
+    min-block-size: r(300);
     display: flex;
     flex-direction: column;
     background-color: $color-white-100;

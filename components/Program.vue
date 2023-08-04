@@ -19,7 +19,8 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
     draggableElements: Ref<HTMLElement[]> | undefined,
-    verticalOnly?: boolean,
+    horizontalResizeOnly?: boolean,
+    verticalResizeOnly?: boolean,
 }
 
 const props = defineProps<ProgramProps>();
@@ -95,15 +96,21 @@ function isInline(event: MouseEvent): boolean {
     return closestEdge === 'left' || closestEdge === 'right';
 }
 
+function isBlock(event: MouseEvent): boolean {
+    const closestEdge = getClosestEdge(event, programRef?.value);
+
+    return closestEdge === 'top' || closestEdge === 'bottom';
+}
+
+function isResizable(event: MouseEvent): boolean {
+    return (isInline(event) && !props.verticalResizeOnly) || (isBlock(event) && !props.horizontalResizeOnly);
+}
+
 function updateCursor(type: string): void {
     $gsap.set(['.desktop__wallpaper', programRef.value], { cursor: type });
 }
 
 function detectAction(event: MouseEvent): void {
-    if (isInline(event) && props.verticalOnly) {
-        return;
-    }
-
     if (!isPointerNearEdge(event)) {
         if (!$Draggable.get(programRef.value)) {
             initDraggable();
@@ -114,6 +121,10 @@ function detectAction(event: MouseEvent): void {
 
     if (draggable?.length) {
         draggable[0].kill();
+    }
+
+    if (!isResizable(event)) {
+        return;
     }
 
     const cursor = isInline(event) ? 'ew-resize' : 'ns-resize';
@@ -130,7 +141,7 @@ function startResize(event: MouseEvent): void {
 
 // TODO: Maybe refactor.
 function resize(event: MouseEvent): void {
-    if (isInline(event) && props.verticalOnly) {
+    if (!isResizable(event)) {
         return;
     }
 
@@ -201,9 +212,6 @@ function initDraggable(): void {
 
 <style lang="scss" scoped>
 .program {
-    @include size(80vw, 80vh);
-    min-inline-size: r(800);
-    min-block-size: r(300);
     max-inline-size: 100%;
     max-block-size: calc(100% - #{$space-6});
     position: absolute;

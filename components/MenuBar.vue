@@ -7,7 +7,7 @@
             />
             <div class="menu-bar__program-options">
                 <span
-                    v-for="(option, index) in programOptions"
+                    v-for="(option, index) in programOptions()"
                     :key="index"
                     class="menu-bar__program-option"
                 >
@@ -53,9 +53,11 @@
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
 import { vOnClickOutside } from '@vueuse/components';
 
-const programOptions = ['Finder', 'File', 'Edit', 'View', 'Go', 'Window', 'Help'];
+const globalStore = useGlobalStore();
+
 const menuBarIcons = ['battery-75', 'wifi', 'magnifyingglass', 'control-centre'];
 
 const spotlightRef: Ref<HTMLElement | undefined> = ref();
@@ -67,6 +69,23 @@ setInterval(() => {
         .DateTimeFormat('cs', { hour: 'numeric', minute: 'numeric' })
         .format(new Date());
 }, 1000);
+
+function programOptions(): string[] {
+    const focusedProgram = globalStore.focusedProgram;
+
+    switch (globalStore.focusedProgram) {
+        case 'finder':
+            return [focusedProgram, 'file', 'edit', 'view', 'go', 'window', 'help'];
+        case 'settings':
+            return [focusedProgram, 'file', 'edit', 'view', 'window', 'help'];
+        case 'safari':
+            return [focusedProgram, 'file', 'edit', 'view', 'history', 'bookmarks', 'develop', 'window', 'help'];
+        case 'calculator':
+            return [focusedProgram, 'file', 'edit', 'view', 'convert', 'speech', 'window', 'help'];
+        default:
+            return [focusedProgram];
+    }
+}
 
 function openModule(iconName: string): void {
     if (iconName === activeIcon.value) {
@@ -123,8 +142,14 @@ const closeModule = [
     column-gap: $space-5;
 }
 
-.menu-bar__program-option:first-child {
-    font-weight: $font-weight-bold;
+.menu-bar__program-option {
+    &:first-child {
+        font-weight: $font-weight-bold;
+    }
+
+    &::first-letter {
+        text-transform: capitalize;
+    }
 }
 
 .menu-bar__right {
