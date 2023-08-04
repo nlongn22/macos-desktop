@@ -1,6 +1,6 @@
 <template>
     <Program
-        :draggable-elements="[calculatorNavbarRef, calculatorResultsRef]"
+        :draggable-elements="[calculatorNavbarRef, calculatorResultRef]"
         horizontal-resize-only
         vertical-resize-only
         class="calculator"
@@ -13,10 +13,13 @@
         </div>
 
         <div
-            ref="calculatorResultsRef"
-            class="calculator__results"
+            ref="calculatorResultRef"
+            class="calculator__result"
+            :title="result"
         >
-            {{ result() }}
+            &#x200E;
+            {{ result }}
+            &#x200E;
         </div>
 
         <div class="calculator__buttons">
@@ -33,16 +36,71 @@
 </template>
 
 <script setup lang="ts">
-const buttons = ['C', '±', '%', '÷', '7', '8', '9', '×', '4', '5', '6', '-', '1', '2', '3', '+', '0', ',', '='];
+const buttons = ['C', '±', '%', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
 
 const calculatorNavbarRef: Ref<HTMLElement | undefined> = ref();
-const calculatorResultsRef: Ref<HTMLElement | undefined> = ref();
+const calculatorResultRef: Ref<HTMLElement | undefined> = ref();
+const result = ref('0');
+const evaluation = ref('');
 
 function registerButton(button: string): void {
-}
+    if (button === '=') {
+        result.value = eval(evaluation.value).toString();
+        evaluation.value = result.value;
+        return;
+    }
 
-function result(): string {
-    return '0';
+    if (button === 'C') {
+        result.value = '0';
+        evaluation.value = '';
+        return;
+    }
+
+    if (button === '±') {
+        result.value = (parseFloat(result.value) * -1).toString();
+        evaluation.value = result.value;
+        return;
+    }
+
+    if (button === '%') {
+        result.value = (parseFloat(result.value) / 100).toString();
+        evaluation.value = result.value;
+        return;
+    }
+
+    if (button === '.' && !result.value.includes('.')) {
+        result.value += '.';
+        evaluation.value += '.';
+        return;
+    }
+
+    if (/\d/.test(button)) {
+        if (result.value === '0' || /[-+/*]/.test(evaluation.value.slice(-1))) {
+            result.value = button;
+        } else {
+            result.value += button;
+        }
+
+        evaluation.value += button;
+        return;
+    }
+
+    if (/[-+/*]/.test(button)) {
+        if (result.value === '0') {
+            return;
+        }
+
+        if (/[-+/*]/.test(evaluation.value.slice(-1))) {
+            evaluation.value = evaluation.value.slice(0, -1) + button;
+        } else {
+            try {
+                result.value = eval(evaluation.value);
+                evaluation.value = result.value;
+            } finally {
+                evaluation.value += button;
+            }
+        }
+    }
 }
 </script>
 
@@ -60,12 +118,15 @@ function result(): string {
     padding: $space-2;
 }
 
-.calculator__results {
-    margin-inline: $space-3;
-    margin-block-start: $space-3;
-    margin-block-end: $space-6;
+.calculator__result {
+    padding-inline: $space-2;
+    padding-block-start: $space-3;
+    padding-block-end: $space-6;
+    overflow: hidden;
+    direction: rtl;
     text-align: right;
-    font-size: $space-12;
+    text-overflow: ellipsis;
+    font-size: $space-10;
     font-weight: $font-weight-light;
     color: $color-background;
 }
@@ -84,19 +145,31 @@ function result(): string {
     color: $color-background;
     background-color: rgba($color-background, 0.3);
 
-    &:nth-child(17) {
-        grid-column: span 2;
+    &:active {
+        background-color: rgba($color-background, $opacity-high);
     }
 
     &:nth-child(-n + 3) {
         font-size: $space-5;
         background-color: rgba($color-background, 0.1);
+
+        &:active {
+            background-color: rgba($color-background, 0.3);
+        }
     }
 
     &:nth-child(4n),
     &:last-child {
         font-size: $space-7;
         background-color: $color-orange;
+
+        &:active {
+            filter: brightness(0.8);
+        }
+    }
+
+    &:nth-child(17) {
+        grid-column: span 2;
     }
 }
 </style>
