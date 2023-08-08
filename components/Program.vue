@@ -2,7 +2,10 @@
     <div
         ref="programRef"
         class="program"
-        :class="{ 'program--active': globalStore.focusedProgram === programName() }"
+        :class="[
+            { 'program--focused': globalStore.isProgramFocused(programName()) },
+            { 'program--minimized': globalStore.isProgramMinimized(programName()) }
+        ]"
         @mousemove="detectAction($event)"
         @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
@@ -222,10 +225,17 @@ function initDraggable(): void {
     border-radius: $border-radius-xl;
     overflow: hidden;
 
-    &--active {
+    &--focused {
         box-shadow: rgba($color-foreground, 0.3) 0 $space-4 $space-8;
         // Focus on program (1999 - less than menu bar and dock).
         z-index: 1999 !important;
+    }
+
+    &--minimized {
+        max-inline-size: unset;
+        max-block-size: unset;
+        transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0.07) !important;
+        box-shadow: none;
     }
 }
 </style>

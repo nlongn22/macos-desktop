@@ -6,12 +6,20 @@ export const useGlobalStore = defineStore('dock', () => {
     const brightness = useStorage('brightness', 1);
 
     const dock = useStorage('dock', [
-        'finder', 'launchpad', 'settings', 'safari', 'calculator', 'messages', 'notes', 'trash',
+        'finder',
+        'launchpad',
+        'settings',
+        'safari',
+        'calculator',
+        'messages',
+        'notes',
     ]);
 
     const activePrograms: Ref<string[]> = ref([]);
 
     const focusedProgram = ref('finder');
+
+    const minimizedPrograms: Ref<string[]>  = ref([]);
 
     function saveWallpaper(name: string): void {
         wallpaper.value = name;
@@ -29,6 +37,10 @@ export const useGlobalStore = defineStore('dock', () => {
         activePrograms.value.push(programName);
     }
 
+    function closeProgram(programName: string): void {
+        activePrograms.value = activePrograms.value.filter((program: string) => program !== programName);
+    }
+
     function isProgramActive(programName: string): boolean {
         return activePrograms.value.includes(programName);
     }
@@ -37,17 +49,39 @@ export const useGlobalStore = defineStore('dock', () => {
         focusedProgram.value = programName;
     }
 
+    function isProgramFocused(programName: string): boolean {
+        return focusedProgram.value === programName;
+    }
+
+    function minimizeProgram(programName: string): void {
+        minimizedPrograms.value.push(programName);
+    }
+
+    function revealProgram(programName: string): void {
+        minimizedPrograms.value = minimizedPrograms.value.filter((program: string) => program !== programName);
+    }
+
+    function isProgramMinimized(programName: string): boolean {
+        return minimizedPrograms.value.includes(programName);
+    }
+
     return {
         wallpaper,
         brightness,
         dock,
         activePrograms,
         focusedProgram,
+        minimizedPrograms,
         saveWallpaper,
         saveBrightness,
         saveDockOrder,
         openProgram,
+        closeProgram,
         isProgramActive,
         focusProgram,
+        isProgramFocused,
+        minimizeProgram,
+        revealProgram,
+        isProgramMinimized,
     };
 });

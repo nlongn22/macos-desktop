@@ -1,112 +1,118 @@
 <template>
-    <Program
-        :draggable-elements="[safariNavbarRef, safariLeftRef, safariRightRef]"
-        class="safari"
+    <Teleport
+        v-if="isMounted"
+        to="#safari-minimized"
+        :disabled="!globalStore.isProgramMinimized('safari')"
     >
-        <div
-            ref="safariNavbarRef"
-            class="safari__navbar"
+        <Program
+            :draggable-elements="[safariNavbarRef, safariLeftRef, safariRightRef]"
+            class="safari"
         >
             <div
-                ref="safariLeftRef"
-                class="safari__left"
+                ref="safariNavbarRef"
+                class="safari__navbar"
             >
-                <ProgramDots program-name="safari" />
-                <div class="safari__sidebar">
+                <div
+                    ref="safariLeftRef"
+                    class="safari__left"
+                >
+                    <ProgramDots program-name="safari" />
+                    <div class="safari__sidebar">
+                        <Icon
+                            name="sidebar-left"
+                            class="safari__navbar-icon hover-effect hover-effect--small"
+                        />
+                        <Icon
+                            name="chevron-right"
+                            class="safari__sidebar-icon-chevron safari__navbar-icon hover-effect hover-effect--small"
+                        />
+                    </div>
+                    <div class="safari__navigations">
+                        <Icon
+                            name="chevron-right"
+                            class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
+                            @click="navigateBack"
+                        />
+                        <Icon
+                            name="chevron-right"
+                            class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
+                            @click="navigateForward"
+                        />
+                    </div>
+                </div>
+
+                <div class="safari__middle">
+                    <div class="safari__input">
+                        <Icon
+                            class="safari__input-icon"
+                            name="lock-fill"
+                        />
+                        <input
+                            placeholder="nln.fyi"
+                            size="4"
+                            class="safari__input-text"
+                        >
+                    </div>
+                </div>
+
+                <div
+                    ref="safariRightRef"
+                    class="safari__right"
+                >
                     <Icon
-                        name="sidebar-left"
+                        name="square-and-arrow-up"
+                        class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
+                    />
+                    <Icon
+                        name="plus"
+                        class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
+                    />
+                    <Icon
+                        name="square-on-square"
                         class="safari__navbar-icon hover-effect hover-effect--small"
                     />
-                    <Icon
-                        name="chevron-right"
-                        class="safari__sidebar-icon-chevron safari__navbar-icon hover-effect hover-effect--small"
-                    />
-                </div>
-                <div class="safari__navigations">
-                    <Icon
-                        name="chevron-right"
-                        class="safari__navigation-icon-chevron safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
-                        @click="navigateBack"
-                    />
-                    <Icon
-                        name="chevron-right"
-                        class="safari__navbar-icon safari__navbar-icon--smallest hover-effect hover-effect--small"
-                        @click="navigateForward"
-                    />
                 </div>
             </div>
 
-            <div class="safari__middle">
-                <div class="safari__input">
-                    <Icon
-                        class="safari__input-icon"
-                        name="lock-fill"
+            <div class="safari__tabs">
+                <div
+                    v-for="(page, index) in safariPages"
+                    :key="index"
+                    class="safari__tab"
+                    :class="{ 'safari__tab--inactive' : activePage !== index }"
+                    @click="switchPage(index)"
+                >
+                    <NuxtImg
+                        :src="`/favicons/${page.name}.png`"
+                        class="safari__tab-favicon"
                     />
-                    <input
-                        placeholder="nln.fyi"
-                        size="4"
-                        class="safari__input-text"
-                    >
+                    <div class="safari__tab-title">
+                        {{ page.title }}
+                    </div>
                 </div>
             </div>
 
-            <div
-                ref="safariRightRef"
-                class="safari__right"
-            >
-                <Icon
-                    name="square-and-arrow-up"
-                    class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
-                />
-                <Icon
-                    name="plus"
-                    class="safari__navbar-icon safari__navbar-icon--small hover-effect hover-effect--small"
-                />
-                <Icon
-                    name="square-on-square"
-                    class="safari__navbar-icon hover-effect hover-effect--small"
-                />
-            </div>
-        </div>
-
-        <div class="safari__tabs">
-            <div
+            <iframe
                 v-for="(page, index) in safariPages"
                 :key="index"
-                class="safari__tab"
-                :class="{ 'safari__tab--inactive' : activePage !== index }"
-                @click="switchPage(index)"
-            >
-                <NuxtImg
-                    :src="`/favicons/${page.name}.png`"
-                    class="safari__tab-favicon"
-                />
-                <div class="safari__tab-title">
-                    {{ page.title }}
-                </div>
-            </div>
-        </div>
-
-        <iframe
-            v-for="(page, index) in safariPages"
-            :key="index"
-            :src="page.url"
-            class="safari__iframe"
-            :class="{ 'safari__iframe--active' : activePage === index }"
-        />
-    </Program>
+                :src="page.url"
+                class="safari__iframe"
+                :class="{ 'safari__iframe--active' : activePage === index }"
+            />
+        </Program>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 interface SafariPage {
     name: string,
     title: string,
     url: string,
 }
-
-const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
-const safariLeftRef: Ref<HTMLElement | undefined> = ref();
-const safariRightRef: Ref<HTMLElement | undefined> = ref();
 
 const safariPages: SafariPage[] = [
     {
@@ -126,7 +132,11 @@ const safariPages: SafariPage[] = [
     },
 ];
 
+const safariNavbarRef: Ref<HTMLElement | undefined> = ref();
+const safariLeftRef: Ref<HTMLElement | undefined> = ref();
+const safariRightRef: Ref<HTMLElement | undefined> = ref();
 const activePage = ref(0);
+const isMounted = ref(false);
 
 function navigateBack(): void {
     window.history.back();
@@ -139,6 +149,12 @@ function navigateForward(): void {
 function switchPage(newPage: number): void {
     activePage.value = newPage;
 }
+
+onMounted(() => {
+    nextTick(() => {
+        isMounted.value = true;
+    });
+});
 </script>
 
 <style lang="scss" scoped>

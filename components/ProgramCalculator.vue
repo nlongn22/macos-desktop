@@ -1,47 +1,59 @@
 <template>
-    <Program
-        :draggable-elements="[calculatorNavbarRef, calculatorResultRef]"
-        horizontal-resize-only
-        vertical-resize-only
-        class="calculator"
+    <Teleport
+        v-if="isMounted"
+        to="#calculator-minimized"
+        :disabled="!globalStore.isProgramMinimized('calculator')"
     >
-        <div
-            ref="calculatorNavbarRef"
-            class="calculator__navbar"
+        <Program
+            :draggable-elements="[calculatorNavbarRef, calculatorResultRef]"
+            horizontal-resize-only
+            vertical-resize-only
+            class="calculator"
         >
-            <ProgramDots program-name="calculator" />
-        </div>
-
-        <div
-            ref="calculatorResultRef"
-            class="calculator__result"
-            :title="result"
-        >
-            &#x200E;
-            {{ result }}
-            &#x200E;
-        </div>
-
-        <div class="calculator__buttons">
-            <div 
-                v-for="(button, index) in buttons"
-                :key="index"
-                class="calculator__button"
-                @click="registerButton(button)"
+            <div
+                ref="calculatorNavbarRef"
+                class="calculator__navbar"
             >
-                {{ button }}
+                <ProgramDots program-name="calculator" />
             </div>
-        </div>
-    </Program>
+
+            <div
+                ref="calculatorResultRef"
+                class="calculator__result"
+                :title="result"
+            >
+                &#x200E;
+                {{ result }}
+                &#x200E;
+            </div>
+
+            <div class="calculator__buttons">
+                <div 
+                    v-for="(button, index) in buttons"
+                    :key="index"
+                    class="calculator__button"
+                    @click="registerButton(button)"
+                >
+                    {{ button }}
+                </div>
+            </div>
+        </Program>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 const buttons = ['C', '±', '%', '/', '7', '8', '9', '*', '4', '5', '6', '-', '1', '2', '3', '+', '0', '.', '='];
 
 const calculatorNavbarRef: Ref<HTMLElement | undefined> = ref();
 const calculatorResultRef: Ref<HTMLElement | undefined> = ref();
 const result = ref('0');
 const evaluation = ref('');
+
+const isMounted = ref(false);
 
 function registerButton(button: string): void {
     if (button === '=') {
@@ -102,6 +114,12 @@ function registerButton(button: string): void {
         }
     }
 }
+
+onMounted(() => {
+    nextTick(() => {
+        isMounted.value = true;
+    });
+});
 </script>
 
 <style lang="scss" scoped>

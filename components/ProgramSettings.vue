@@ -1,51 +1,61 @@
 <template>
-    <Program
-        :draggable-elements="[settingsNavbarRef, settingsMainTitleRef]"
-        vertical-resize-only
-        class="settings"
+    <Teleport
+        v-if="isMounted"
+        to="#settings-minimized"
+        :disabled="!globalStore.isProgramMinimized('settings')"
     >
-        <div class="settings__sidebar">
-            <div
-                ref="settingsNavbarRef"
-                class="settings__navbar"
-            >
-                <ProgramDots program-name="settings" />
-            </div>
-
-            <div class="settings__items">
+        <Program
+            :draggable-elements="[settingsNavbarRef, settingsMainTitleRef]"
+            vertical-resize-only
+            class="settings"
+        >
+            <div class="settings__sidebar">
                 <div
-                    v-for="(page, index) in settingsPages"
-                    :key="index"
-                    class="settings__item"
-                    :class="{ 'settings__item--active': activeSettingsPage === page.name }"
-                    @click="switchPage(page.name)"
+                    ref="settingsNavbarRef"
+                    class="settings__navbar"
                 >
-                    <div class="item__icon-background">
-                        <Icon
-                            :name="page.icon"
-                            class="item__icon"
-                        />
-                    </div>
+                    <ProgramDots program-name="settings" />
+                </div>
 
-                    {{ page.name }}
+                <div class="settings__items">
+                    <div
+                        v-for="(page, index) in settingsPages"
+                        :key="index"
+                        class="settings__item"
+                        :class="{ 'settings__item--active': activeSettingsPage === page.name }"
+                        @click="switchPage(page.name)"
+                    >
+                        <div class="item__icon-background">
+                            <Icon
+                                :name="page.icon"
+                                class="item__icon"
+                            />
+                        </div>
+
+                        {{ page.name }}
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="settings__main">
-            <div
-                ref="settingsMainTitleRef"
-                class="settings__main-title"
-            >
-                {{ activeSettingsPage }}
+            <div class="settings__main">
+                <div
+                    ref="settingsMainTitleRef"
+                    class="settings__main-title"
+                >
+                    {{ activeSettingsPage }}
+                </div>
+                <SettingsAppearance v-if="activeSettingsPage === 'appearance'" />
+                <SettingsWallpaper v-if="activeSettingsPage === 'wallpaper'" />
             </div>
-            <SettingsAppearance v-if="activeSettingsPage === 'appearance'" />
-            <SettingsWallpaper v-if="activeSettingsPage === 'wallpaper'" />
-        </div>
-    </Program>
+        </Program>
+    </Teleport>
 </template>
 
 <script setup lang="ts">
+import { useGlobalStore } from '~/store/global';
+
+const globalStore = useGlobalStore();
+
 interface SettingsPage {
     name: string,
     icon: string,
@@ -67,9 +77,17 @@ const settingsPages: SettingsPage[] = [
 
 const activeSettingsPage = ref('appearance');
 
+const isMounted = ref(false);
+
 function switchPage(name: string): void {
     activeSettingsPage.value = name;
 }
+
+onMounted(() => {
+    nextTick(() => {
+        isMounted.value = true;
+    });
+});
 </script>
 
 <style lang="scss" scoped>

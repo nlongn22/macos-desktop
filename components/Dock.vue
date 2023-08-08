@@ -18,6 +18,24 @@
 
             <div class="dock__program-dot" />
         </div>
+
+        <div class="dock__group">
+            <NuxtPicture
+                id="trash"
+                preload
+                src="/programs/trash.png"
+                :img-attrs="{ class: 'dock__program-image' }"
+                class="dock__group-trash"
+            />
+
+            <div
+                v-for="(program, index) in globalStore.activePrograms"
+                :id="program + '-minimized'"
+                :key="index"
+                class="dock__group-programs"
+                :class="{ 'dock__group-programs--visible': globalStore.isProgramMinimized(program) }"
+            />
+        </div>
     </div>
 </template>
 
@@ -36,7 +54,7 @@ const dockRef: Ref<HTMLElement | undefined> = ref();
 const isDragging = ref(false);
 
 function isEdgeProgram(position: number): boolean {
-    return (position === 0 || position === programs.length - 1);
+    return (position === 0 || position === programs.length);
 }
 
 function isOutOfBoundX(currentPosition: number): boolean {
@@ -155,7 +173,7 @@ function saveProgramsOrder(): void {
         return;
     }
 
-    globalStore.saveDockOrder([...programs].map(({ id }) => id));
+    globalStore.saveDockOrder([...programs].slice(0, -1).map(({ id }) => id));
 }
 
 function openProgram(program: HTMLElement): void {
@@ -195,9 +213,10 @@ onMounted(() => {
     inset-inline-start: 50%;
     transform: translate(-50%, -5%);
     inline-size: max-content;
+    max-block-size: r(80.25);
     display: flex;
     align-items: center;
-    column-gap: $space-3;
+    column-gap: $space-4;
     padding-inline: r(10);
     padding-block: $space-2;
     border-radius: $space-5;
@@ -210,21 +229,10 @@ onMounted(() => {
 }
 
 .dock__program {
-    position: relative;
-
     &:first-child,
     &--active {
         .dock__program-dot {
             visibility: visible;
-        }
-    }
-
-    &:last-child {
-        &:deep(.dock__program-image) {
-            @include size($space-16, auto);
-            margin-inline-start: $space-3;
-            padding-inline-start: $space-3;
-            border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
         }
     }
 }
@@ -242,5 +250,33 @@ onMounted(() => {
     border-radius: $border-radius-full;
     visibility: hidden;
     background-color: rgba($color-black, $opacity-high);
+}
+
+.dock__group {
+    display: flex;
+    column-gap: $space-4;
+    align-items: center;
+    margin-inline-start: $space-2;
+    padding-inline-start: $space-3;
+    border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
+
+    .dock__group-trash {
+        order: 1;
+
+        &:deep(.dock__program-image) {
+            @include size($space-12, auto);
+        }
+    }
+}
+
+.dock__group-programs {
+    position: relative;
+    display: none;
+    overflow: visible;
+
+    &--visible {
+        display: inline-block;
+        inline-size: r(60);
+    }
 }
 </style>

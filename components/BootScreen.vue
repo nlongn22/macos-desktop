@@ -12,12 +12,12 @@
 
 <script setup lang="ts">
 // eslint-disable-next-line func-call-spacing
-const emit = defineEmits<{
+const emits = defineEmits<{
     (e: 'loadingHasFinished', isFinished: boolean): void
 }>();
 
 function hideBootScreen(): void {
-    emit('loadingHasFinished', true);
+    emits('loadingHasFinished', true);
 }
 
 onMounted(() => {

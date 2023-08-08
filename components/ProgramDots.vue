@@ -1,22 +1,18 @@
 <template>
     <div class="dots">
         <div
+            v-for="(dot, index) in dots"
+            :key="index"
             class="dot__background"
-            @click="closeProgram"
+            @click="[
+                closeProgram(index),
+                minimizeProgram(index)
+            ]"
         >
-            <span class="dot">
-                &times;
-            </span>
-        </div>
-        <div class="dot__background">
-            <span class="dot">
-                &minus;
-            </span>
-        </div>
-        <div class="dot__background">
-            <span class="dot">
-                &plus;
-            </span>
+            <span
+                class="dot"
+                v-html="dot"
+            />
         </div>
     </div>
 </template>
@@ -32,9 +28,23 @@ interface DotsProps {
 
 const props = defineProps<DotsProps>();
 
-function closeProgram(): void {
-    globalStore.activePrograms = globalStore.activePrograms.filter((programName: string) => programName !== props.programName);
+const dots = ['&times;', '&minus;', '&plus;'];
+
+function closeProgram(dotIndex: number): void {
+    if (dotIndex !== 0) {
+        return;
+    }
+
+    globalStore.closeProgram(props.programName);
     globalStore.focusProgram('finder');
+}
+
+function minimizeProgram(dotIndex: number): void {
+    if (dotIndex !== 1) {
+        return;
+    }
+
+    globalStore.minimizeProgram(globalStore.focusedProgram);
 }
 </script>
 
