@@ -1,5 +1,6 @@
 <template>
     <div
+        :id="`desktop-${programName()}`"
         ref="programRef"
         class="program"
         :class="[
@@ -234,7 +235,6 @@ function initDraggable(): void {
     &--minimized {
         max-inline-size: unset;
         max-block-size: unset;
-        transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0.07) !important;
         box-shadow: none;
     }
 }

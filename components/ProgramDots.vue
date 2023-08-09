@@ -19,6 +19,7 @@
 
 <script setup lang="ts">
 import { useGlobalStore } from '~/store/global';
+const { $gsap } = useNuxtApp();
 
 const globalStore = useGlobalStore();
 
@@ -44,7 +45,27 @@ function minimizeProgram(dotIndex: number): void {
         return;
     }
 
-    globalStore.minimizeProgram(globalStore.focusedProgram);
+    const target = `#desktop-${props.programName}`;
+    const targetElement = document.getElementById(target.slice(1));
+
+    const width = targetElement?.offsetWidth ?? 1;
+    const height = targetElement?.offsetHeight ?? 1;
+    const widthRatio = 60 / width;
+    const heightRatio = 60 / height;
+
+    const tl = $gsap.timeline();
+
+    tl.to(target, { scale: 0 });
+    tl.add(() => {
+        globalStore.minimizeProgram(globalStore.focusedProgram);
+    });
+    tl.set(target, {
+        x: 0,
+        y: 0,
+        z: 0,
+        force3D: true,
+    });
+    tl.to(target, { scale: Math.min(widthRatio, heightRatio) });
 }
 </script>
 

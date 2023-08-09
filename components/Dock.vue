@@ -21,16 +21,14 @@
 
         <div class="dock__group">
             <NuxtPicture
-                id="trash"
                 preload
                 src="/programs/trash.png"
                 :img-attrs="{ class: 'dock__program-image' }"
                 class="dock__group-trash"
             />
-
             <div
                 v-for="(program, index) in globalStore.activePrograms"
-                :id="program + '-minimized'"
+                :id="'dock-minimized-' + program"
                 :key="index"
                 class="dock__group-programs"
                 :class="{ 'dock__group-programs--visible': globalStore.isProgramMinimized(program) }"
