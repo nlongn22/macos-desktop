@@ -31,14 +31,13 @@
                 :id="'minimized-' + program"
                 :key="index"
                 class="dock__minimized-program"
-                :class="{ 'dock__minimized-program--visible': globalStore.isProgramMinimized(program) }"
                 @click="revealProgram(program)"
             >
                 <NuxtPicture
                     preload
                     :src="`/programs/${program}.png`"
                     :img-attrs="{ class: 'dock__minimized-program-image' }"
-                    class="dock__minimized-program-thumbnail"
+                    class="dock__minimized-thumbnail"
                 />
             </div>
         </div>
@@ -56,7 +55,6 @@ const programs = globalStore.dock;
 const wipPrograms = ['finder', 'launchpad', 'messages', 'notes', 'trash'];
 
 const dockRef: Ref<HTMLElement | undefined> = ref();
-
 const isDragging = ref(false);
 
 function isEdgeProgram(position: number): boolean {
@@ -208,14 +206,32 @@ function isProgramActive(programName: string): boolean {
 
 function revealProgram(programName: string): void {
     const target = `#desktop-${programName}`;
-    const tl = $gsap.timeline();
+    const tl = $gsap.timeline({
+        defaults: {
+            duration: 0.4,
+        },
+    });
 
-    tl.to(target, { scale: 0 });
+    tl.to(target, {
+        scale: 0,
+        ease: 'power4.out',
+    });
+    tl.to(`#minimized-${programName} .dock__minimized-thumbnail`, {
+        opacity: 0,
+    }, '-=0.4');
+    tl.to(`#minimized-${programName}`, {
+        inlineSize: 0,
+        blockSize: 0,
+        marginInline: -8,
+    });
     tl.add(() => {
         globalStore.revealProgram(programName);
         globalStore.focusProgram(programName);
     });
-    tl.to(target, { scale: 1, clearProps: 'transform' });
+    tl.to(target, {
+        scale: 1,
+        ease: 'power4.out',
+    });
 }
 
 onMounted(() => {
@@ -226,11 +242,10 @@ onMounted(() => {
 <style lang="scss" scoped>
 .dock {
     position: absolute;
-    inset-block-end: 0;
+    inset-block-end: $space-1;
     inset-inline-start: 50%;
-    transform: translate(-50%, -5%);
+    transform: translateX(-50%);
     inline-size: max-content;
-    max-block-size: r(80.25);
     display: flex;
     align-items: center;
     column-gap: $space-4;
@@ -274,12 +289,12 @@ onMounted(() => {
     column-gap: $space-4;
     align-items: center;
     margin-inline-start: $space-2;
-    padding-inline-start: $space-3;
+    padding-inline-start: $space-4;
     border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
 
     .dock__program-trash {
         // Set trash to be always last.
-        order: 9;
+        order: 1;
 
         &:deep(.dock__program-image) {
             @include size(r(50), auto);
@@ -289,19 +304,16 @@ onMounted(() => {
 
 .dock__minimized-program {
     position: relative;
-    display: none;
+    // Set negative inline margin due to weird whitespace.
+    margin-inline: -$space-2;
     overflow: visible;
-
-    &--visible {
-        @include size(r(60));
-        display: inline-block;
-    }
 }
 
-.dock__minimized-program-thumbnail {
+.dock__minimized-thumbnail {
     position: absolute;
     top: 60%;
     left: 70%;
+    opacity: 0;
     // Set higher z-index than minimized programs.
     z-index: 2000;
 }

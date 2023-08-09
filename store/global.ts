@@ -2,9 +2,7 @@ import { useStorage } from '@vueuse/core';
 
 export const useGlobalStore = defineStore('dock', () => {
     const wallpaper = useStorage('wallpaper', 'ventura');
-
     const brightness = useStorage('brightness', 1);
-
     const dock = useStorage('dock', [
         'finder',
         'launchpad',
@@ -16,9 +14,7 @@ export const useGlobalStore = defineStore('dock', () => {
     ]);
 
     const activePrograms: Ref<string[]> = ref([]);
-
     const focusedProgram = ref('finder');
-
     const minimizedPrograms: Ref<string[]>  = ref([]);
 
     function saveWallpaper(name: string): void {

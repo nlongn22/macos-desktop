@@ -23,7 +23,7 @@ function hideBootScreen(): void {
 onMounted(() => {
     setTimeout(() => {
         hideBootScreen();
-    }, 5000);
+    }, 4000);
 });
 </script>
 
@@ -54,7 +54,7 @@ onMounted(() => {
 .boot-screen__progress-foreground {
     block-size: 100%;
     background-color: $color-white;
-    animation: 5s ease-in loading;
+    animation: 4s ease-in loading;
 }
 
 @keyframes loading {

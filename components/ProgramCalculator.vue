@@ -52,7 +52,6 @@ const calculatorNavbarRef: Ref<HTMLElement | undefined> = ref();
 const calculatorResultRef: Ref<HTMLElement | undefined> = ref();
 const result = ref('0');
 const evaluation = ref('');
-
 const isMounted = ref(false);
 
 function registerButton(button: string): void {

@@ -53,14 +53,36 @@ function minimizeProgram(dotIndex: number): void {
     const widthRatio = 60 / width;
     const heightRatio = 60 / height;
 
-    const tl = $gsap.timeline();
+    const tl = $gsap.timeline({
+        defaults: {
+            duration: 0.4,
+        },
+    });
 
-    tl.to(target, { scale: 0 });
+    tl.to(target, {
+        scale: 0,
+        ease: 'power4.out',
+    });
+    tl.to(`#minimized-${props.programName}`, {
+        inlineSize: 60,
+        blockSize: 60,
+        marginInline: 0,
+    });
     tl.add(() => {
         globalStore.minimizeProgram(globalStore.focusedProgram);
     });
-    tl.set(target, { x: 0, y: 0, z: 0 });
-    tl.to(target, { scale: Math.min(widthRatio, heightRatio) });
+    tl.set(target, {
+        x: 0,
+        y: 0,
+        z: 0,
+    });
+    tl.to(target, {
+        scale: Math.min(widthRatio, heightRatio),
+        ease: 'power4.out',
+    });
+    tl.to(`#minimized-${props.programName} .dock__minimized-thumbnail`, {
+        opacity: 1,
+    }, '-=0.4');
 }
 </script>
 

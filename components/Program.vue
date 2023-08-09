@@ -216,8 +216,9 @@ function initDraggable(): void {
 
 <style lang="scss" scoped>
 .program {
-    max-inline-size: 100%;
-    max-block-size: calc(100% - #{$space-6});
+    max-inline-size: 100vw;
+    // dock offset + dock height + menu bar height
+    max-block-size: calc(100% - r(107.13));
     position: absolute;
     inset-inline-start: 50%;
     inset-block-start: 45%;

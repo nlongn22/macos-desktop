@@ -36,7 +36,6 @@ const props = defineProps<SliderProps>();
 
 const backgroundRef: Ref<HTMLElement | undefined> = ref();
 const progressRef: Ref<HTMLElement | undefined> = ref();
-
 const isHandleBorderVisible = ref(false);
 
 function updateProgress(): void {

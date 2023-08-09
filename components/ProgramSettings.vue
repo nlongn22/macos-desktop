@@ -61,9 +61,6 @@ interface SettingsPage {
     icon: string,
 }
 
-const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
-const settingsMainTitleRef: Ref<HTMLElement | undefined> = ref();
-
 const settingsPages: SettingsPage[] = [
     {
         name: 'appearance',
@@ -75,8 +72,9 @@ const settingsPages: SettingsPage[] = [
     },
 ];
 
+const settingsNavbarRef: Ref<HTMLElement | undefined> = ref();
+const settingsMainTitleRef: Ref<HTMLElement | undefined> = ref();
 const activeSettingsPage = ref('appearance');
-
 const isMounted = ref(false);
 
 function switchPage(name: string): void {
