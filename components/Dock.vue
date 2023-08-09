@@ -19,20 +19,28 @@
             <div class="dock__program-dot" />
         </div>
 
-        <div class="dock__group">
+        <div class="dock__minimized-programs">
             <NuxtPicture
                 preload
                 src="/programs/trash.png"
                 :img-attrs="{ class: 'dock__program-image' }"
-                class="dock__group-trash"
+                class="dock__program-trash"
             />
             <div
                 v-for="(program, index) in globalStore.activePrograms"
-                :id="'dock-minimized-' + program"
+                :id="'minimized-' + program"
                 :key="index"
-                class="dock__group-programs"
-                :class="{ 'dock__group-programs--visible': globalStore.isProgramMinimized(program) }"
-            />
+                class="dock__minimized-program"
+                :class="{ 'dock__minimized-program--visible': globalStore.isProgramMinimized(program) }"
+                @click="revealProgram(program)"
+            >
+                <NuxtPicture
+                    preload
+                    :src="`/programs/${program}.png`"
+                    :img-attrs="{ class: 'dock__minimized-program-image' }"
+                    class="dock__minimized-program-thumbnail"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -185,18 +193,29 @@ function openProgram(program: HTMLElement): void {
         return;
     }
 
-    const tl = $gsap.timeline({
-        onComplete: () => {
-            globalStore.openProgram(program.id);
-        },
-    });
+    const tl = $gsap.timeline();
 
     tl.to(program, { y: -20, duration: 0.5 });
     tl.to(program, { y: 0 });
+    tl.then(() => {
+        globalStore.openProgram(program.id);
+    });
 }
 
 function isProgramActive(programName: string): boolean {
     return !isDragging.value && globalStore.isProgramActive(programName);
+}
+
+function revealProgram(programName: string): void {
+    const target = `#desktop-${programName}`;
+    const tl = $gsap.timeline();
+
+    tl.to(target, { scale: 0 });
+    tl.add(() => {
+        globalStore.revealProgram(programName);
+        globalStore.focusProgram(programName);
+    });
+    tl.to(target, { scale: 1, clearProps: 'transform' });
 }
 
 onMounted(() => {
@@ -222,7 +241,7 @@ onMounted(() => {
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
     background-color: rgba($color-background, $opacity-low);
-    // Set higher z-index than Draggable
+    // Set higher z-index than draggable programs. 
     z-index: 2000;
 }
 
@@ -250,7 +269,7 @@ onMounted(() => {
     background-color: rgba($color-black, $opacity-high);
 }
 
-.dock__group {
+.dock__minimized-programs {
     display: flex;
     column-gap: $space-4;
     align-items: center;
@@ -258,23 +277,37 @@ onMounted(() => {
     padding-inline-start: $space-3;
     border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
 
-    .dock__group-trash {
-        order: 1;
+    .dock__program-trash {
+        // Set trash to be always last.
+        order: 9;
 
         &:deep(.dock__program-image) {
-            @include size($space-12, auto);
+            @include size(r(50), auto);
         }
     }
 }
 
-.dock__group-programs {
+.dock__minimized-program {
     position: relative;
     display: none;
     overflow: visible;
 
     &--visible {
+        @include size(r(60));
         display: inline-block;
-        inline-size: r(60);
     }
+}
+
+.dock__minimized-program-thumbnail {
+    position: absolute;
+    top: 60%;
+    left: 70%;
+    // Set higher z-index than minimized programs.
+    z-index: 2000;
+}
+
+:deep(.dock__minimized-program-image) {
+    @include size($space-5);
+    max-inline-size: unset;
 }
 </style>

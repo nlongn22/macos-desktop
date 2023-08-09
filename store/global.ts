@@ -37,12 +37,12 @@ export const useGlobalStore = defineStore('dock', () => {
         activePrograms.value.push(programName);
     }
 
-    function closeProgram(programName: string): void {
-        activePrograms.value = activePrograms.value.filter((program: string) => program !== programName);
-    }
-
     function isProgramActive(programName: string): boolean {
         return activePrograms.value.includes(programName);
+    }
+
+    function closeProgram(programName: string): void {
+        activePrograms.value = activePrograms.value.filter((program: string) => program !== programName);
     }
 
     function focusProgram(programName: string): void {
@@ -57,12 +57,12 @@ export const useGlobalStore = defineStore('dock', () => {
         minimizedPrograms.value.push(programName);
     }
 
-    function revealProgram(programName: string): void {
-        minimizedPrograms.value = minimizedPrograms.value.filter((program: string) => program !== programName);
-    }
-
     function isProgramMinimized(programName: string): boolean {
         return minimizedPrograms.value.includes(programName);
+    }
+
+    function revealProgram(programName: string): void {
+        minimizedPrograms.value = minimizedPrograms.value.filter((program: string) => program !== programName);
     }
 
     return {
@@ -76,12 +76,12 @@ export const useGlobalStore = defineStore('dock', () => {
         saveBrightness,
         saveDockOrder,
         openProgram,
-        closeProgram,
         isProgramActive,
+        closeProgram,
         focusProgram,
         isProgramFocused,
         minimizeProgram,
-        revealProgram,
         isProgramMinimized,
+        revealProgram,
     };
 });

@@ -1,7 +1,7 @@
 <template>
     <Teleport
         v-if="isMounted"
-        to="#dock-minimized-settings"
+        to="#minimized-settings"
         :disabled="!globalStore.isProgramMinimized('settings')"
     >
         <Program

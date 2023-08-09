@@ -236,6 +236,9 @@ function initDraggable(): void {
         max-inline-size: unset;
         max-block-size: unset;
         box-shadow: none;
+        pointer-events: none;
+        // Set lower z-index than dock programs.
+        z-index: 999 !important;
     }
 }
 </style>

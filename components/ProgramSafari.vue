@@ -1,7 +1,7 @@
 <template>
     <Teleport
         v-if="isMounted"
-        to="#dock-minimized-safari"
+        to="#minimized-safari"
         :disabled="!globalStore.isProgramMinimized('safari')"
     >
         <Program

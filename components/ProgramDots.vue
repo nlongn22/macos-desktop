@@ -59,12 +59,7 @@ function minimizeProgram(dotIndex: number): void {
     tl.add(() => {
         globalStore.minimizeProgram(globalStore.focusedProgram);
     });
-    tl.set(target, {
-        x: 0,
-        y: 0,
-        z: 0,
-        force3D: true,
-    });
+    tl.set(target, { x: 0, y: 0, z: 0 });
     tl.to(target, { scale: Math.min(widthRatio, heightRatio) });
 }
 </script>

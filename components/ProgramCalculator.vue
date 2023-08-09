@@ -1,7 +1,7 @@
 <template>
     <Teleport
         v-if="isMounted"
-        to="#dock-minimized-calculator"
+        to="#minimized-calculator"
         :disabled="!globalStore.isProgramMinimized('calculator')"
     >
         <Program
