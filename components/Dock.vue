@@ -256,8 +256,7 @@ onMounted(() => {
     backdrop-filter: $blur-xl;
     box-shadow: rgba($color-foreground, $opacity-low) 0 r(30) r(90);
     background-color: rgba($color-background, $opacity-low);
-    // Set higher z-index than draggable programs. 
-    z-index: 2000;
+    z-index: 99999;
 }
 
 .dock__program {
@@ -293,7 +292,6 @@ onMounted(() => {
     border-inline-start: $border-width-thin solid rgba($color-foreground, $opacity-low);
 
     .dock__program-trash {
-        // Set trash to be always last.
         order: 1;
 
         &:deep(.dock__program-image) {
@@ -304,7 +302,7 @@ onMounted(() => {
 
 .dock__minimized-program {
     position: relative;
-    // Set negative inline margin due to weird whitespace.
+    // Add negative inline margin due to weird whitespace.
     margin-inline: -$space-2;
     overflow: visible;
 }
@@ -314,8 +312,6 @@ onMounted(() => {
     top: 60%;
     left: 70%;
     opacity: 0;
-    // Set higher z-index than minimized programs.
-    z-index: 2000;
 }
 
 :deep(.dock__minimized-program-image) {

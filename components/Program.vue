@@ -229,8 +229,7 @@ function initDraggable(): void {
 
     &--focused {
         box-shadow: rgba($color-foreground, 0.3) 0 $space-4 $space-8;
-        // Focus on program (1999 - less than menu bar and dock).
-        z-index: 1999 !important;
+        z-index: 9999 !important;
     }
 
     &--minimized {
@@ -238,8 +237,7 @@ function initDraggable(): void {
         max-block-size: unset;
         box-shadow: none;
         pointer-events: none;
-        // Set lower z-index than dock programs.
-        z-index: 999 !important;
+        z-index: -1 !important;
     }
 }
 </style>
