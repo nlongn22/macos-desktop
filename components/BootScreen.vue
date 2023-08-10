@@ -23,7 +23,7 @@ function hideBootScreen(): void {
 onMounted(() => {
     setTimeout(() => {
         hideBootScreen();
-    }, 1);
+    }, 4000);
 });
 </script>
 
