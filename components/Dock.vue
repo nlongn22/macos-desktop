@@ -12,7 +12,7 @@
         >
             <NuxtPicture
                 preload
-                :src="`/programs/${program}.png`"
+                :src="`/images/programs/${program}.png`"
                 :img-attrs="{ class: 'dock__program-image' }"
             />
 
@@ -22,7 +22,7 @@
         <div class="dock__minimized-programs">
             <NuxtPicture
                 preload
-                src="/programs/trash.png"
+                src="/images/programs/trash.png"
                 :img-attrs="{ class: 'dock__program-image' }"
                 class="dock__program-trash"
             />
@@ -35,7 +35,7 @@
             >
                 <NuxtPicture
                     preload
-                    :src="`/programs/${program}.png`"
+                    :src="`/images/programs/${program}.png`"
                     :img-attrs="{ class: 'dock__minimized-program-image' }"
                     class="dock__minimized-thumbnail"
                 />

@@ -1,7 +1,7 @@
 <template>
     <div class="desktop">
         <NuxtImg
-            :src="`/wallpapers/${wallpaper()}.png`"
+            :src="`/images/wallpapers/${wallpaper()}.png`"
             class="desktop__wallpaper"
         />
 

@@ -83,7 +83,7 @@
                     @click="switchPage(index)"
                 >
                     <NuxtImg
-                        :src="`/favicons/${page.name}.png`"
+                        :src="`/images/favicons/${page.name}.png`"
                         class="safari__tab-favicon"
                     />
                     <div class="safari__tab-title">

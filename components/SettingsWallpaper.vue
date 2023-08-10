@@ -20,7 +20,7 @@
                 v-for="(wallpaper, index) in wallpapers"
                 :key="index"
                 preload
-                :src="`wallpapers/${wallpaper}-light.png`"
+                :src="`/images/wallpapers/${wallpaper}-light.png`"
                 :img-attrs="{ class: 'wallpaper__image' }"
                 class="wallpaper__picture"
                 :class="{ 'wallpaper__picture--active': globalStore.wallpaper === wallpaper }"

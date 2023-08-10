@@ -34,7 +34,7 @@
                 <ControlCentre v-if="activeIcon === 'control-centre'" />
             </div>
             <NuxtImg
-                src="programs/siri.png"
+                src="/images/programs/siri.png"
                 class="menu-bar__image-siri"
             />
             <span class="menu-bar__date">

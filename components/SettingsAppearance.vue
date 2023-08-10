@@ -12,7 +12,7 @@
             >
                 <NuxtPicture
                     preload
-                    :src="`thumbnails/${mode}.png`"
+                    :src="`/images/thumbnails/${mode}.png`"
                     :img-attrs="{ class: 'appearance__mode-image' }"
                     class="appearance__mode-picture"
                 />
