@@ -31,7 +31,7 @@
                 :id="'minimized-' + program"
                 :key="index"
                 class="dock__minimized-program"
-                @click="revealProgram(program)"
+                @click="globalStore.revealProgram(program)"
             >
                 <NuxtPicture
                     preload
@@ -185,6 +185,10 @@ function openProgram(program: HTMLElement): void {
         return;
     }
 
+    if (globalStore.isProgramMinimized(program.id)) {
+        globalStore.revealProgram(program.id);
+    }
+
     globalStore.focusProgram(program.id);
 
     if (globalStore.activePrograms.includes(program.id)) {
@@ -202,36 +206,6 @@ function openProgram(program: HTMLElement): void {
 
 function isProgramActive(programName: string): boolean {
     return !isDragging.value && globalStore.isProgramActive(programName);
-}
-
-function revealProgram(programName: string): void {
-    const target = `#desktop-${programName}`;
-    const tl = $gsap.timeline({
-        defaults: {
-            duration: 0.4,
-        },
-    });
-
-    tl.to(target, {
-        scale: 0,
-        ease: 'power4.out',
-    });
-    tl.to(`#minimized-${programName} .dock__minimized-thumbnail`, {
-        opacity: 0,
-    }, '-=0.4');
-    tl.to(`#minimized-${programName}`, {
-        inlineSize: 0,
-        blockSize: 0,
-        marginInline: -8,
-    });
-    tl.add(() => {
-        globalStore.revealProgram(programName);
-        globalStore.focusProgram(programName);
-    });
-    tl.to(target, {
-        scale: 1,
-        ease: 'power4.out',
-    });
 }
 
 onMounted(() => {

@@ -1,6 +1,8 @@
 import { useStorage } from '@vueuse/core';
 
 export const useGlobalStore = defineStore('dock', () => {
+    const { $gsap } = useNuxtApp();
+
     const wallpaper = useStorage('wallpaper', 'ventura');
     const brightness = useStorage('brightness', 1);
     const dock = useStorage('dock', [
@@ -58,7 +60,34 @@ export const useGlobalStore = defineStore('dock', () => {
     }
 
     function revealProgram(programName: string): void {
-        minimizedPrograms.value = minimizedPrograms.value.filter((program: string) => program !== programName);
+        const target = `#desktop-${programName}`;
+
+        const tl = $gsap.timeline({
+            defaults: {
+                duration: 0.4,
+            },
+        });
+    
+        tl.to(target, {
+            scale: 0,
+            ease: 'power4.out',
+        });
+        tl.to(`#minimized-${programName} .dock__minimized-thumbnail`, {
+            opacity: 0,
+        }, '-=0.4');
+        tl.to(`#minimized-${programName}`, {
+            inlineSize: 0,
+            blockSize: 0,
+            marginInline: -8,
+        });
+        tl.add(() => {
+            minimizedPrograms.value = minimizedPrograms.value.filter((program: string) => program !== programName);
+            focusProgram(programName);
+        });
+        tl.to(target, {
+            scale: 1,
+            ease: 'power4.out',
+        });
     }
 
     return {
