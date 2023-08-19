@@ -85,6 +85,7 @@ export const useGlobalStore = defineStore('dock', () => {
             focusProgram(programName);
         });
         tl.to(target, {
+            y: 6,
             scale: 1,
             ease: 'power4.out',
         });

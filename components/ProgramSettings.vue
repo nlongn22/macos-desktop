@@ -6,7 +6,7 @@
     >
         <Program
             :draggable-elements="[settingsNavbarRef, settingsMainTitleRef]"
-            vertical-resize-only
+            horizontal-resize-disabled
             class="settings"
         >
             <div class="settings__sidebar">

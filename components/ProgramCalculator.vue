@@ -6,8 +6,8 @@
     >
         <Program
             :draggable-elements="[calculatorNavbarRef, calculatorResultRef]"
-            horizontal-resize-only
-            vertical-resize-only
+            horizontal-resize-disabled
+            vertical-resize-disabled
             class="calculator"
         >
             <div

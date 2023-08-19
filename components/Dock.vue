@@ -283,8 +283,8 @@ onMounted(() => {
 
 .dock__minimized-thumbnail {
     position: absolute;
-    top: 60%;
-    left: 70%;
+    inset-block-start: 60%;
+    inset-inline-start: 70%;
     opacity: 0;
 }
 

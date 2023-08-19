@@ -10,6 +10,7 @@
         @mousemove="detectAction($event)"
         @mousedown="startResize($event)"
         @mouseleave="updateCursor('unset')"
+        @dblclick="maximizeProgram($event)"
     >
         <slot />
     </div>
@@ -22,9 +23,9 @@ const globalStore = useGlobalStore();
 const { $gsap, $Draggable } = useNuxtApp();
 
 interface ProgramProps {
-    draggableElements: Ref<HTMLElement[]> | undefined,
-    horizontalResizeOnly?: boolean,
-    verticalResizeOnly?: boolean,
+    draggableElements: HTMLElement[],
+    horizontalResizeDisabled?: boolean,
+    verticalResizeDisabled?: boolean,
 }
 
 const props = defineProps<ProgramProps>();
@@ -38,6 +39,40 @@ function programName(): string {
     const classList = programRef.value?.classList ?? ['program'];
 
     return classList[classList?.length - 1];
+}
+
+function maximizeProgram(event: MouseEvent): void {
+    const isElementClickable = isDraggableElementClicked(event.target as HTMLElement);
+    const isHorizontalResizeDisabled = props.horizontalResizeDisabled;
+    const isVerticalResizeDisabled = props.verticalResizeDisabled;
+
+    if (!isElementClickable || (isHorizontalResizeDisabled && isVerticalResizeDisabled)) {
+        return;
+    }
+
+    const animation: Record<string, string | number> = {
+        x: 0,
+        y: 6,
+    };
+
+    if (isHorizontalResizeDisabled) {
+        animation.blockSize = '100vh';
+    }
+
+    if (isVerticalResizeDisabled) {
+        animation.inlineSize = '100vw';
+    }
+
+    if (!isHorizontalResizeDisabled && !isVerticalResizeDisabled) {
+        animation.inlineSize = '100vw';
+        animation.blockSize = '100vh';
+    }
+
+    $gsap.to(programRef.value, animation);
+}
+
+function isDraggableElementClicked(target: HTMLElement): boolean {
+    return props.draggableElements.includes(target);
 }
 
 function isPointerNearEdge(e: MouseEvent): boolean {
@@ -95,19 +130,17 @@ function getClosestEdge(event: MouseEvent, element: HTMLElement | undefined): st
 }
 
 function isInline(event: MouseEvent): boolean {
-    const closestEdge = getClosestEdge(event, programRef?.value);
+    const closestEdge = getClosestEdge(event, programRef.value);
 
     return closestEdge === 'left' || closestEdge === 'right';
 }
 
-function isBlock(event: MouseEvent): boolean {
-    const closestEdge = getClosestEdge(event, programRef?.value);
-
-    return closestEdge === 'top' || closestEdge === 'bottom';
-}
-
 function isResizable(event: MouseEvent): boolean {
-    return (isInline(event) && !props.verticalResizeOnly) || (isBlock(event) && !props.horizontalResizeOnly);
+    if (isInline(event)) {
+        return !props.horizontalResizeDisabled;
+    }
+
+    return !props.verticalResizeDisabled;
 }
 
 function updateCursor(type: string): void {
@@ -115,6 +148,10 @@ function updateCursor(type: string): void {
 }
 
 function detectAction(event: MouseEvent): void {
+    if (!isResizable(event)) {
+        return;
+    }
+
     if (!isPointerNearEdge(event)) {
         if (!$Draggable.get(programRef.value)) {
             initDraggable();
@@ -125,10 +162,6 @@ function detectAction(event: MouseEvent): void {
 
     if (draggable?.length) {
         draggable[0].kill();
-    }
-
-    if (!isResizable(event)) {
-        return;
     }
 
     const cursor = isInline(event) ? 'ew-resize' : 'ns-resize';
@@ -183,9 +216,9 @@ function resize(event: MouseEvent): void {
     }
 
     if (inline.includes(closestEdge)) {
-        $gsap.set(programRef.value, { inlineSize: bounds.width + delta });
+        $gsap.set(programRef.value, { inlineSize: bounds.width + delta + 'px' });
     } else {
-        $gsap.set(programRef.value, { blockSize: bounds.height + delta });
+        $gsap.set(programRef.value, { blockSize: bounds.height + delta + 'px' });
     }
 
     updateCursor(cursor);
@@ -206,7 +239,7 @@ function initDraggable(): void {
         onPress: function(event: MouseEvent) {
             globalStore.focusProgram(programName());
 
-            if (!props.draggableElements?.includes(event.target as HTMLElement)) {
+            if (!isDraggableElementClicked(event.target as HTMLElement)) {
                 this.endDrag();
             }
         },

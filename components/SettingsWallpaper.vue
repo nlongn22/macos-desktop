@@ -14,7 +14,7 @@
 
         <div
             class="wallpaper__list"
-            :class="{ 'wallpaper__list--expanded': isExpanded }"
+            :class="{ 'wallpaper__list--expanded': isWallpaperListExpanded }"
         >
             <NuxtPicture
                 v-for="(wallpaper, index) in wallpapers"
@@ -37,14 +37,14 @@ const globalStore = useGlobalStore();
 
 const wallpapers = ['sonoma', 'ventura', 'monterey', 'big-sur', 'catalina', 'mojave'];
 
-const isExpanded = ref(false);
+const isWallpaperListExpanded = ref(false);
 
 function expandText(): string {
-    return isExpanded.value ? 'Show Less' : 'Show All ' + `(${wallpapers.length})`;
+    return isWallpaperListExpanded.value ? 'Show Less' : 'Show All ' + `(${wallpapers.length})`;
 }
 
 function expandWallpapersList(): void {
-    isExpanded.value = !isExpanded.value;
+    isWallpaperListExpanded.value = !isWallpaperListExpanded.value;
 }
 
 function updateWallpaper(name: string): void {

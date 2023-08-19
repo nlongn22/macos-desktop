@@ -117,6 +117,7 @@ const closeModule = [
     padding-inline: $space-5;
     backdrop-filter: $blur-3xl;
     background: rgba($color-background, $opacity-high);
+    z-index: 99999;
 }
 
 .menu-bar__left,
