@@ -8,7 +8,7 @@
             :id="program"
             :key="index"
             class="dock__program"
-            :class="{ 'dock__program--active': isProgramActive(program) }"
+            :class="{ 'dock__program--active': isProgramDotVisible(program) }"
         >
             <NuxtPicture
                 preload
@@ -52,7 +52,7 @@ const { $gsap, $Draggable } = useNuxtApp();
 
 const programs = globalStore.dock;
 
-const wipPrograms = ['finder', 'launchpad', 'messages', 'notes', 'trash'];
+const wipPrograms = ['finder', 'messages', 'notes', 'trash'];
 
 const dockRef: Ref<HTMLElement | undefined> = ref();
 const isDragging = ref(false);
@@ -185,13 +185,23 @@ function openProgram(program: HTMLElement): void {
         return;
     }
 
+    if (program.id === 'launchpad') {
+        if (globalStore.isProgramActive(program.id)) {
+            globalStore.closeProgram(program.id);
+        } else {
+            globalStore.openProgram(program.id);
+        }   
+
+        return;
+    }
+
     if (globalStore.isProgramMinimized(program.id)) {
         globalStore.revealProgram(program.id);
     }
 
     globalStore.focusProgram(program.id);
 
-    if (globalStore.activePrograms.includes(program.id)) {
+    if (globalStore.isProgramActive(program.id)) {
         return;
     }
 
@@ -204,8 +214,10 @@ function openProgram(program: HTMLElement): void {
     });
 }
 
-function isProgramActive(programName: string): boolean {
-    return !isDragging.value && globalStore.isProgramActive(programName);
+function isProgramDotVisible(programName: string): boolean {
+    return !isDragging.value &&
+        globalStore.isProgramActive(programName) &&
+        programName !== 'launchpad';
 }
 
 onMounted(() => {

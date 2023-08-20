@@ -31,6 +31,14 @@ export const useGlobalStore = defineStore('dock', () => {
         dock.value = programs;
     }
 
+    function addProgramToDock(program: string): void {
+        if (dock.value.includes(program)) {
+            return;
+        }
+
+        dock.value.push(program);
+    }
+
     function openProgram(programName: string): void {
         activePrograms.value.push(programName);
     }
@@ -60,6 +68,8 @@ export const useGlobalStore = defineStore('dock', () => {
     }
 
     function revealProgram(programName: string): void {
+        closeProgram('launchpad');
+
         const target = `#desktop-${programName}`;
 
         const tl = $gsap.timeline({
@@ -101,6 +111,7 @@ export const useGlobalStore = defineStore('dock', () => {
         saveWallpaper,
         saveBrightness,
         saveDockOrder,
+        addProgramToDock,
         openProgram,
         isProgramActive,
         closeProgram,

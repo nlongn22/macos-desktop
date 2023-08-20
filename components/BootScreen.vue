@@ -4,6 +4,7 @@
             name="apple-logo"
             class="boot-screen__logo"
         />
+
         <div class="boot-screen__progress-background">
             <div class="boot-screen__progress-foreground" />
         </div>

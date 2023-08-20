@@ -1,12 +1,10 @@
 <template>
     <BootScreen
-        v-if="isBootScreenVisible"
+        v-show="isBootScreenVisible"
         @loading-has-finished="hideBootScreen"
     />
-    <div
-        v-else
-        class="container"
-    >
+
+    <div class="container">
         <MenuBar />
         <NuxtPage />
         <Dock />

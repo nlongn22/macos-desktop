@@ -5,9 +5,12 @@
             class="desktop__wallpaper"
         />
 
-        <ProgramSafari v-if="isProgramActive('safari')" />
-        <ProgramSettings v-if="isProgramActive('settings')" />
-        <ProgramCalculator v-if="isProgramActive('calculator')" />
+        <Transition name="fade">
+            <Launchpad v-if="globalStore.isProgramActive('launchpad')" />
+        </Transition>
+        <ProgramSafari v-if="globalStore.isProgramActive('safari')" />
+        <ProgramSettings v-if="globalStore.isProgramActive('settings')" />
+        <ProgramCalculator v-if="globalStore.isProgramActive('calculator')" />
     </div>
 </template>
 
@@ -21,10 +24,6 @@ function wallpaper(): string {
     return colorMode.value === 'light' ?
         globalStore.wallpaper + '-light' :
         globalStore.wallpaper + '-dark';
-}
-
-function isProgramActive(programName: string): boolean {
-    return globalStore.activePrograms.includes(programName);
 }
 
 onMounted(() => {
