@@ -74,6 +74,10 @@ function updateBrightness(program: HTMLElement, brightness = 1): void {
 }
 
 function updateOpacity(program: HTMLElement, opacity = 1): void {
+    if (program.id === 'launchpad') {
+        return;
+    }
+
     $gsap.to(program, { opacity, duration: 0.35 });
 }
 
@@ -153,7 +157,7 @@ function initDock(): void {
         onDragEnd: function() {
             isDragging.value = false;
 
-            if (isOutOfBoundY(this.y, 150)) {
+            if (isOutOfBoundY(this.y, 150) && this.target.id !== 'launchpad') {
                 this.target.remove();
                 saveProgramsOrder();
             }
