@@ -148,15 +148,15 @@ function updateCursor(type: string): void {
 }
 
 function detectAction(event: MouseEvent): void {
-    if (!isResizable(event)) {
-        return;
-    }
-
     if (!isPointerNearEdge(event)) {
         if (!$Draggable.get(programRef.value)) {
             initDraggable();
         }
 
+        return;
+    }
+
+    if (!isResizable(event)) {
         return;
     }
 
