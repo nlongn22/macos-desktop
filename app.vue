@@ -4,7 +4,10 @@
         @loading-has-finished="hideBootScreen"
     />
 
-    <div class="container">
+    <div
+        class="container"
+        :class="{ 'container--visible': !isBootScreenVisible }"
+    >
         <MenuBar />
         <NuxtPage />
         <Dock />
@@ -14,7 +17,7 @@
 <script setup lang="ts">
 const isBootScreenVisible = ref(true);
 
-function hideBootScreen() {
+function hideBootScreen(): void {
     isBootScreenVisible.value = false;
 }
 </script>
@@ -22,5 +25,10 @@ function hideBootScreen() {
 <style lang="scss" scoped>
 .container {
     @include size(100vw, 100vh);
+    display: none;
+
+    &--visible {
+        display: block;
+    }
 }
 </style>

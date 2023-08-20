@@ -40,7 +40,9 @@ export const useGlobalStore = defineStore('dock', () => {
     }
 
     function openProgram(programName: string): void {
-        closeProgram('launchpad');
+        if (programName !== 'launchpad') {
+            closeProgram('launchpad');
+        }
 
         activePrograms.value.push(programName);
     }
