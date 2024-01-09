@@ -118,7 +118,7 @@ const safariPages: SafariPage[] = [
     {
         name: 'nln',
         title: 'Ngoc Long Nguyen | Home',
-        url: 'https://nln.fyi',
+        url: 'https://nln.vercel.app',
     },
     {
         name: 'linkedin',
